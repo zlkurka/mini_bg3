@@ -3,6 +3,8 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
 # To-do's
 - Add attack rolls and AC
 - Add healing
+- Add multi-attacks
+- Add aggro (replacement for moving your guys around)
 - Add class-specific features
   - 1st lvl spells for spellcasters
   - Sneak attack for rogue

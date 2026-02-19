@@ -3,11 +3,11 @@ from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, 
 from tools.enums import CharacterName, Encounter
 from random import shuffle
 from tools.character import Character, Enemy
-from characters.enemies import encounters
+from characters.enemies import get_enemies
 
 def main():
     
-    DEV_MODE = True
+    DEV_MODE = False
 
     alt_companions = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.laezel, CharacterName.shadowheart, CharacterName.wyll] 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
@@ -16,17 +16,20 @@ def main():
         
         alt_party = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.shadowheart] 
         party = [Wyll, Gale, Karlach, Laezel]
+        encounter = Encounter.goblins_4x
     
     else:
         
         party = pick_party(companions)
+        encounter = menu([Encounter.goblins_4x, Encounter.owlbear], "Who would you like to fight?")
 
-    party = combat(party, Encounter.owlbear)
+    party = combat(party, encounter)
 
 
 def combat(party=list, encounter=Encounter):
     
-    enemies = encounters[encounter]
+    enemies = get_enemies(encounter)
+    original_party = list(party)
 
     # Initiative
     fighters = party + enemies
@@ -39,6 +42,7 @@ def combat(party=list, encounter=Encounter):
     initiative = 0
     skipped_fighters = []
     
+    # Combat
     while True:
         
         fighter = fighters[initiative]
@@ -67,7 +71,14 @@ def combat(party=list, encounter=Encounter):
             print("You lose!")
             return party
         if not enemies:
-            print("You win!")
+            print("You win!\n")
+
+            for char in original_party:
+                if char in party:
+                    print(f"{char.name}: {char.current_hp} HP remaining.")
+                else:
+                    print(f"{char.name}: died in combat.")
+
             return party
 
 

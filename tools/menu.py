@@ -1,4 +1,5 @@
 from string import ascii_uppercase
+from enum import Enum
 
 def menu(options=list, menu_text=str):
 
@@ -18,10 +19,14 @@ def menu(options=list, menu_text=str):
     print(menu_text)
     for item_num in range(len(options)):
         
+        # I'm sorry this is so scuffed. I'm so sorry.
         try:
-            print(f'{ascii_uppercase[item_num]}) {options[item_num].name}')
+            print(f'{ascii_uppercase[item_num]}) {options[item_num].value}')
         except AttributeError:
-            print(f'{ascii_uppercase[item_num]}) {str(options[item_num])}')
+            try:
+                print(f'{ascii_uppercase[item_num]}) {options[item_num].name}')
+            except AttributeError:
+                print(f'{ascii_uppercase[item_num]}) {str(options[item_num])}')
         # Will print like "A) Squid"
 
     # Taking input and translating to list item
