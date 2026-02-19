@@ -23,7 +23,7 @@ class Character():
     def attack(self, enemies):
         
         if len(enemies) > 1:
-            enemy_choice = menu(enemies, f"Who would {self.name} like to attack?")
+            enemy_choice = menu(enemies, f"\nWho would {self.name} like to attack?")
         else:
             enemy_choice = enemies[0]
         
@@ -33,7 +33,7 @@ class Character():
             attack_choice = list(self.attacks)[0]
 
         damage = randint(1, self.attacks[attack_choice])
-        print(f"{self.name} hits {enemy_choice.name} for {damage} damage!")
+        print(f"\n{self.name} hits {enemy_choice.name} for {damage} damage!")
         return damage, enemy_choice
     
     def take_damage(self, damage):
@@ -66,7 +66,7 @@ class Enemy():
         attack_choice = choice(list(self.attacks))
 
         damage = randint(1, self.attacks[attack_choice])
-        print(f"{self.name} hits {enemy_choice.name} for {damage} damage!")
+        print(f"\n{self.name} hits {enemy_choice.name} for {damage} damage!")
         return damage, enemy_choice
     
     def take_damage(self, damage):

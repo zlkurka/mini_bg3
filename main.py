@@ -21,7 +21,7 @@ def main():
         
         party = pick_party(companions)
 
-    combat(party, Encounter.goblins_4x)
+    party = combat(party, Encounter.goblins_4x)
 
 
 def combat(party=list, encounter=Encounter):
@@ -36,17 +36,39 @@ def combat(party=list, encounter=Encounter):
     for fighter in fighters:
         print("- " + fighter.name.capitalize())
     
+    initiative = 0
+    skipped_fighters = []
+    
     while True:
-        for fighter in fighters:
-            
-            if type(fighter) == Character:
-                damage, enemy_hit = fighter.attack(enemies)
-                enemy_hit.take_damage(damage)
+        
+        fighter = fighters[initiative]
+        
+        initiative += 1
+        if initiative >= len(fighters):
+            initiative = 0
+
+        if fighter in skipped_fighters:
+            continue
+
+        if type(fighter) == Character:
+            damage, enemy_hit = fighter.attack(enemies)
+            if enemy_hit.take_damage(damage):
+                enemies.remove(enemy_hit)
+                skipped_fighters.append(enemy_hit)
 
 
-            if type(fighter) == Enemy:
-                damage, enemy_hit = fighter.attack(party)
-                enemy_hit.take_damage(damage)
+        if type(fighter) == Enemy:
+            damage, enemy_hit = fighter.attack(party)
+            if enemy_hit.take_damage(damage):
+                party.remove(enemy_hit)
+                skipped_fighters.append(enemy_hit)
+
+        if not party:
+            print("You lose!")
+            exit
+        if not enemies:
+            print("You win!")
+            return party
 
 
 def pick_party(companions=list):
