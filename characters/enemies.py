@@ -1,5 +1,5 @@
-from enums import EnemyType, Weapon, Encounter
-from character import Enemy
+from tools.enums import EnemyType, Weapon, Encounter
+from tools.character import Enemy
 
 GoblinGug = Enemy(name="Gug", 
                enemytype=EnemyType.goblin, 

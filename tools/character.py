@@ -1,7 +1,7 @@
-from enums import CharClass, Race, Weapon, EnemyType
-from defaults import base_weapon, base_hp, weapon_damage
+from tools.enums import CharClass, Race, Weapon, EnemyType
+from tools.defaults import base_weapon, base_hp, weapon_damage
 from random import randint, choice
-from menu import menu
+from tools.menu import menu
 
 class Character():
     

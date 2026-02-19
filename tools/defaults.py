@@ -1,4 +1,4 @@
-from enums import CharClass, Weapon, EnemyType, Encounter, CharacterName
+from tools.enums import CharClass, Weapon, EnemyType, Encounter, CharacterName
 
 base_weapon = {
     

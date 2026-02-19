@@ -1,9 +1,9 @@
-from menu import menu
-from companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
-from enums import CharacterName, Encounter
+from tools.menu import menu
+from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
+from tools.enums import CharacterName, Encounter
 from random import shuffle
-from character import Character, Enemy
-from enemies import encounters
+from tools.character import Character, Enemy
+from characters.enemies import encounters
 
 def main():
     
@@ -42,7 +42,7 @@ def combat(party=list, encounter=Encounter):
     while True:
         
         fighter = fighters[initiative]
-        
+
         initiative += 1
         if initiative >= len(fighters):
             initiative = 0

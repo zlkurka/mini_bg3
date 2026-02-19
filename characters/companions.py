@@ -1,5 +1,5 @@
-from character import Character, Enemy
-from enums import CharacterName, CharClass, Race, EnemyType, Weapon
+from tools.character import Character, Enemy
+from tools.enums import CharacterName, CharClass, Race, EnemyType, Weapon
 
 Astarion = Character(name=CharacterName.astarion.value, 
                      charclass=CharClass.rogue, 
