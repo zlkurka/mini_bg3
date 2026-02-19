@@ -15,6 +15,7 @@ class Character():
         # self.subrace = subrace
         
         self.max_hp: int = int(base_hp[charclass] + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+        self.current_hp: int = self.max_hp
         self.attacks: dict = {
             base_weapon[charclass]: weapon_damage[base_weapon[charclass]],
         }
@@ -22,7 +23,7 @@ class Character():
     def attack(self, enemies):
         
         if len(enemies) > 1:
-            enemy_choice = menu(enemies, "Who would you like to attack?")
+            enemy_choice = menu(enemies, f"Who would {self.name} like to attack?")
         else:
             enemy_choice = enemies[0]
         
@@ -35,6 +36,19 @@ class Character():
         print(f"{self.name} hits {enemy_choice.name} for {damage} damage!")
         return damage, enemy_choice
     
+    def take_damage(self, damage):
+
+        self.current_hp -= damage
+
+        if self.current_hp <= 0:
+            self.current_hp = 0
+            print(f"{self.name} has died!")
+
+            return True
+        
+        print(f"{self.name} has {self.current_hp} health remaining.")
+        return False
+    
 class Enemy():
     
     def __init__(self, name=str, enemytype=EnemyType, max_hp=int, attacks=dict):
@@ -43,6 +57,7 @@ class Enemy():
         self.enemytype: CharClass = enemytype
         
         self.max_hp: int = max_hp
+        self.current_hp: int = self.max_hp
         self.attacks: dict = attacks
     
     def attack(self, party):
@@ -53,6 +68,19 @@ class Enemy():
         damage = randint(1, self.attacks[attack_choice])
         print(f"{self.name} hits {enemy_choice.name} for {damage} damage!")
         return damage, enemy_choice
+    
+    def take_damage(self, damage):
+
+        self.current_hp -= damage
+
+        if self.current_hp <= 0:
+            self.current_hp = 0
+            print(f"{self.name} has died!")
+
+            return True
+        
+        print(f"{self.name} has {self.current_hp} health remaining.")
+        return False
     
     def change_name(self, new_name=str):
         self.name = new_name

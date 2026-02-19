@@ -7,7 +7,7 @@ from enemies import encounters
 
 def main():
     
-    DEV_MODE = False
+    DEV_MODE = True
 
     alt_companions = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.laezel, CharacterName.shadowheart, CharacterName.wyll] 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
@@ -40,10 +40,13 @@ def combat(party=list, encounter=Encounter):
         for fighter in fighters:
             
             if type(fighter) == Character:
-                fighter.attack(enemies)
+                damage, enemy_hit = fighter.attack(enemies)
+                enemy_hit.take_damage(damage)
+
 
             if type(fighter) == Enemy:
-                fighter.attack(party)
+                damage, enemy_hit = fighter.attack(party)
+                enemy_hit.take_damage(damage)
 
 
 def pick_party(companions=list):
