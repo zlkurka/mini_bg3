@@ -15,13 +15,13 @@ def main():
     if DEV_MODE:
         
         alt_party = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.shadowheart] 
-        party = [Astarion, Gale, Karlach, Shadowheart]
+        party = [Wyll, Gale, Karlach, Laezel]
     
     else:
         
         party = pick_party(companions)
 
-    party = combat(party, Encounter.goblins_4x)
+    party = combat(party, Encounter.owlbear)
 
 
 def combat(party=list, encounter=Encounter):
@@ -65,7 +65,7 @@ def combat(party=list, encounter=Encounter):
 
         if not party:
             print("You lose!")
-            exit
+            return party
         if not enemies:
             print("You win!")
             return party

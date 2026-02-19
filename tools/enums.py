@@ -69,8 +69,12 @@ class Weapon(Enum):
     firebolt = "firebolt"
     shillelagh = "shillelagh"
 
+    # Enemy-specific attacks
+    owlbear_claw = "claw"
+
 class Encounter(Enum):
     goblins_4x = "Four goblins"
+    owlbear = "Owlbear"
 
 class AbilityScore(Enum):
 
