@@ -1,5 +1,5 @@
-from tools.character import Character, Enemy
-from tools.enums import CharacterName, CharClass, Race, EnemyType, Weapon
+from tools.character import Character
+from tools.enums import CharacterName, CharClass, Race
 
 Astarion = Character(name=CharacterName.astarion.value, 
                      charclass=CharClass.rogue, 
@@ -25,15 +25,3 @@ Wyll = Character(name=CharacterName.wyll.value,
                  charclass=CharClass.warlock, 
                  race=Race.human, 
                  level=1)
-
-companion_enum_matcher = {
-    
-    # Origin companions
-    CharacterName.astarion: Astarion,
-    CharacterName.gale: Gale,
-    CharacterName.karlach: Karlach,
-    CharacterName.laezel: Laezel,
-    CharacterName.shadowheart: Shadowheart,
-    CharacterName.wyll: Wyll,
-
-}

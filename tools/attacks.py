@@ -1,0 +1,96 @@
+from enums import Weapon, AbilityScore, Dice, CharClass
+
+class Attack():
+
+    def __init__(self, name=Weapon, dice=dict, modifier=AbilityScore, multi_attack=int):
+        
+        self.name: Weapon = name
+        self.damage_dice: dict = dice
+        self.modifier: AbilityScore = modifier
+        self.multi_attack: int = multi_attack
+
+# Weapons
+
+Crossbow = Attack(name = Weapon.crossbow, 
+                dice = {1: Dice.d10},
+                modifier = AbilityScore.DEX,
+                multi_attack = 1)
+
+Dagger = Attack(name = Weapon.dagger, 
+                dice = {1: Dice.d4},
+                modifier = AbilityScore.DEX,
+                multi_attack = 1)
+
+EldritchBlast = Attack(name = Weapon.eldritch_blast, 
+                dice = {1: Dice.d10},
+                modifier = AbilityScore.CHA,
+                multi_attack = 1)
+
+Firebolt = Attack(name = Weapon.firebolt, 
+                dice = {1: Dice.d10},
+                modifier = AbilityScore.CHA,
+                multi_attack = 1)
+
+Greataxe = Attack(name = Weapon.greataxe, 
+                dice = {1: Dice.d12},
+                modifier = AbilityScore.STR,
+                multi_attack = 1)
+
+Longsword = Attack(name = Weapon.longsword, 
+                dice = {1: Dice.d10},
+                modifier = AbilityScore.STR,
+                multi_attack = 1)
+
+Mace = Attack(name = Weapon.mace, 
+                dice = {1: Dice.d8},
+                modifier = AbilityScore.STR,
+                multi_attack = 1)
+
+RayOfFrost = Attack(name = Weapon.ray_of_frost, 
+                dice = {1: Dice.d8},
+                modifier = AbilityScore.INT,
+                multi_attack = 1)
+
+Shillelagh = Attack(name = Weapon.shillelagh, 
+                dice = {1: Dice.d8},
+                modifier = AbilityScore.WIS,
+                multi_attack = 1)
+
+Shortbow = Attack(name = Weapon.shortbow, 
+                dice = {1: Dice.d6},
+                modifier = AbilityScore.DEX,
+                multi_attack = 1)
+
+Shortsword = Attack(name = Weapon.shortsword, 
+                dice = {1: Dice.d6},
+                modifier = AbilityScore.DEX,
+                multi_attack = 1)
+
+MonkUnarmed = Attack(name = Weapon.unarmed, 
+                dice = {1: Dice.d4},
+                modifier = AbilityScore.DEX,
+                multi_attack = 2)
+
+# Enemy-specific
+
+OwlbearClaw = Attack(name = Weapon.owlbear_claw, 
+                dice = {2: Dice.d8},
+                modifier = AbilityScore.STR,
+                multi_attack = 2)
+
+base_weapon = {
+    
+    CharClass.barbarian: Longsword,
+    CharClass.bard: Shortbow,
+    CharClass.cleric: Shortsword,
+    CharClass.druid: Shortsword,
+    CharClass.fighter: Longsword,
+    CharClass.monk: MonkUnarmed,
+    CharClass.paladin: Longsword,
+    CharClass.ranger: Shortbow,
+    CharClass.rogue: Shortsword,
+    CharClass.sorcerer: Firebolt,
+    CharClass.warlock: Firebolt,
+    CharClass.wizard: Firebolt,
+
+}

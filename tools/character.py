@@ -1,7 +1,9 @@
-from tools.enums import CharClass, Race, Weapon, EnemyType
-from tools.defaults import base_weapon, base_hp, weapon_damage
+from tools.enums import CharClass, Race, EnemyType
+from tools.defaults import base_weapon, base_hp, weapon_damage, base_equipment, armor_values, base_armor_class
 from random import randint, choice
 from tools.menu import menu
+from tools.old_attack import Attack
+from tools.attacks import base_weapon
 
 class Character():
     
@@ -16,9 +18,11 @@ class Character():
         
         self.max_hp: int = int(base_hp[charclass] + ((level - 1) * (base_hp[charclass] / 2 + 1)))
         self.current_hp: int = self.max_hp
-        self.attacks: dict = {
-            base_weapon[charclass]: weapon_damage[base_weapon[charclass]],
-        }
+        
+        self.armor_class: int = base_armor_class[self.charclass]
+        self.attacks: list = [base_weapon[self.charclass]]
+
+        # self.equipment = base_equipment[self.charclass]
     
     def attack(self, enemies):
         

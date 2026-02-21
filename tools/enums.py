@@ -55,9 +55,9 @@ class EnemyType(Enum):
 class Weapon(Enum):
     
     # Weapons
+    crossbow = "crossbow"
     dagger = "dagger"
     greataxe = "greataxe"
-    hand_crossbow = "hand crossbow"
     longsword = "longsword"
     mace = "mace"
     shortbow = "shortbow"
@@ -68,9 +68,39 @@ class Weapon(Enum):
     eldritch_blast = "eldritch blast"
     firebolt = "firebolt"
     shillelagh = "shillelagh"
+    ray_of_frost = "ray of frost"
 
     # Enemy-specific attacks
     owlbear_claw = "claw"
+
+class Spell(Enum):
+
+    cure_wounds = "cure wounds"
+    
+    # Class-specific
+    barbarian_rage = "rage"
+
+class Armor(Enum):
+
+    # Light
+    leather = "leather armor"
+
+    # Medium
+    chain_shirt = "chain shirt"
+    hide = "hide armor"
+    scale_mail = "scale mail"
+
+class Shield(Enum):
+    
+    basic = "shield"
+
+class Consumable(Enum):
+    
+    # Ammunition
+    arrow = "arrow"
+
+    # Potions
+    healing_potion = "healing potion"
 
 class Encounter(Enum):
     goblins_4x = "Four goblins"
@@ -84,3 +114,12 @@ class AbilityScore(Enum):
     INT = "intelligence"
     WIS = "wisdom"
     CHA = "charisma"
+
+class Dice(Enum):
+
+    d4 = 4
+    d6 = 6
+    d8 = 8
+    d10 = 10
+    d12 = 12
+    d20 = 20

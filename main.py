@@ -1,27 +1,27 @@
-from tools.menu import menu
-from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
-from tools.enums import CharacterName, Encounter
 from random import shuffle
+from tools.menu import menu
 from tools.character import Character, Enemy
+from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.enemies import get_enemies
+from tools.enums import Encounter
 
 def main():
     
+    # Set to False if you want to play normal-mode. Sorry if I leave it on True
     DEV_MODE = False
 
-    alt_companions = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.laezel, CharacterName.shadowheart, CharacterName.wyll] 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
+    encounters = [Encounter.goblins_4x, Encounter.owlbear]
     
     if DEV_MODE:
         
-        alt_party = [CharacterName.astarion, CharacterName.gale, CharacterName.karlach, CharacterName.shadowheart] 
         party = [Wyll, Gale, Karlach, Laezel]
         encounter = Encounter.goblins_4x
     
     else:
         
         party = pick_party(companions)
-        encounter = menu([Encounter.goblins_4x, Encounter.owlbear], "Who would you like to fight?")
+        encounter = menu(encounters, "Who would you like to fight?")
 
     party = combat(party, encounter)
 
@@ -127,5 +127,6 @@ def pick_party(companions=list):
             print(char.name, end="!\n")
     
     return party
+
 
 main()

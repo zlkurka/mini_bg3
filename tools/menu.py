@@ -1,5 +1,4 @@
 from string import ascii_uppercase
-from enum import Enum
 
 def menu(options=list, menu_text=str):
 

@@ -1,21 +1,4 @@
-from tools.enums import CharClass, Weapon, EnemyType, Encounter, CharacterName
-
-base_weapon = {
-    
-    CharClass.barbarian: Weapon.greataxe,
-    CharClass.bard: Weapon.hand_crossbow,
-    CharClass.cleric: Weapon.mace,
-    CharClass.druid: Weapon.shillelagh,
-    CharClass.fighter: Weapon.longsword,
-    CharClass.monk: Weapon.unarmed,
-    CharClass.paladin: Weapon.longsword,
-    CharClass.ranger: Weapon.shortbow,
-    CharClass.rogue: Weapon.dagger,
-    CharClass.sorcerer: Weapon.firebolt,
-    CharClass.warlock: Weapon.eldritch_blast,
-    CharClass.wizard: Weapon.firebolt,
-
-}
+from tools.enums import CharClass, Weapon, Armor, Consumable, Shield
 
 base_hp = {
     
@@ -34,18 +17,50 @@ base_hp = {
 
 }
 
-weapon_damage = {
-    
-    Weapon.dagger: 4,
-    Weapon.eldritch_blast: 10,
-    Weapon.firebolt: 10,
-    Weapon.greataxe: 12,
-    Weapon.hand_crossbow: 6,
-    Weapon.longsword: 10,
-    Weapon.mace: 8,
-    Weapon.shillelagh: 8,
-    Weapon.shortbow: 6,
-    Weapon.shortsword: 6,
-    Weapon.unarmed: 4,
+base_armor_class = {
+
+    CharClass.barbarian: 13,
+    CharClass.bard: 13,
+    CharClass.cleric: 16,
+    CharClass.druid: 14,
+    CharClass.fighter: 16,
+    CharClass.monk: 14,
+    CharClass.paladin: 16,
+    CharClass.ranger: 14,
+    CharClass.rogue: 14,
+    CharClass.sorcerer: 10,
+    CharClass.warlock: 12,
+    CharClass.wizard: 10,
+
+}
+
+base_equipment = {
+
+    CharClass.barbarian: [Weapon.greataxe],
+    CharClass.bard: [Weapon.hand_crossbow, Armor.leather, Consumable.arrow],
+    CharClass.cleric: [Weapon.mace, Armor.chain_shirt, Shield.basic],
+    CharClass.druid: [Weapon.shillelagh, Armor.hide],
+    CharClass.fighter: [Weapon.longsword, Armor.scale_mail],
+    CharClass.monk: [],
+    CharClass.paladin: [Weapon.longsword, Armor.scale_mail, Shield.basic],
+    CharClass.ranger: [Weapon.shortbow, Armor.leather, Consumable.arrow],
+    CharClass.rogue: [Weapon.dagger, Armor.leather],
+    CharClass.sorcerer: [],
+    CharClass.warlock: [Weapon.shortsword, Armor.leather],
+    CharClass.wizard: [],
+
+}
+
+base_spells = {}
+
+armor_values = {
+
+    # Light
+    Armor.leather: 11,
+
+    # Medium
+    Armor.hide: 12,
+    Armor.chain_shirt: 13,
+    Armor.scale_mail: 14,
 
 }
