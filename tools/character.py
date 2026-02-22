@@ -1,8 +1,7 @@
 from tools.enums import CharClass, Race, EnemyType
-from tools.defaults import base_weapon, base_hp, weapon_damage, base_equipment, armor_values, base_armor_class
+from tools.defaults import base_hp, base_equipment, armor_values, base_armor_class
 from random import randint, choice
 from tools.menu import menu
-from tools.old_attack import Attack
 from tools.attacks import base_weapon
 
 class Character():
@@ -34,10 +33,15 @@ class Character():
         if len(self.attacks) > 1:
             attack_choice = menu(list(self.attacks), "What attack would you like to use?")
         else:
-            attack_choice = list(self.attacks)[0]
+            attack_choice = self.attacks[0]
+        
+        if randint(1,20) >= enemy_choice.armor_class:
+            damage = attack_choice.get_damage()
+            print(f"\n{self.name} hits {enemy_choice.name} with {attack_choice.name.value} for {damage} damage!")
+        else:
+            damage = 0
+            print(f"\n{self.name} misses {enemy_choice.name} with {attack_choice.name.value}.")
 
-        damage = randint(1, self.attacks[attack_choice])
-        print(f"\n{self.name} hits {enemy_choice.name} with {attack_choice.value} for {damage} damage!")
         return damage, enemy_choice
     
     def take_damage(self, damage):
@@ -55,22 +59,29 @@ class Character():
     
 class Enemy():
     
-    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, attacks=dict):
+    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, attacks=list):
         
         self.name: str = name
         self.enemytype: CharClass = enemytype
         
         self.max_hp: int = max_hp
         self.current_hp: int = self.max_hp
-        self.attacks: dict = attacks
+        self.armor_class: int = armor_class
+        
+        self.attacks: list = attacks
     
     def attack(self, party):
         
         enemy_choice = choice(party)
-        attack_choice = choice(list(self.attacks))
+        attack_choice = choice(self.attacks)
 
-        damage = randint(1, self.attacks[attack_choice])
-        print(f"\n{self.name} hits {enemy_choice.name} with {attack_choice.value} for {damage} damage!")
+        if randint(1,20) >= enemy_choice.armor_class:
+            damage = attack_choice.get_damage()
+            print(f"\n{self.name} hits {enemy_choice.name} with {attack_choice.name.value} for {damage} damage!")
+        else:
+            damage = 0
+            print(f"\n{self.name} misses {enemy_choice.name} with {attack_choice.name.value}.")
+
         return damage, enemy_choice
     
     def take_damage(self, damage):

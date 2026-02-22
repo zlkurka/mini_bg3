@@ -8,7 +8,7 @@ from tools.enums import Encounter
 def main():
     
     # Set to False if you want to play normal-mode. Sorry if I leave it on True
-    DEV_MODE = False
+    DEV_MODE = True
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear]

@@ -1,4 +1,5 @@
-from enums import Weapon, AbilityScore, Dice, CharClass
+from tools.enums import Weapon, AbilityScore, Dice, CharClass
+from random import randint
 
 class Attack():
 
@@ -8,6 +9,17 @@ class Attack():
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
         self.multi_attack: int = multi_attack
+
+    def get_damage(self):
+        
+        damage = 0
+        
+        for dice in self.damage_dice:
+            for roll in range(dice):
+
+                damage += randint(1, self.damage_dice[dice].value)
+        
+        return damage
 
 # Weapons
 
@@ -82,7 +94,7 @@ base_weapon = {
     
     CharClass.barbarian: Longsword,
     CharClass.bard: Shortbow,
-    CharClass.cleric: Shortsword,
+    CharClass.cleric: Mace,
     CharClass.druid: Shortsword,
     CharClass.fighter: Longsword,
     CharClass.monk: MonkUnarmed,

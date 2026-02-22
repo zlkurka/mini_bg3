@@ -36,15 +36,15 @@ base_armor_class = {
 
 base_equipment = {
 
-    CharClass.barbarian: [Weapon.greataxe],
-    CharClass.bard: [Weapon.hand_crossbow, Armor.leather, Consumable.arrow],
+    CharClass.barbarian: [Weapon.longsword],
+    CharClass.bard: [Weapon.shortbow, Armor.leather, Consumable.arrow],
     CharClass.cleric: [Weapon.mace, Armor.chain_shirt, Shield.basic],
     CharClass.druid: [Weapon.shillelagh, Armor.hide],
     CharClass.fighter: [Weapon.longsword, Armor.scale_mail],
     CharClass.monk: [],
     CharClass.paladin: [Weapon.longsword, Armor.scale_mail, Shield.basic],
     CharClass.ranger: [Weapon.shortbow, Armor.leather, Consumable.arrow],
-    CharClass.rogue: [Weapon.dagger, Armor.leather],
+    CharClass.rogue: [Weapon.shortsword, Armor.leather],
     CharClass.sorcerer: [],
     CharClass.warlock: [Weapon.shortsword, Armor.leather],
     CharClass.wizard: [],
