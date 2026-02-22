@@ -1,6 +1,6 @@
 from random import shuffle
 from tools.menu import menu
-from tools.character import Character, Enemy
+from tools.character import Companion, Enemy
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.enemies import get_enemies
 from tools.enums import Encounter
@@ -8,7 +8,7 @@ from tools.enums import Encounter
 def main():
     
     # Set to False if you want to play normal-mode. Sorry if I leave it on True
-    DEV_MODE = True
+    DEV_MODE = False
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear]
@@ -54,7 +54,7 @@ def combat(party=list, encounter=Encounter):
         if fighter in skipped_fighters:
             continue
 
-        if type(fighter) == Character:
+        if type(fighter) == Companion:
             damage, enemy_hit = fighter.attack(enemies)
             if enemy_hit.take_damage(damage):
                 enemies.remove(enemy_hit)

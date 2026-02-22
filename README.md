@@ -1,7 +1,6 @@
 So I asked my friend Goop if I should code or play Baldur's Gate and she said "code Baldur's Gate," so I did.
 
 # To-do's
-- Add attack rolls and AC (I don't want to do it, please don't make me)
 - Add healing
 - Add multi-attacks
 - Add enemy attack choice algorithm with aggro
