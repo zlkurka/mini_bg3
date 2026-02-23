@@ -1,12 +1,13 @@
 from tools.enums import Weapon, AbilityScore, Dice, CharClass
+from tools.actions import Action
 from random import randint
 
-class Attack():
+class Attack(Action):
 
-    def __init__(self, name=Weapon, dice=dict, modifier=AbilityScore, multi_attack=int):
+    def __init__(self, name=Weapon, damage_dice=dict, modifier=AbilityScore, multi_attack=int):
         
         self.name: Weapon = name
-        self.damage_dice: dict = dice
+        self.damage_dice: dict = damage_dice
         self.modifier: AbilityScore = modifier
         self.multi_attack: int = multi_attack
 
@@ -18,101 +19,90 @@ class Attack():
 
             if randint(1,20) >= enemy_chosen.armor_class:
                 
-                damage = self.get_damage()
+                damage = self.roll_dice(self.damage_dice)
                 
-                print(f"\n{character.name} hits {enemy_chosen.name} with {self.name.value} for {damage} damage!")
+                print(f"\n{character.name} hits {enemy_chosen.name} with {self.name} for {damage} damage!")
 
                 enemy_chosen.take_damage(damage)
                 enemies[enemies.index(enemy_chosen)] = enemy_chosen
             
             else:
                 damage = 0
-                print(f"\n{character.name} misses {enemy_chosen.name} with {self.name.value}.")
+                print(f"\n{character.name} misses {enemy_chosen.name} with {self.name}.")
 
         return character, enemies, team
-    
-    def get_damage(self):
-        
-        damage = 0
-        
-        for dice in self.damage_dice:
-            for roll in range(dice):
-
-                damage += randint(1, self.damage_dice[dice].value)
-        
-        return damage
 
 # Weapons
 
 Crossbow = Attack(
-    name = Weapon.crossbow, 
-    dice = {1: Dice.d10},
+    name = Weapon.crossbow.value, 
+    damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1
 )
 Dagger = Attack(
-    name = Weapon.dagger, 
-    dice = {1: Dice.d4},
+    name = Weapon.dagger.value, 
+    damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1
 )
 EldritchBlast = Attack(
-    name = Weapon.eldritch_blast, 
-    dice = {1: Dice.d10},
+    name = Weapon.eldritch_blast.value, 
+    damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.CHA,
     multi_attack = 1
 )
 Firebolt = Attack(
-    name = Weapon.firebolt, 
-    dice = {1: Dice.d10},
+    name = Weapon.firebolt.value, 
+    damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.CHA,
     multi_attack = 1
 )
 Greataxe = Attack(
-    name = Weapon.greataxe, 
-    dice = {1: Dice.d12},
+    name = Weapon.greataxe.value, 
+    damage_dice = {Dice.d12: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1
 )
 Longsword = Attack(
-    name = Weapon.longsword, 
-    dice = {1: Dice.d10},
+    name = Weapon.longsword.value, 
+    damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1
 )
 Mace = Attack(
-    name = Weapon.mace, 
-    dice = {1: Dice.d8},
+    name = Weapon.mace.value, 
+    damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1
 )
 RayOfFrost = Attack(
-    name = Weapon.ray_of_frost, 
-    dice = {1: Dice.d8},
+    name = Weapon.ray_of_frost.value, 
+    damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.INT,
     multi_attack = 1
 )
 Shillelagh = Attack(
-    name = Weapon.shillelagh, 
-    dice = {1: Dice.d8},
+    name = Weapon.shillelagh.value, 
+    damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.WIS,
     multi_attack = 1
 )
 Shortbow = Attack(
-    name = Weapon.shortbow, 
-    dice = {1: Dice.d6},
+    name = Weapon.shortbow.value, 
+    damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1
 )
 Shortsword = Attack(
-    name = Weapon.shortsword, 
-    dice = {1: Dice.d6},
+    name = Weapon.shortsword.value, 
+    damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1
 )
 MonkUnarmed = Attack(
-    name = Weapon.unarmed, 
-    dice = {1: Dice.d4},
+    name = Weapon.unarmed.value, 
+    damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 2
 )
@@ -120,8 +110,8 @@ MonkUnarmed = Attack(
 # Enemy-specific
 
 OwlbearClaw = Attack(
-    name = Weapon.owlbear_claw, 
-    dice = {2: Dice.d8},
+    name = Weapon.owlbear_claw.value, 
+    damage_dice = {Dice.d8: 2},
     modifier = AbilityScore.STR,
     multi_attack = 2
 )

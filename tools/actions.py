@@ -1,0 +1,64 @@
+from tools.menu import menu
+from tools.enums import Dice, AbilityScore, Spell
+from random import randint
+
+class Action():
+
+    def __init__(self, name, dice, modifier, multi_target):
+        self.name = name
+        self.damage_dice: dict = dice
+        self.modifier: AbilityScore = modifier
+        self.multi_target: int = multi_target
+
+    def action(self, character, enemies=list, team=list):
+        return character, enemies, team
+    
+    def roll_dice(self, dice):
+        
+        output = 0
+        
+        for die_type in dice:
+            for roll in range(dice[die_type]):
+                output += randint(1, die_type.value)
+        
+        return output
+
+class Heal(Action):
+    
+    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int):
+        
+        self.name = name
+
+        self.heal_dice: dict = heal_dice
+        self.heal_const: int = heal_const
+
+        self.can_choose_target: bool = can_choose_target
+        self.target_count: int = target_count
+    
+    def action(self, character, enemies=list, team=list):
+        
+        if self.can_choose_target:
+            target = menu(team, f"Who would {character.name} like to heal?")
+            heal_amount = self.roll_dice(self.heal_dice)
+            
+            print(f"{character.name} healed {target.name} for {heal_amount} HP.")
+            target.heal(heal_amount)
+
+            team[team.index(target)] = target
+        
+        else:   
+            target = character
+            heal_amount = self.roll_dice(self.heal_dice)
+            target.heal(heal_amount)
+
+            print(f"{character.name} healed self for {heal_amount} HP.")
+
+        return character, enemies, team
+
+CureWounds = Heal(
+    name = Spell.cure_wounds.value,
+    heal_dice = {Dice.d6: 1},
+    heal_const = 1,
+    can_choose_target = True,
+    target_count = 1,
+    )

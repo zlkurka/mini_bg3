@@ -1,7 +1,7 @@
-from random import randint, choice
+from random import choice
 from tools.menu import menu
 from tools.enums import CharClass, Race, EnemyType
-from tools.defaults import base_hp, base_armor_class
+from tools.defaults import base_hp, base_armor_class, base_actions
 from tools.attacks import base_weapon
 
 class Character():
@@ -45,7 +45,7 @@ class Character():
         return monsters, party, skipped_fighters
     
     def choose_action(self):
-        return menu(self.actions, "What action would you like to use?")
+        return menu(self.actions, f"\nWhat would {self.name} like to do?")
     
     def choose_enemy(self, enemies):
         
@@ -73,9 +73,14 @@ class Character():
     def heal(self, heal_amount):
         
         if heal_amount > 0:
+            
+            if self.current_hp + heal_amount > self.max_hp:
+                heal_amount = self.max_hp - self.current_hp
+                self.current_hp = self.max_hp
+            else:
+                self.current_hp += heal_amount
 
-            self.current_hp += heal_amount
-            print(f"{self.name} was healed for {heal_amount} HP.")
+            print(f"{self.name} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
 class Companion(Character):
     
@@ -92,7 +97,7 @@ class Companion(Character):
         self.current_hp: int = self.max_hp
         
         self.armor_class: int = base_armor_class[self.charclass]
-        self.actions: list = [base_weapon[self.charclass]]
+        self.actions: list = base_actions[self.charclass]
 
         # self.equipment = base_equipment[self.charclass]
     

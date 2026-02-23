@@ -13,7 +13,7 @@ def get_monsters(encounter=Encounter):
             name = names[0], 
             enemytype = EnemyType.goblin, 
             max_hp = randint(7,11), 
-            armor_class = 1,
+            armor_class = 12,
             actions = [
                 Shortsword,
                 Shortbow,
@@ -22,7 +22,7 @@ def get_monsters(encounter=Encounter):
             name = names[1], 
             enemytype = EnemyType.goblin, 
             max_hp = randint(7,11), 
-            armor_class = 1,
+            armor_class = 12,
             actions = [
                 Shortsword,
                 Shortbow,
@@ -31,7 +31,7 @@ def get_monsters(encounter=Encounter):
             name = names[2], 
             enemytype = EnemyType.goblin, 
             max_hp = randint(7,11), 
-            armor_class = 1,
+            armor_class = 12,
             actions = [
                 Shortsword,
                 Shortbow,
@@ -40,7 +40,7 @@ def get_monsters(encounter=Encounter):
             name = names[3], 
             enemytype = EnemyType.goblin, 
             max_hp = randint(7,11), 
-            armor_class = 1,
+            armor_class = 12,
             actions = [
                 Shortsword,
                 Shortbow,

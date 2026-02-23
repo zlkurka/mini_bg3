@@ -19,13 +19,16 @@ def menu(options=list, menu_text=str):
     for item_num in range(len(options)):
         
         # I'm sorry this is so scuffed. I'm so sorry.
+        # Case Enum:
         try:
-            print(f'{ascii_uppercase[item_num]}) {options[item_num].value}')
+            print(f'{ascii_uppercase[item_num]}) {options[item_num].value.capitalize()}')
         except AttributeError:
+            # Case Character:
             try:
-                print(f'{ascii_uppercase[item_num]}) {options[item_num].name}')
+                print(f'{ascii_uppercase[item_num]}) {options[item_num].name.capitalize()}')
+            # Case _:
             except AttributeError:
-                print(f'{ascii_uppercase[item_num]}) {str(options[item_num])}')
+                print(f'{ascii_uppercase[item_num]}) {str(options[item_num]).capitalize()}')
         # Will print like "A) Squid"
 
     # Taking input and translating to list item

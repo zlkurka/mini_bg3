@@ -1,4 +1,6 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield
+from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt
+from tools.actions import CureWounds
 
 base_hp = {
     
@@ -31,6 +33,23 @@ base_armor_class = {
     CharClass.sorcerer: 10,
     CharClass.warlock: 12,
     CharClass.wizard: 10,
+
+}
+
+base_actions = {
+    
+    CharClass.barbarian: [Longsword],
+    CharClass.bard: [Shortbow],
+    CharClass.cleric: [Mace, CureWounds],
+    CharClass.druid: [Shortsword],
+    CharClass.fighter: [Longsword],
+    CharClass.monk: [MonkUnarmed],
+    CharClass.paladin: [Longsword],
+    CharClass.ranger: [Shortbow],
+    CharClass.rogue: [Shortsword],
+    CharClass.sorcerer: [Firebolt],
+    CharClass.warlock: [Firebolt],
+    CharClass.wizard: [Firebolt],
 
 }
 

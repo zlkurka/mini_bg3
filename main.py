@@ -1,6 +1,6 @@
 from random import shuffle
 from tools.menu import menu
-from tools.character import Companion, Monster
+from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.monsters import get_monsters
 from tools.enums import Encounter
@@ -15,7 +15,7 @@ def main():
     
     if DEV_MODE:
         
-        party = [Wyll, Shadowheart, Karlach, Laezel]
+        party = [Gale, Shadowheart, Karlach, Laezel]
         encounter = Encounter.owlbear
     
     else:
@@ -27,7 +27,7 @@ def main():
 
 
 def combat(party=list, encounter=Encounter):
-    
+
     monsters = get_monsters(encounter)
     original_party = list(party)
 
@@ -80,7 +80,7 @@ def pick_party(companions=list):
         
         while True:
             selection = menu(companions, f"Who would you like to in your party? ({4-x} slots remaining.)")
-        
+
             if selection or party:
                 break
             
@@ -88,33 +88,11 @@ def pick_party(companions=list):
         
         if not selection:
             break
-
+        
         party.append(selection)
         companions.remove(selection)
     
-    if len(party) == 1:
-        print(f"You embark with {party[0].name}!")
-        return party
-    
-    if len(party) == 2:
-        print(f"You embark with {party[0].name} and {party[1].name}!")
-        return party
-
-    print("You embark with ", end="")
-    for char in party:
-        
-        if (len(party) - 1) - party.index(char) >= 2:
-            # e.g., member 0 or 1 of 4
-            print(char.name, end=", ")
-        
-        if (len(party) - 1) - party.index(char) == 1:
-            # e.g., member 2 of 3 or 3 of 4
-            print(char.name, end=", and ")
-        
-        if (len(party) - 1) - party.index(char) == 0:
-            # last member of party
-            print(char.name, end="!\n")
-    
+    print_list(party, "You embark with")
     return party
 
 
