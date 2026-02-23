@@ -2,7 +2,6 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
 
 # To-do's
 - Add healing
-- Add multi-attacks
 - Add enemy attack choice algorithm with aggro
   - Tanks (barb, maybe paladin) have feature that gives them higher aggro
   - Ranged attacks give you less aggro than melee
@@ -16,3 +15,15 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
   - Multiattack for monk
   - Wildshape for druid
 - Add ability scores :(
+- Add higher levels
+
+I think I need to focus on fleshing out just a few classes first. I'll work on:
+- Cleric
+  - Healing action (limited?)
+- Wizard
+  - 1st-lvl spells & spell slots
+- Fighter
+  - Aggro
+- Rogue
+  - Sneak-attack
+  - Mobility!???

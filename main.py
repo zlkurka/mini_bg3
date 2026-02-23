@@ -1,22 +1,22 @@
 from random import shuffle
 from tools.menu import menu
-from tools.character import Companion, Enemy
+from tools.character import Companion, Monster
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
-from characters.enemies import get_enemies
+from characters.monsters import get_monsters
 from tools.enums import Encounter
 
 def main():
     
     # Set to False if you want to play normal-mode. Sorry if I leave it on True
-    DEV_MODE = False
+    DEV_MODE = True
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear]
     
     if DEV_MODE:
         
-        party = [Wyll, Gale, Karlach, Laezel]
-        encounter = Encounter.goblins_4x
+        party = [Wyll, Shadowheart, Karlach, Laezel]
+        encounter = Encounter.owlbear
     
     else:
         
@@ -28,11 +28,11 @@ def main():
 
 def combat(party=list, encounter=Encounter):
     
-    enemies = get_enemies(encounter)
+    monsters = get_monsters(encounter)
     original_party = list(party)
 
     # Initiative
-    fighters = party + enemies
+    fighters = party + monsters
     shuffle(fighters)
     
     print("\nInitiative: ")
@@ -54,23 +54,12 @@ def combat(party=list, encounter=Encounter):
         if fighter in skipped_fighters:
             continue
 
-        if type(fighter) == Companion:
-            damage, enemy_hit = fighter.attack(enemies)
-            if enemy_hit.take_damage(damage):
-                enemies.remove(enemy_hit)
-                skipped_fighters.append(enemy_hit)
-
-
-        if type(fighter) == Enemy:
-            damage, enemy_hit = fighter.attack(party)
-            if enemy_hit.take_damage(damage):
-                party.remove(enemy_hit)
-                skipped_fighters.append(enemy_hit)
+        monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
 
         if not party:
             print("You lose!")
             return party
-        if not enemies:
+        if not monsters:
             print("You win!\n")
 
             for char in original_party:

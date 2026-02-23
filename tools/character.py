@@ -1,62 +1,81 @@
-from tools.enums import CharClass, Race, EnemyType
-from tools.defaults import base_hp, base_equipment, armor_values, base_armor_class
 from random import randint, choice
 from tools.menu import menu
+from tools.enums import CharClass, Race, EnemyType
+from tools.defaults import base_hp, base_armor_class
 from tools.attacks import base_weapon
 
 class Character():
     
-    def __init__(self, name=str, max_hp=int, armor_class=int, attacks=list):
+    def __init__(self, name=str, max_hp=int, armor_class=int, actions=list):
         
         self.name: str = name
         
         self.max_hp: int = max_hp
         self.current_hp: int = self.max_hp
         
-        self.armor_class: int = base_armor_class[self.charclass]
-        self.attacks: list = [base_weapon[self.charclass]]
+        self.armor_class: int = armor_class
+        self.actions: list = actions
     
-    def attack(self, enemies):
+    def action(self, monsters=list, party=list, skipped_fighters=list):
         
-        enemy_choice, attack_choice = self.choose_attack(enemies)
-        
-        if randint(1,20) >= enemy_choice.armor_class:
-            damage = attack_choice.get_damage()
-            print(f"\n{self.name} hits {enemy_choice.name} with {attack_choice.name.value} for {damage} damage!")
+        # Choosing action
+        if len(self.actions) > 1:
+            action_choice = self.choose_action()
         else:
-            damage = 0
-            print(f"\n{self.name} misses {enemy_choice.name} with {attack_choice.name.value}.")
-
-        return damage, enemy_choice
+           action_choice = self.actions[0]
+        
+        # Doing action
+        if type(self) == Companion:
+            self, monsters, party = action_choice.action(character=self, enemies=monsters, team=party)
+        elif type(self) == Monster:
+            self, party, monsters = action_choice.action(character=self, enemies=party, team=monsters)
+        else:
+            print("Error: unacceptable character type!")
+        
+        # Removing dead characters
+        for char in monsters:
+            if char.current_hp <= 0:
+                skipped_fighters.append(char)
+                monsters.remove(char)
+        for char in party:
+            if char.current_hp <= 0:
+                skipped_fighters.append(char)
+                party.remove(char)
+        
+        return monsters, party, skipped_fighters
     
-    def choose_attack(self, enemies):
-
+    def choose_action(self):
+        return menu(self.actions, "What action would you like to use?")
+    
+    def choose_enemy(self, enemies):
+        
         if len(enemies) > 1:
-            enemy_choice = menu(enemies, f"\nWho would {self.name} like to attack?")
+            return menu(enemies, f"\nWho would {self.name} like to attack?")
         else:
-            enemy_choice = enemies[0]
-
-        if len(self.attacks) > 1:
-            attack_choice = menu(list(self.attacks), "What attack would you like to use?")
-        else:
-            attack_choice = self.attacks[0]
-        
-        return enemy_choice, attack_choice
+            return enemies[0]
 
     def take_damage(self, damage):
         
-        if damage > 0:
+        if damage:
+            
             self.current_hp -= damage
 
             if self.current_hp <= 0:
                 self.current_hp = 0
                 print(f"{self.name} has died!")
 
-                return True
-            
-            print(f"{self.name} has {self.current_hp} health remaining.")
+            else:
+                print(f"{self.name} has {self.current_hp} health remaining.")
         
-        return False
+        else:
+            print("No damage dealt.")
+    
+    def heal(self, heal_amount):
+        
+        if heal_amount > 0:
+
+            self.current_hp += heal_amount
+            print(f"{self.name} was healed for {heal_amount} HP.")
 
 class Companion(Character):
     
@@ -73,13 +92,13 @@ class Companion(Character):
         self.current_hp: int = self.max_hp
         
         self.armor_class: int = base_armor_class[self.charclass]
-        self.attacks: list = [base_weapon[self.charclass]]
+        self.actions: list = [base_weapon[self.charclass]]
 
         # self.equipment = base_equipment[self.charclass]
     
-class Enemy(Character):
+class Monster(Character):
     
-    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, attacks=list):
+    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list):
         
         self.name: str = name
         self.enemytype: CharClass = enemytype
@@ -88,11 +107,10 @@ class Enemy(Character):
         self.current_hp: int = self.max_hp
         self.armor_class: int = armor_class
 
-        self.attacks: list = attacks
+        self.actions: list = actions
     
-    def choose_attack(self, enemies):
-
-        enemy_choice = choice(enemies)
-        attack_choice = choice(self.attacks)
-        
-        return enemy_choice, attack_choice
+    def choose_enemy(self, enemies):
+        return choice(enemies)
+    
+    def choose_action(self):
+        return choice(self.actions)
