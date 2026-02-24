@@ -1,12 +1,11 @@
 from random import choice
 from tools.menu import menu
-from tools.enums import CharClass, Race, EnemyType
+from tools.enums import CharClass, Race, EnemyType, AbilityScore
 from tools.defaults import base_hp, base_armor_class, base_actions
-from tools.attacks import base_weapon
 
 class Character():
     
-    def __init__(self, name=str, max_hp=int, armor_class=int, actions=list):
+    def __init__(self, name=str, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
         
         self.name: str = name
         
@@ -15,6 +14,8 @@ class Character():
         
         self.armor_class: int = armor_class
         self.actions: list = actions
+        
+        self.ability_scores: dict = ability_scores
     
     def action(self, monsters=list, party=list, skipped_fighters=list):
         
@@ -84,7 +85,7 @@ class Character():
 
 class Companion(Character):
     
-    def __init__(self, name=str, charclass=CharClass, race=Race, level=int):
+    def __init__(self, name=str, charclass=CharClass, race=Race, level=int, ability_scores=dict):
         
         self.name: str = name
         self.charclass: CharClass = charclass
@@ -99,11 +100,13 @@ class Companion(Character):
         self.armor_class: int = base_armor_class[self.charclass]
         self.actions: list = base_actions[self.charclass]
 
+        self.ability_scores: dict = ability_scores
+
         # self.equipment = base_equipment[self.charclass]
     
 class Monster(Character):
     
-    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list):
+    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
         
         self.name: str = name
         self.enemytype: CharClass = enemytype
@@ -113,8 +116,11 @@ class Monster(Character):
         self.armor_class: int = armor_class
 
         self.actions: list = actions
+
+        self.ability_scores: dict = ability_scores
     
     def choose_enemy(self, enemies):
+        # Will flesh this out later with aggro algorithm
         return choice(enemies)
     
     def choose_action(self):

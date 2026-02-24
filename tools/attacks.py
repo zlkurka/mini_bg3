@@ -4,22 +4,28 @@ from random import randint
 
 class Attack(Action):
 
-    def __init__(self, name=Weapon, damage_dice=dict, modifier=AbilityScore, multi_attack=int):
+    def __init__(self, name, damage_dice=dict, modifier=AbilityScore, multi_attack=int, use_damage_modifier=bool):
         
-        self.name: Weapon = name
+        self.name = name
         self.damage_dice: dict = damage_dice
         self.modifier: AbilityScore = modifier
         self.multi_attack: int = multi_attack
-
+        self.use_damage_modifier: bool = use_damage_modifier
+    
     def action(self, character, enemies, team):
+
+        attack_modifier = self.get_modifier(AbilityScore.STR, character)
 
         for iter in range(self.multi_attack):
 
             enemy_chosen = character.choose_enemy(enemies)
 
-            if randint(1,20) >= enemy_chosen.armor_class:
+            if randint(1,20) + attack_modifier >= enemy_chosen.armor_class:
                 
                 damage = self.roll_dice(self.damage_dice)
+
+                if self.use_damage_modifier:
+                    damage += attack_modifier
                 
                 print(f"\n{character.name} hits {enemy_chosen.name} with {self.name} for {damage} damage!")
 
@@ -38,73 +44,85 @@ Crossbow = Attack(
     name = Weapon.crossbow.value, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.DEX,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 Dagger = Attack(
     name = Weapon.dagger.value, 
     damage_dice = {Dice.d4: 1},
-    modifier = AbilityScore.DEX,
-    multi_attack = 1
+    modifier = AbilityScore.finesse,
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 EldritchBlast = Attack(
     name = Weapon.eldritch_blast.value, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.CHA,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = False,
 )
 Firebolt = Attack(
     name = Weapon.firebolt.value, 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.CHA,
-    multi_attack = 1
+    modifier = AbilityScore.spellcasting,
+    multi_attack = 1,
+    use_damage_modifier = False,
 )
 Greataxe = Attack(
     name = Weapon.greataxe.value, 
     damage_dice = {Dice.d12: 1},
     modifier = AbilityScore.STR,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 Longsword = Attack(
     name = Weapon.longsword.value, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.STR,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 Mace = Attack(
     name = Weapon.mace.value, 
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.STR,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 RayOfFrost = Attack(
     name = Weapon.ray_of_frost.value, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.INT,
-    multi_attack = 1
+    modifier = AbilityScore.spellcasting,
+    multi_attack = 1,
+    use_damage_modifier = False,
 )
 Shillelagh = Attack(
     name = Weapon.shillelagh.value, 
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.WIS,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 Shortbow = Attack(
     name = Weapon.shortbow.value, 
     damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.DEX,
-    multi_attack = 1
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 Shortsword = Attack(
     name = Weapon.shortsword.value, 
     damage_dice = {Dice.d6: 1},
-    modifier = AbilityScore.DEX,
-    multi_attack = 1
+    modifier = AbilityScore.finesse,
+    multi_attack = 1,
+    use_damage_modifier = True,
 )
 MonkUnarmed = Attack(
     name = Weapon.unarmed.value, 
     damage_dice = {Dice.d4: 1},
-    modifier = AbilityScore.DEX,
-    multi_attack = 2
+    modifier = AbilityScore.finesse,
+    multi_attack = 2,
+    use_damage_modifier = True,
 )
 
 # Enemy-specific
@@ -113,22 +131,6 @@ OwlbearClaw = Attack(
     name = Weapon.owlbear_claw.value, 
     damage_dice = {Dice.d8: 2},
     modifier = AbilityScore.STR,
-    multi_attack = 2
+    multi_attack = 2,
+    use_damage_modifier = True,
 )
-
-base_weapon = {
-    
-    CharClass.barbarian: Longsword,
-    CharClass.bard: Shortbow,
-    CharClass.cleric: Mace,
-    CharClass.druid: Shortsword,
-    CharClass.fighter: Longsword,
-    CharClass.monk: MonkUnarmed,
-    CharClass.paladin: Longsword,
-    CharClass.ranger: Shortbow,
-    CharClass.rogue: Shortsword,
-    CharClass.sorcerer: Firebolt,
-    CharClass.warlock: Firebolt,
-    CharClass.wizard: Firebolt,
-
-}

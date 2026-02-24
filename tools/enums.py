@@ -115,6 +115,9 @@ class AbilityScore(Enum):
     WIS = "wisdom"
     CHA = "charisma"
 
+    spellcasting = "spellcasting"
+    finesse = "finesse"
+
 class Dice(Enum):
 
     d4 = 4

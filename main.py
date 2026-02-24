@@ -3,7 +3,8 @@ from tools.menu import menu
 from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.monsters import get_monsters
-from tools.enums import Encounter
+from tools.enums import Encounter, AbilityScore
+
 
 def main():
     
@@ -60,7 +61,7 @@ def combat(party=list, encounter=Encounter):
             print("You lose!")
             return party
         if not monsters:
-            print("You win!\n")
+            print("\nYou win!\n")
 
             for char in original_party:
                 if char in party:

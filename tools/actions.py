@@ -22,6 +22,22 @@ class Action():
                 output += randint(1, die_type.value)
         
         return output
+    
+    def get_modifier(self, ability_type, character):
+        
+        if ability_type == AbilityScore.finesse:
+            return max(
+                character.ability_scores[AbilityScore.STR], 
+                character.ability_scores[AbilityScore.DEX]
+            )
+        elif ability_type == AbilityScore.spellcasting:
+            return max(
+                character.ability_scores[AbilityScore.INT], 
+                character.ability_scores[AbilityScore.WIS], 
+                character.ability_scores[AbilityScore.CHA]
+            )
+        else:
+            return character.ability_scores[ability_type]
 
 class Heal(Action):
     
@@ -39,7 +55,7 @@ class Heal(Action):
         
         if self.can_choose_target:
             target = menu(team, f"Who would {character.name} like to heal?")
-            heal_amount = self.roll_dice(self.heal_dice)
+            heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
             
             print(f"{character.name} healed {target.name} for {heal_amount} HP.")
             target.heal(heal_amount)
@@ -61,4 +77,4 @@ CureWounds = Heal(
     heal_const = 1,
     can_choose_target = True,
     target_count = 1,
-    )
+)
