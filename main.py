@@ -16,11 +16,6 @@ def main():
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     
-    if menu(['Yes', 'No'], "Would you like to create a custom character?") == 'Yes':
-        custom_character = create_custom_character()
-        if custom_character:
-            companions.append(custom_character)
-    
     if DEV_MODE:
         
         party = [Wyll, Shadowheart, Karlach, Laezel]
@@ -80,23 +75,31 @@ def combat(party=list, encounter=Encounter):
 
 def pick_party(companions=list):
     
-    companions.append(None)
+    companions.extend(["New custom character", None])
     party = []
 
     for x in range(4):
         
         while True:
-            selection = menu(companions, f"Who would you like to in your party? ({4-x} slots remaining.)", show_race=True, show_class=True)
+            selection = menu(companions, f"Who would you like in your party? ({4-x} slots remaining.)", show_race=True, show_class=True)
 
             if selection or party:
                 break
             print("You must have at least one character in your party!")
         
+        # Selection: None
         if not selection:
             break
         
+        # Selection: New custom
+        if selection == "New custom character":
+            custom_character = create_custom_character()
+            if custom_character:
+                selection = custom_character
+        
         party.append(selection)
-        companions.remove(selection)
+        if selection in companions:
+            companions.remove(selection)
     
     print_list(party, "You embark with")
     return party

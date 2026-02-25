@@ -97,6 +97,7 @@ class Companion(Character):
         self.charclass: CharClass = charclass
         self.race: Race = race
         self.level: int = level
+        self.ability_scores: dict = ability_scores
         # self.subclass = subclass
         # self.subrace = subrace
         
@@ -106,9 +107,25 @@ class Companion(Character):
         self.armor_class: int = base_armor_class[self.charclass]
         self.actions: list = base_actions[self.charclass]
 
-        self.ability_scores: dict = ability_scores
-
         # self.equipment = base_equipment[self.charclass]
+
+        self.lastAttack_isMelee: bool = False
+        
+
+    def get_aggro(self):
+        
+        # I want aggro to work kind of like raffle tickets. Party members will have a self.aggro / total party aggro chance to be attacked
+        # Maybe dead characters will get 0 aggro so they aren't multi-attacked?
+
+        aggro = 1
+
+        if self.lastAttack_isMelee:
+            aggro += 2
+        if self.charclass == CharClass.barbarian:
+            aggro += 2
+        
+        return aggro
+    
     
 class Monster(Character):
     
@@ -126,8 +143,14 @@ class Monster(Character):
         self.ability_scores: dict = ability_scores
     
     def choose_enemy(self, enemies):
-        # Will flesh this out later with aggro algorithm
-        return choice(enemies)
+        
+        aggro_raffle = []
+
+        for char in enemies:
+            for tix in range(char.get_aggro()):
+                aggro_raffle.append(char)
+
+        return choice(aggro_raffle)
     
     def choose_action(self):
         return choice(self.actions)

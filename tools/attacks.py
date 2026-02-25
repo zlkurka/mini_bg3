@@ -4,12 +4,13 @@ from random import randint
 
 class Attack(Action):
 
-    def __init__(self, name, damage_dice=dict, modifier=AbilityScore, multi_attack=int, use_damage_modifier=bool):
+    def __init__(self, name, damage_dice=dict, modifier=AbilityScore, multi_attack=int, ranged=bool, use_damage_modifier=bool):
         
         self.name = name
         self.damage_dice: dict = damage_dice
         self.modifier: AbilityScore = modifier
         self.multi_attack: int = multi_attack
+        self.ranged: bool = ranged
         self.use_damage_modifier: bool = use_damage_modifier
     
     def action(self, character, enemies, team):
@@ -35,6 +36,17 @@ class Attack(Action):
             else:
                 damage = 0
                 print(f"\n{character.name} misses {enemy_chosen.name} with {self.name}.")
+        
+        if self.ranged:
+            try:
+                character.lastAttack_isMelee = False
+            except AttributeError:
+                pass
+        else:
+            try:
+                character.lastAttack_isMelee = True
+            except AttributeError:
+                pass
 
         return character, enemies, team
 
@@ -42,9 +54,10 @@ class Attack(Action):
 
 Crossbow = Attack(
     name = Weapon.crossbow, 
-    damage_dice = {Dice.d10: 1},
+    damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = True,
 )
 Dagger = Attack(
@@ -52,13 +65,15 @@ Dagger = Attack(
     damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = True,
 )
 EldritchBlast = Attack(
     name = Weapon.eldritch_blast, 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.CHA,
+    modifier = AbilityScore.spellcasting,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = False,
 )
 Firebolt = Attack(
@@ -66,6 +81,7 @@ Firebolt = Attack(
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.spellcasting,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = False,
 )
 Greataxe = Attack(
@@ -73,6 +89,7 @@ Greataxe = Attack(
     damage_dice = {Dice.d12: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = True,
 )
 Longsword = Attack(
@@ -80,6 +97,7 @@ Longsword = Attack(
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
+    ranged = False,
     use_damage_modifier = True,
 )
 Mace = Attack(
@@ -87,6 +105,7 @@ Mace = Attack(
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
+    ranged = False,
     use_damage_modifier = True,
 )
 RayOfFrost = Attack(
@@ -94,6 +113,7 @@ RayOfFrost = Attack(
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.spellcasting,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = False,
 )
 Shillelagh = Attack(
@@ -101,6 +121,7 @@ Shillelagh = Attack(
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.WIS,
     multi_attack = 1,
+    ranged = False,
     use_damage_modifier = True,
 )
 Shortbow = Attack(
@@ -108,6 +129,7 @@ Shortbow = Attack(
     damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1,
+    ranged = True,
     use_damage_modifier = True,
 )
 Shortsword = Attack(
@@ -115,6 +137,7 @@ Shortsword = Attack(
     damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 1,
+    ranged = False,
     use_damage_modifier = True,
 )
 MonkUnarmed = Attack(
@@ -122,6 +145,7 @@ MonkUnarmed = Attack(
     damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 2,
+    ranged = False,
     use_damage_modifier = True,
 )
 
@@ -132,5 +156,6 @@ OwlbearClaw = Attack(
     damage_dice = {Dice.d8: 2},
     modifier = AbilityScore.STR,
     multi_attack = 2,
+    ranged = False,
     use_damage_modifier = True,
 )

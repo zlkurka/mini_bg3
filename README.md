@@ -1,14 +1,12 @@
 So I asked my friend Goop if I should code or play Baldur's Gate and she said "code Baldur's Gate," so I did.
 
+This is a simple, terminal-based game inspired by *Dungeons and Dragons* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
+
 # To-do's
 - Fix repeat options in menu
 - Make it so enemies can't attack a dead target on their 2nd+ attack
 - Add save and load for custom characters
 - Add healing potions (1 / combat)
-- Add enemy attack choice algorithm with aggro
-  - Tanks (barb, maybe paladin) have feature that gives them higher aggro
-  - Ranged attacks give you less aggro than melee
-- Add aggro (replacement for moving your guys around)
 - Add class-specific features
   - 1st lvl spells for spellcasters (magic missle!)
   - Sneak attack for rogue
