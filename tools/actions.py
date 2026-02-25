@@ -10,6 +10,12 @@ class Action():
         self.modifier: AbilityScore = modifier
         self.multi_target: int = multi_target
 
+    def __repr__(self):
+        try:
+            return self.name.value
+        except AttributeError:
+            return self.name
+
     def action(self, character, enemies=list, team=list):
         return character, enemies, team
     

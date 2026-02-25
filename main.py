@@ -38,7 +38,7 @@ def combat(party=list, encounter=Encounter):
     
     print("\nInitiative: ")
     for fighter in fighters:
-        print("- " + fighter.name.capitalize())
+        print("- " + str(fighter).capitalize())
     
     initiative = 0
     skipped_fighters = []

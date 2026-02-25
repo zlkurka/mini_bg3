@@ -1,5 +1,3 @@
-from tools.character import Companion, Monster
-
 def print_list(items=list, text=str):
 
     print(text, end=" ")

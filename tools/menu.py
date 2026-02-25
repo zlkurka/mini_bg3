@@ -18,7 +18,7 @@ def menu(options=list, menu_text=str):
     # Printing menu
     print(menu_text)
     for item in options:
-        print(f'{ascii_uppercase[options.index(item)]}) {str(item)}')
+        print(f'{ascii_uppercase[options.index(item)]}) {str(item).capitalize()}')
         # Will print like "A) Squid"
 
     # Taking input and translating to list item
