@@ -72,7 +72,7 @@ class Heal(Action):
         return character, enemies, team
 
 CureWounds = Heal(
-    name = Spell.cure_wounds.value,
+    name = Spell.cure_wounds,
     heal_dice = {Dice.d6: 1},
     heal_const = 1,
     can_choose_target = True,

@@ -41,84 +41,84 @@ class Attack(Action):
 # Weapons
 
 Crossbow = Attack(
-    name = Weapon.crossbow.value, 
+    name = Weapon.crossbow, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 Dagger = Attack(
-    name = Weapon.dagger.value, 
+    name = Weapon.dagger, 
     damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 EldritchBlast = Attack(
-    name = Weapon.eldritch_blast.value, 
+    name = Weapon.eldritch_blast, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.CHA,
     multi_attack = 1,
     use_damage_modifier = False,
 )
 Firebolt = Attack(
-    name = Weapon.firebolt.value, 
+    name = Weapon.firebolt, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     use_damage_modifier = False,
 )
 Greataxe = Attack(
-    name = Weapon.greataxe.value, 
+    name = Weapon.greataxe, 
     damage_dice = {Dice.d12: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 Longsword = Attack(
-    name = Weapon.longsword.value, 
+    name = Weapon.longsword, 
     damage_dice = {Dice.d10: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 Mace = Attack(
-    name = Weapon.mace.value, 
+    name = Weapon.mace, 
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.STR,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 RayOfFrost = Attack(
-    name = Weapon.ray_of_frost.value, 
+    name = Weapon.ray_of_frost, 
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     use_damage_modifier = False,
 )
 Shillelagh = Attack(
-    name = Weapon.shillelagh.value, 
+    name = Weapon.shillelagh, 
     damage_dice = {Dice.d8: 1},
     modifier = AbilityScore.WIS,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 Shortbow = Attack(
-    name = Weapon.shortbow.value, 
+    name = Weapon.shortbow, 
     damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.DEX,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 Shortsword = Attack(
-    name = Weapon.shortsword.value, 
+    name = Weapon.shortsword, 
     damage_dice = {Dice.d6: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 1,
     use_damage_modifier = True,
 )
 MonkUnarmed = Attack(
-    name = Weapon.unarmed.value, 
+    name = Weapon.unarmed, 
     damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.finesse,
     multi_attack = 2,
@@ -128,7 +128,7 @@ MonkUnarmed = Attack(
 # Enemy-specific
 
 OwlbearClaw = Attack(
-    name = Weapon.owlbear_claw.value, 
+    name = Weapon.owlbear_claw, 
     damage_dice = {Dice.d8: 2},
     modifier = AbilityScore.STR,
     multi_attack = 2,

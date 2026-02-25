@@ -1,6 +1,14 @@
 from enum import Enum
 
-class CharacterName(Enum):
+class EnumWithValueRepr(Enum):
+
+    def __repr__(self):
+        return self.value
+    
+    def __str__(self):
+        return self.value
+
+class CharacterName(EnumWithValueRepr):
     
     tav = "TAV"
     
@@ -18,7 +26,7 @@ class CharacterName(Enum):
     jaheira = "Jaheira"
     minsc = "Minsc"
 
-class CharClass(Enum):
+class CharClass(EnumWithValueRepr):
 
     barbarian = "barbarian"
     bard = "bard"
@@ -33,7 +41,7 @@ class CharClass(Enum):
     warlock = "warlock"
     wizard = "wizard"
 
-class Race(Enum):
+class Race(EnumWithValueRepr):
 
     dragonborn = "dragonborn"
     dwarf = "dwarf"
@@ -46,13 +54,13 @@ class Race(Enum):
     human = "human"
     tiefling = "tiefling"
 
-class EnemyType(Enum):
+class EnemyType(EnumWithValueRepr):
     
     goblin = "goblin"
     bugbear = "bugbear"
     owlbear = "owlbear"
 
-class Weapon(Enum):
+class Weapon(EnumWithValueRepr):
     
     # Weapons
     crossbow = "crossbow"
@@ -73,15 +81,15 @@ class Weapon(Enum):
     # Enemy-specific attacks
     owlbear_claw = "claw"
 
-class Spell(Enum):
+class Spell(EnumWithValueRepr):
 
     cure_wounds = "cure wounds"
     
     # Class-specific
     barbarian_rage = "rage"
 
-class Armor(Enum):
-
+class Armor(EnumWithValueRepr):
+    
     # Light
     leather = "leather armor"
 
@@ -90,11 +98,11 @@ class Armor(Enum):
     hide = "hide armor"
     scale_mail = "scale mail"
 
-class Shield(Enum):
-    
+class Shield(EnumWithValueRepr):
+
     basic = "shield"
 
-class Consumable(Enum):
+class Consumable(EnumWithValueRepr):
     
     # Ammunition
     arrow = "arrow"
@@ -102,11 +110,12 @@ class Consumable(Enum):
     # Potions
     healing_potion = "healing potion"
 
-class Encounter(Enum):
+class Encounter(EnumWithValueRepr):
+    
     goblins_4x = "Four goblins"
     owlbear = "Owlbear"
 
-class AbilityScore(Enum):
+class AbilityScore(EnumWithValueRepr):
 
     STR = "strength"
     DEX = "dexterity"
@@ -119,6 +128,9 @@ class AbilityScore(Enum):
     finesse = "finesse"
 
 class Dice(Enum):
+
+    def __repr__(self):
+        return self.name
 
     d4 = 4
     d6 = 6

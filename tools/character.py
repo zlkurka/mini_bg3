@@ -5,9 +5,9 @@ from tools.defaults import base_hp, base_armor_class, base_actions
 
 class Character():
     
-    def __init__(self, name=str, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
+    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
         
-        self.name: str = name
+        self.name = name
         
         self.max_hp: int = max_hp
         self.current_hp: int = self.max_hp
@@ -16,6 +16,12 @@ class Character():
         self.actions: list = actions
         
         self.ability_scores: dict = ability_scores
+
+    def __repr__(self):
+        try:
+            return self.name.value
+        except AttributeError:
+            return self.name
     
     def action(self, monsters=list, party=list, skipped_fighters=list):
         
@@ -85,9 +91,9 @@ class Character():
 
 class Companion(Character):
     
-    def __init__(self, name=str, charclass=CharClass, race=Race, level=int, ability_scores=dict):
+    def __init__(self, name, charclass=CharClass, race=Race, level=int, ability_scores=dict):
         
-        self.name: str = name
+        self.name = name
         self.charclass: CharClass = charclass
         self.race: Race = race
         self.level: int = level
@@ -108,7 +114,7 @@ class Monster(Character):
     
     def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
         
-        self.name: str = name
+        self.name = name
         self.enemytype: CharClass = enemytype
         
         self.max_hp: int = max_hp

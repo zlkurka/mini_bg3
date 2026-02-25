@@ -7,6 +7,7 @@ def menu(options=list, menu_text=str):
         # Enum child class
         # int
         # float
+        # Custom class or Enum with __repr__
     # List item types that would print but would be weird
         # array
         # tuple
@@ -16,19 +17,8 @@ def menu(options=list, menu_text=str):
 
     # Printing menu
     print(menu_text)
-    for item_num in range(len(options)):
-        
-        # I'm sorry this is so scuffed. I'm so sorry.
-        # Case Enum:
-        try:
-            print(f'{ascii_uppercase[item_num]}) {options[item_num].value.capitalize()}')
-        except AttributeError:
-            # Case Character:
-            try:
-                print(f'{ascii_uppercase[item_num]}) {options[item_num].name.capitalize()}')
-            # Case _:
-            except AttributeError:
-                print(f'{ascii_uppercase[item_num]}) {str(options[item_num]).capitalize()}')
+    for item in options:
+        print(f'{ascii_uppercase[options.index(item)]}) {str(item)}')
         # Will print like "A) Squid"
 
     # Taking input and translating to list item

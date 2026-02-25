@@ -2,7 +2,7 @@ from tools.character import Companion
 from tools.enums import CharacterName, CharClass, Race, AbilityScore
 
 Astarion = Companion(
-    name=CharacterName.astarion.value, 
+    name=CharacterName.astarion, 
     charclass=CharClass.rogue, 
     race=Race.elf, 
     level=1,
@@ -16,7 +16,7 @@ Astarion = Companion(
     },
 )
 Gale = Companion(
-    name=CharacterName.gale.value, 
+    name=CharacterName.gale, 
     charclass=CharClass.wizard, 
     race=Race.human, 
     level=1,
@@ -30,7 +30,7 @@ Gale = Companion(
     },
 )
 Karlach = Companion(
-    name=CharacterName.karlach.value, 
+    name=CharacterName.karlach, 
     charclass=CharClass.barbarian, 
     race=Race.tiefling, 
     level=1,
@@ -44,7 +44,7 @@ Karlach = Companion(
     },
 )
 Laezel = Companion(
-    name=CharacterName.laezel.value, 
+    name=CharacterName.laezel, 
     charclass=CharClass.fighter, 
     race=Race.githyanki, 
     level=1,
@@ -58,7 +58,7 @@ Laezel = Companion(
     },
 )
 Shadowheart = Companion(
-    name=CharacterName.shadowheart.value, 
+    name=CharacterName.shadowheart, 
     charclass=CharClass.cleric, 
     race=Race.half_elf, 
     level=1,
@@ -72,7 +72,7 @@ Shadowheart = Companion(
     },
 )
 Wyll = Companion(
-    name=CharacterName.wyll.value, 
+    name=CharacterName.wyll, 
     charclass=CharClass.warlock, 
     race=Race.human, 
     level=1,

@@ -1,14 +1,6 @@
 from tools.character import Companion, Monster
 
 def print_list(items=list, text=str):
-    
-    # I can't believe I have to do this, but otherwise the conversion it does 
-    # to print items converts the actual list in the main function. Wtf
-    items = list(items)
-
-    for itm in items:
-        if type(itm) == Companion or type(itm) == Monster:
-            items[items.index(itm)] = itm.name
 
     print(text, end=" ")
     

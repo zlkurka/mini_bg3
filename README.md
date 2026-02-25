@@ -2,6 +2,7 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
 
 # To-do's
 - Add bonuses to attack and damage rolls
+- Make it so enemies can't attack a dead target on their 2nd+ attack
 - Add healing potions (1 / combat)
 - Add enemy attack choice algorithm with aggro
   - Tanks (barb, maybe paladin) have feature that gives them higher aggro
