@@ -17,7 +17,9 @@ def main():
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     
     if menu(['Yes', 'No'], "Would you like to create a custom character?") == 'Yes':
-        companions.append(create_custom_character())
+        custom_character = create_custom_character()
+        if custom_character:
+            companions.append(custom_character)
     
     if DEV_MODE:
         
@@ -25,7 +27,6 @@ def main():
         encounter = Encounter.goblins_4x
     
     else:
-        
         party = pick_party(companions)
         encounter = menu(encounters, "Who would you like to fight?")
 
@@ -85,11 +86,10 @@ def pick_party(companions=list):
     for x in range(4):
         
         while True:
-            selection = menu(companions, f"Who would you like to in your party? ({4-x} slots remaining.)")
+            selection = menu(companions, f"Who would you like to in your party? ({4-x} slots remaining.)", show_race=True, show_class=True)
 
             if selection or party:
                 break
-            
             print("You must have at least one character in your party!")
         
         if not selection:
@@ -106,11 +106,12 @@ def create_custom_character():
 
     match menu(['Yes','No'], "Would you like to load a character from an existing save?"):
         case 'Yes':
-            return
+            return None
         case 'No':
             pass
         case _: 
             print("Invalid option!")
+            return None
     
     custom_character_name = input("Enter your character's name: ")
     custom_character_charclass = menu(char_classes, "Select your character's class.")

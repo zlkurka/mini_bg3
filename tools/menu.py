@@ -1,6 +1,6 @@
 from string import ascii_uppercase
 
-def menu(options=list, menu_text=str):
+def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=bool):
 
     # Acceptable list item types:
         # str
@@ -14,11 +14,44 @@ def menu(options=list, menu_text=str):
         # dict
     
     # Multiple different types are acceptable!
+    
+    if show_race == bool:
+        show_race = False
+    if show_class == bool:
+        show_class = False
+    if show_hp == bool:
+        show_hp = False
+
 
     # Printing menu
     print(menu_text)
     for item in options:
-        print(f'{ascii_uppercase[options.index(item)]}) {str(item).capitalize()}')
+        
+        print(f'{ascii_uppercase[options.index(item)]}) {str(item).capitalize()}', end='')
+        
+        if show_race and show_class:
+            try:
+                print(f", {item.race} {item.charclass}", end='')
+            except AttributeError:
+                pass
+        elif show_race:
+            try:
+                print(f", {item.race}", end='')
+            except AttributeError:
+                pass
+        elif show_class:
+            try:
+                print(f", {item.char}", end='')
+            except AttributeError:
+                pass
+        
+        if show_hp:
+            try:
+                print(f", {item.current_hp} / {item.max_hp} HP", end='')
+            except AttributeError:
+                pass
+
+        print()
         # Will print like "A) Squid"
 
     # Taking input and translating to list item

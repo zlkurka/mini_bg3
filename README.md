@@ -1,7 +1,9 @@
 So I asked my friend Goop if I should code or play Baldur's Gate and she said "code Baldur's Gate," so I did.
 
 # To-do's
+- Fix repeat options in menu
 - Make it so enemies can't attack a dead target on their 2nd+ attack
+- Add save and load for custom characters
 - Add healing potions (1 / combat)
 - Add enemy attack choice algorithm with aggro
   - Tanks (barb, maybe paladin) have feature that gives them higher aggro
@@ -13,10 +15,7 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
   - Rage for barbarian
   - Healing for cleric, druid (& paladin?)
   - Bardic inspo for bard
-  - Multiattack for monk
   - Wildshape for druid
-- Add ability scores :(
-- Add multiple options for ability scores on Attacks and then make the game automatically choose the best ability score
 - Add higher levels
 
 I think I need to focus on fleshing out just a few classes first. I'll work on:

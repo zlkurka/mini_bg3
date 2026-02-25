@@ -57,7 +57,7 @@ class Character():
     def choose_enemy(self, enemies):
         
         if len(enemies) > 1:
-            return menu(enemies, f"\nWho would {self.name} like to attack?")
+            return menu(enemies, f"\nWho would {self.name} like to attack?", show_race=False, show_class=False, show_hp=True)
         else:
             return enemies[0]
 
@@ -72,7 +72,7 @@ class Character():
                 print(f"{self.name} has died!")
 
             else:
-                print(f"{self.name.capitalize()} has {self.current_hp} health remaining.")
+                print(f"{str(self.name).capitalize()} has {self.current_hp} health remaining.")
         
         else:
             print("No damage dealt.")
@@ -87,7 +87,7 @@ class Character():
             else:
                 self.current_hp += heal_amount
 
-            print(f"{self.name.capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
+            print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
 class Companion(Character):
     

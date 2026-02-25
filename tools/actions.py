@@ -67,7 +67,7 @@ class Heal(Action):
     def action(self, character, enemies=list, team=list):
         
         if self.can_choose_target:
-            target = menu(team, f"Who would {character.name} like to heal?")
+            target = menu(team, f"Who would {character.name} like to heal?", show_race=False, show_class=False, show_hp=True)
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
             
             print(f"{character.name} healed {target.name} for {heal_amount} HP.")
