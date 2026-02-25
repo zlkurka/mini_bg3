@@ -3,7 +3,9 @@ from tools.menu import menu
 from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.monsters import get_monsters
-from tools.enums import Encounter, AbilityScore
+from tools.enums import Encounter
+from tools.defaults import char_classes, char_races, ability_scores
+from tools.character import Companion
 
 
 def main():
@@ -12,7 +14,10 @@ def main():
     DEV_MODE = False
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
-    encounters = [Encounter.goblins_4x, Encounter.owlbear]
+    encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
+    
+    if menu(['Yes', 'No'], "Would you like to create a custom character?") == 'Yes':
+        companions.append(create_custom_character())
     
     if DEV_MODE:
         
@@ -95,6 +100,33 @@ def pick_party(companions=list):
     
     print_list(party, "You embark with")
     return party
+
+
+def create_custom_character():
+
+    match menu(['Yes','No'], "Would you like to load a character from an existing save?"):
+        case 'Yes':
+            return
+        case 'No':
+            pass
+        case _: 
+            print("Invalid option!")
+    
+    custom_character_name = input("Enter your character's name: ")
+    custom_character_charclass = menu(char_classes, "Select your character's class.")
+    custom_character_race = menu(char_races, "Select your character's race.")
+    custom_character_level = 1
+    custom_character_ability_scores = {}
+    
+    standard_array_scores = [3, 2, 1, 0, 0, -1]
+    for score in ability_scores:
+        score_assigned = menu(standard_array_scores, f"What score would you like to assign to {score}?")
+        standard_array_scores.remove(score_assigned)
+        custom_character_ability_scores.update({score: score_assigned})
+    
+    custom_character  = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
+    
+    return custom_character
 
 
 main()

@@ -45,6 +45,13 @@ class Action():
         else:
             return character.ability_scores[ability_type]
 
+PassAction = Action(
+    name='Pass action', 
+    dice={Dice.d4: 0}, 
+    modifier=0, 
+    multi_target=0,
+)
+
 class Heal(Action):
     
     def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int):

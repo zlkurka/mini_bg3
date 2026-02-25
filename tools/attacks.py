@@ -14,7 +14,7 @@ class Attack(Action):
     
     def action(self, character, enemies, team):
 
-        attack_modifier = self.get_modifier(AbilityScore.STR, character)
+        attack_modifier = self.get_modifier(self.modifier, character)
 
         for iter in range(self.multi_attack):
 

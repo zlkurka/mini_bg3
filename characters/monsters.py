@@ -2,6 +2,7 @@ from tools.enums import EnemyType, Encounter, AbilityScore
 from tools.character import Monster
 from random import sample, randint
 from tools.attacks import Shortsword, Shortbow, OwlbearClaw
+from tools.actions import PassAction
 
 def get_monsters(encounter=Encounter):
     
@@ -98,6 +99,24 @@ def get_monsters(encounter=Encounter):
                 AbilityScore.CHA: 0,
             },)
         return [Owlbear]
+    
+
+    if encounter == Encounter.training_dummy:
+        TrainingDummy = Monster(
+            name = "training dummy", 
+            enemytype = EnemyType.training_dummy, 
+            max_hp = 9999, 
+            armor_class = 10,
+            actions = [PassAction],
+            ability_scores={
+                AbilityScore.STR: 0,
+                AbilityScore.DEX: 0,
+                AbilityScore.CON: 0,
+                AbilityScore.INT: 0,
+                AbilityScore.WIS: 0,
+                AbilityScore.CHA: 0,
+            },)
+        return [TrainingDummy]
 
 
 goblin_names = [

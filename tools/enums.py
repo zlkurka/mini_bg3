@@ -59,6 +59,7 @@ class EnemyType(EnumWithValueRepr):
     goblin = "goblin"
     bugbear = "bugbear"
     owlbear = "owlbear"
+    training_dummy = "training dummy"
 
 class Weapon(EnumWithValueRepr):
     
@@ -112,8 +113,9 @@ class Consumable(EnumWithValueRepr):
 
 class Encounter(EnumWithValueRepr):
     
-    goblins_4x = "Four goblins"
-    owlbear = "Owlbear"
+    goblins_4x = "four goblins"
+    owlbear = "owlbear"
+    training_dummy = "training dummy"
 
 class AbilityScore(EnumWithValueRepr):
 

@@ -1,6 +1,49 @@
-from tools.enums import CharClass, Weapon, Armor, Consumable, Shield
+from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore
 from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt
 from tools.actions import CureWounds
+
+char_classes = [
+
+    CharClass.barbarian,
+    CharClass.bard,
+    CharClass.cleric,
+    CharClass.druid,
+    CharClass.fighter,
+    CharClass.monk,
+    CharClass.paladin,
+    CharClass.ranger,
+    CharClass.rogue,
+    CharClass.sorcerer,
+    CharClass.warlock,
+    CharClass.wizard,
+
+]
+
+char_races = [
+
+    Race.dragonborn,
+    Race.dwarf,
+    Race.elf,
+    Race.githyanki,
+    Race.gnome,
+    Race.half_elf,
+    Race.half_orc,
+    Race.halfling,
+    Race.human,
+    Race.tiefling,
+
+]
+
+ability_scores = [
+
+    AbilityScore.STR,
+    AbilityScore.DEX,
+    AbilityScore.CON,
+    AbilityScore.INT,
+    AbilityScore.WIS,
+    AbilityScore.CHA
+    
+]
 
 base_hp = {
     

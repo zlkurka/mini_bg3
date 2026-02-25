@@ -72,7 +72,7 @@ class Character():
                 print(f"{self.name} has died!")
 
             else:
-                print(f"{self.name} has {self.current_hp} health remaining.")
+                print(f"{self.name.capitalize()} has {self.current_hp} health remaining.")
         
         else:
             print("No damage dealt.")
@@ -87,7 +87,7 @@ class Character():
             else:
                 self.current_hp += heal_amount
 
-            print(f"{self.name} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
+            print(f"{self.name.capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
 class Companion(Character):
     
