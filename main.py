@@ -3,9 +3,10 @@ from tools.menu import menu
 from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll
 from characters.monsters import get_monsters
-from tools.enums import Encounter
+from tools.enums import Encounter, AbilityScore
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.character import Companion
+import io
 
 
 def main():
@@ -20,12 +21,30 @@ def main():
         
         party = [Wyll, Shadowheart, Karlach, Laezel]
         encounter = Encounter.goblins_4x
+        party = combat(party, encounter)
     
-    else:
-        party = pick_party(companions)
-        encounter = menu(encounters, "Who would you like to fight?")
+    match menu(["Go to combat", "Choose party", "Save a character to file",], "What would you like to do?"):
+        
+        case "Go to combat":
+            if party:
+                party = combat(party, encounter)
+            else:
+                party = pick_party(companions)
+                encounter = menu(encounters, "Who would you like to fight?")
 
-    party = combat(party, encounter)
+                party = combat(party, encounter)
+
+                companions.extend(party)
+                party = []
+        
+        case "Choose party":
+            party = pick_party(companions)
+        
+        case "Save a character to file":
+            save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
+        
+        case _:
+            print("Invalid option!")
 
 
 def combat(party=list, encounter=Encounter):
@@ -109,7 +128,7 @@ def create_custom_character():
 
     match menu(['Yes','No'], "Would you like to load a character from an existing save?"):
         case 'Yes':
-            return None
+            return load_character()
         case 'No':
             pass
         case _: 
@@ -131,6 +150,66 @@ def create_custom_character():
     custom_character  = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
     
     return custom_character
+
+
+def save_character(character):
+    
+    file_name = "character_" + str(character.name) + ".txt"
+    character_file = open(file_name, "w")
+
+    character_data = {
+        "name": str(character.name),
+        "charclass": str(character.charclass),
+        "race": str(character.race),
+        "level": str(character.level),
+        "ability_scores": {
+            "STR": character.ability_scores[AbilityScore.STR],
+            "DEX": character.ability_scores[AbilityScore.DEX],
+            "CON": character.ability_scores[AbilityScore.CON],
+            "INT": character.ability_scores[AbilityScore.INT],
+            "WIS": character.ability_scores[AbilityScore.WIS],
+            "CHA": character.ability_scores[AbilityScore.CHA],
+        },
+    }
+    
+    file_text = ""
+
+    for data_category in character_data:
+        if data_category != "ability_scores":
+            file_text += f"{data_category}: {character_data[data_category]}\n"
+        else:
+            file_text += "ability_scores:\n"
+            for score in character_data[data_category]: 
+                file_text += f"- {score}: {character_data[data_category][score]}\n"
+    
+    character_file.write(file_text)
+
+
+def load_character():
+    while True:
+        try:
+            file_name = "character_" + input("Enter character's name: ") + ".txt"
+            character_file = open(file_name, "w")
+            file_text = character_file.readline()
+            break
+        except io.UnsupportedOperation:
+            print("File is not readable!")
+    
+    print(file_text)
+    character_data = {
+        "name": None,
+        "charclass": None,
+        "race": None,
+        "level": None,
+        "ability_scores": {
+            "STR": None,
+            "DEX": None,
+            "CON": None,
+            "INT": None,
+            "WIS": None,
+            "CHA": None,
+        },
+    }
 
 
 main()

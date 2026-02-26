@@ -18,8 +18,12 @@ class Attack(Action):
         attack_modifier = self.get_modifier(self.modifier, character)
 
         for iter in range(self.multi_attack):
-
-            enemy_chosen = character.choose_enemy(enemies)
+            
+            enemy_chosen = None
+            while not enemy_chosen:
+                enemy_chosen = character.choose_enemy(enemies)
+                if enemy_chosen.current_hp <= 0:
+                    enemy_chosen = None
 
             if randint(1,20) + attack_modifier >= enemy_chosen.armor_class:
                 

@@ -24,30 +24,33 @@ def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=b
 
 
     # Printing menu
+    
     print(menu_text)
-    for item in options:
+    for iter in range(len(options)):
         
-        print(f'{ascii_uppercase[options.index(item)]}) {str(item).capitalize()}', end='')
+        list_item = options[iter]
+
+        print(f'{ascii_uppercase[iter]}) {str(list_item).capitalize()}', end='')
         
         if show_race and show_class:
             try:
-                print(f", {item.race} {item.charclass}", end='')
+                print(f", {list_item.race} {list_item.charclass}", end='')
             except AttributeError:
                 pass
         elif show_race:
             try:
-                print(f", {item.race}", end='')
+                print(f", {list_item.race}", end='')
             except AttributeError:
                 pass
         elif show_class:
             try:
-                print(f", {item.char}", end='')
+                print(f", {list_item.char}", end='')
             except AttributeError:
                 pass
         
         if show_hp:
             try:
-                print(f", {item.current_hp} / {item.max_hp} HP", end='')
+                print(f", {list_item.current_hp} / {list_item.max_hp} HP", end='')
             except AttributeError:
                 pass
 

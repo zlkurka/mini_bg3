@@ -3,8 +3,6 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
 This is a simple, terminal-based game inspired by *Dungeons and Dragons* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
 
 # To-do's
-- Fix repeat options in menu
-- Make it so enemies can't attack a dead target on their 2nd+ attack
 - Add save and load for custom characters
 - Add healing potions (1 / combat)
 - Add class-specific features
