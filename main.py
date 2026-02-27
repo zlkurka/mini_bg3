@@ -6,7 +6,7 @@ from characters.monsters import get_monsters
 from tools.enums import Encounter, AbilityScore
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.character import Companion
-import io
+from tools.load_and_save_characters import load_character, save_character
 
 
 def main():
@@ -16,35 +16,41 @@ def main():
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
-    
+    party = []
+
     if DEV_MODE:
         
         party = [Wyll, Shadowheart, Karlach, Laezel]
         encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     
-    match menu(["Go to combat", "Choose party", "Save a character to file",], "What would you like to do?"):
-        
-        case "Go to combat":
-            if party:
-                party = combat(party, encounter)
-            else:
-                party = pick_party(companions)
-                encounter = menu(encounters, "Who would you like to fight?")
+    while True:
+        match menu(["Go to combat", "Choose party", "Add custom character", "Save a character to file",], "What would you like to do?"):
+            
+            case "Go to combat":
+                
+                if not party:
+                    party = pick_party(companions)
 
+                encounter = menu(encounters, "Who would you like to fight?")
                 party = combat(party, encounter)
 
                 companions.extend(party)
                 party = []
+            
+            case "Choose party":
+                if party:
+                    companions.extend(party)
+                party = pick_party(companions)
+            
+            case "Add custom character":
+                companions.append(create_custom_character())
+            
+            case "Save a character to file":
+                save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
         
-        case "Choose party":
-            party = pick_party(companions)
-        
-        case "Save a character to file":
-            save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
-        
-        case _:
-            print("Invalid option!")
+            case _:
+                print("Invalid option!")
 
 
 def combat(party=list, encounter=Encounter):
@@ -92,9 +98,11 @@ def combat(party=list, encounter=Encounter):
             return party
 
 
-def pick_party(companions=list):
+def pick_party(companions_originalList=list):
     
-    companions.extend(["New custom character", None])
+    companions = list(companions_originalList)
+
+    companions.extend(["Custom character", None, "Nevermind"])
     party = []
 
     for x in range(4):
@@ -106,15 +114,20 @@ def pick_party(companions=list):
                 break
             print("You must have at least one character in your party!")
         
+        # Selection: Nevermind
+        if selection == "Nevermind":
+            return []
+        
         # Selection: None
         if not selection:
             break
         
         # Selection: New custom
-        if selection == "New custom character":
+        if selection == "Custom character":
             custom_character = create_custom_character()
             if custom_character:
                 selection = custom_character
+                companions_originalList.append(selection)
         
         party.append(selection)
         if selection in companions:
@@ -126,11 +139,13 @@ def pick_party(companions=list):
 
 def create_custom_character():
 
-    match menu(['Yes','No'], "Would you like to load a character from an existing save?"):
-        case 'Yes':
-            return load_character()
-        case 'No':
+    match menu(['Create character','Load character'], "Would you like to create a new character or load a pre-existing one?"):
+        case 'Create character':
             pass
+        case 'Load character':
+            loaded_character = load_character()
+            if loaded_character:
+                return loaded_character
         case _: 
             print("Invalid option!")
             return None
@@ -150,66 +165,6 @@ def create_custom_character():
     custom_character  = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
     
     return custom_character
-
-
-def save_character(character):
-    
-    file_name = "character_" + str(character.name) + ".txt"
-    character_file = open(file_name, "w")
-
-    character_data = {
-        "name": str(character.name),
-        "charclass": str(character.charclass),
-        "race": str(character.race),
-        "level": str(character.level),
-        "ability_scores": {
-            "STR": character.ability_scores[AbilityScore.STR],
-            "DEX": character.ability_scores[AbilityScore.DEX],
-            "CON": character.ability_scores[AbilityScore.CON],
-            "INT": character.ability_scores[AbilityScore.INT],
-            "WIS": character.ability_scores[AbilityScore.WIS],
-            "CHA": character.ability_scores[AbilityScore.CHA],
-        },
-    }
-    
-    file_text = ""
-
-    for data_category in character_data:
-        if data_category != "ability_scores":
-            file_text += f"{data_category}: {character_data[data_category]}\n"
-        else:
-            file_text += "ability_scores:\n"
-            for score in character_data[data_category]: 
-                file_text += f"- {score}: {character_data[data_category][score]}\n"
-    
-    character_file.write(file_text)
-
-
-def load_character():
-    while True:
-        try:
-            file_name = "character_" + input("Enter character's name: ") + ".txt"
-            character_file = open(file_name, "w")
-            file_text = character_file.readline()
-            break
-        except io.UnsupportedOperation:
-            print("File is not readable!")
-    
-    print(file_text)
-    character_data = {
-        "name": None,
-        "charclass": None,
-        "race": None,
-        "level": None,
-        "ability_scores": {
-            "STR": None,
-            "DEX": None,
-            "CON": None,
-            "INT": None,
-            "WIS": None,
-            "CHA": None,
-        },
-    }
 
 
 main()
