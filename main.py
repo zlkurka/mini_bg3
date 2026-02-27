@@ -162,8 +162,16 @@ def create_custom_character():
         standard_array_scores.remove(score_assigned)
         custom_character_ability_scores.update({score: score_assigned})
     
-    custom_character  = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
+    custom_character = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
     
+    match menu(['Yes', 'No'], "Would you like to save this character?"):
+        case 'Yes':
+            save_character(custom_character)
+        case 'No':
+            pass
+        case _:
+            print('Invalid option!')
+
     return custom_character
 
 
