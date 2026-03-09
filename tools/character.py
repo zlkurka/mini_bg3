@@ -5,7 +5,7 @@ from tools.defaults import base_hp, base_armor_class, base_actions
 
 class Character():
     
-    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
+    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict, spell_slots=dict):
         
         self.name = name
         
@@ -16,6 +16,7 @@ class Character():
         self.actions: list = actions
         
         self.ability_scores: dict = ability_scores
+        self.spell_slots: dict = spell_slots
 
     def __repr__(self):
         try:
@@ -98,6 +99,7 @@ class Companion(Character):
         self.race: Race = race
         self.level: int = level
         self.ability_scores: dict = ability_scores
+        self.spell_slots: dict = None
         # self.subclass = subclass
         # self.subrace = subrace
         
@@ -141,6 +143,7 @@ class Monster(Character):
         self.actions: list = actions
 
         self.ability_scores: dict = ability_scores
+        self.spell_slots: dict = spell_slots
     
     def choose_enemy(self, enemies):
         

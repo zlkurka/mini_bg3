@@ -115,19 +115,36 @@ ClassCasterTypes = {
 
 spell_slot_counts = {
 
-    # Will update this later to add leveling up / char level
-   CasterType.fullCaster: {
-       1: 2,
-   },
-   CasterType.halfCaster: {
-       1: 0,
-   },
-   CasterType.quarterCaster : {
-       1: 0,
-   },
-   CasterType.quarterCaster : {
-       1: 0,
-   },
+    # Caster Types
+
+    CasterType.fullCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 2,
+       },
+    },
+    CasterType.halfCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
+    CasterType.quarterCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
+    CasterType.quarterCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
 
 
 }
@@ -161,4 +178,8 @@ armor_values = {
     Armor.chain_shirt: 13,
     Armor.scale_mail: 14,
 
+}
+
+emptySpellSlots = {
+    1: 0,
 }
