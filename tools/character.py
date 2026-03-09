@@ -1,7 +1,7 @@
 from random import choice
 from tools.menu import menu
 from tools.enums import CharClass, Race, EnemyType, AbilityScore
-from tools.defaults import base_hp, base_armor_class, base_actions
+from tools.defaults import base_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 
 class Character():
     
@@ -16,7 +16,11 @@ class Character():
         self.actions: list = actions
         
         self.ability_scores: dict = ability_scores
-        self.spell_slots: dict = spell_slots
+
+        if spell_slots:
+            self.spell_slots: dict = spell_slots
+        else:
+            self.spell_slots = empty_spell_slots
 
     def __repr__(self):
         try:
@@ -99,7 +103,7 @@ class Companion(Character):
         self.race: Race = race
         self.level: int = level
         self.ability_scores: dict = ability_scores
-        self.spell_slots: dict = None
+        self.spell_slots: dict = spell_slot_counts[class_caster_types[charclass]][level]
         # self.subclass = subclass
         # self.subrace = subrace
         

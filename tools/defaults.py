@@ -96,7 +96,7 @@ base_actions = {
 
 }
 
-ClassCasterTypes = {
+class_caster_types = {
   
    CharClass.barbarian: CasterType.nonCaster,
    CharClass.bard: CasterType.fullCaster,
@@ -180,6 +180,6 @@ armor_values = {
 
 }
 
-emptySpellSlots = {
+empty_spell_slots = {
     1: 0,
 }
