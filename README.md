@@ -4,23 +4,24 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons* and *Ba
 
 # To-do's
 - Add healing potions (1 / combat)
+- Add 1st lvl spells
+  - Priority
+    - Magic missile
+    - Mage armor
+    - Burning hands
+    - Guiding bolt
+    - Chromatic orb
+    - Cure wounds (integrate into other spells)
+  - Add later
+    - Armor of agathys
+    - witch bolt
+    - Bless
+    - Find familiar
+    - Hunter's mark
+    - Shield
+    - Ensnaring strike
+- Add visual combat in Godot
 - Add class-specific features
-  - 1st lvl spells for spellcasters
-    - Priority
-      - Magic missile
-      - Mage armor
-      - Burning hands
-      - Guiding bolt
-      - Chromatic orb
-      - Cure wounds (integrate into other spells)
-    - Add later
-      - Armor of agathys
-      - witch bolt
-      - Bless
-      - Find familiar
-      - Hunter's mark
-      - Shield
-      - Ensnaring strike
   - Sneak attack for rogue
   - Rage for barbarian
   - Healing for cleric, druid (& paladin?)
