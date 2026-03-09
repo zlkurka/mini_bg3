@@ -96,6 +96,42 @@ base_actions = {
 
 }
 
+ClassCasterTypes = {
+  
+   CharClass.barbarian: CasterType.nonCaster,
+   CharClass.bard: CasterType.fullCaster,
+   CharClass.cleric: CasterType.fullCaster,
+   CharClass.druid: CasterType.fullCaster,
+   CharClass.fighter: CasterType.nonCaster,
+   CharClass.monk: CasterType.nonCaster,
+   CharClass.paladin: CasterType.halfCaster,
+   CharClass.ranger: CasterType.halfCaster,
+   CharClass.rogue: CasterType.nonCaster,
+   CharClass.sorcerer: CasterType.fullCaster,
+   CharClass.warlock: CasterType.nonCaster,
+   CharClass.wizard: CasterType.fullCaster,
+
+}
+
+spell_slot_counts = {
+
+    # Will update this later to add leveling up / char level
+   CasterType.fullCaster: {
+       1: 2,
+   },
+   CasterType.halfCaster: {
+       1: 0,
+   },
+   CasterType.quarterCaster : {
+       1: 0,
+   },
+   CasterType.quarterCaster : {
+       1: 0,
+   },
+
+
+}
+
 base_equipment = {
 
     CharClass.barbarian: [Weapon.longsword],

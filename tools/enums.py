@@ -140,3 +140,11 @@ class Dice(Enum):
     d10 = 10
     d12 = 12
     d20 = 20
+
+class CasterType(EnumWithValueRepr):
+
+
+   fullCaster = "full caster"
+   halfCaster = "half caster"
+   quarterCaster = "quarter caster"
+   nonCaster = "non-caster"
