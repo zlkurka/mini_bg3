@@ -174,6 +174,7 @@ ChromaticOrb = Attack(
    multi_attack = 1,
    ranged = True,
    use_damage_modifier = False,
+   spell_slot_level = 1,
 )
 
 
