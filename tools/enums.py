@@ -85,6 +85,7 @@ class Weapon(EnumWithValueRepr):
 class Spell(EnumWithValueRepr):
 
     cure_wounds = "cure wounds"
+    chromatic_orb = "chromatic orb"
     
     # Class-specific
     barbarian_rage = "rage"
@@ -142,7 +143,6 @@ class Dice(Enum):
     d20 = 20
 
 class CasterType(EnumWithValueRepr):
-
 
    fullCaster = "full caster"
    halfCaster = "half caster"

@@ -23,10 +23,7 @@ class Character():
             self.spell_slots = empty_spell_slots
 
     def __repr__(self):
-        try:
-            return self.name.value
-        except AttributeError:
-            return self.name
+        return str(self.name)
     
     def action(self, monsters=list, party=list, skipped_fighters=list):
         
@@ -93,6 +90,11 @@ class Character():
                 self.current_hp += heal_amount
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
+
+    def cast_leveled_spell(self, level):
+       if not self.spell_slots[level]:
+           print("No spell slot available!")
+
 
 class Companion(Character):
     

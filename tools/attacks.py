@@ -4,14 +4,22 @@ from random import randint
 
 class Attack(Action):
 
-    def __init__(self, name, damage_dice=dict, modifier=AbilityScore, multi_attack=int, ranged=bool, use_damage_modifier=bool):
-        
-        self.name = name
-        self.damage_dice: dict = damage_dice
-        self.modifier: AbilityScore = modifier
-        self.multi_attack: int = multi_attack
-        self.ranged: bool = ranged
-        self.use_damage_modifier: bool = use_damage_modifier
+    self.name = name
+
+
+       self.damage_dice: dict = damage_dice
+       self.modifier: AbilityScore = modifier
+       self.multi_attack: int = multi_attack
+
+
+       self.ranged: bool = ranged
+       self.use_damage_modifier: bool = use_damage_modifier
+
+
+       if spell_slot_level:
+           self.spell_slot_level: int = spell_slot_level
+       else:
+           self.spell_slot_level: int = 0
     
     def action(self, character, enemies, team):
 
@@ -152,6 +160,18 @@ MonkUnarmed = Attack(
     ranged = False,
     use_damage_modifier = True,
 )
+
+
+# Leveled spells
+ChromaticOrb = Attack(
+   name = Spell.chromatic_orb,
+   damage_dice = {Dice.d8: 3},
+   modifier = AbilityScore.spellcasting,
+   multi_attack = 1,
+   ranged = True,
+   use_damage_modifier = False,
+)
+
 
 # Enemy-specific
 
