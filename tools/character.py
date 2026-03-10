@@ -94,6 +94,10 @@ class Character():
     def cast_leveled_spell(self, level):
        if not self.spell_slots[level]:
            print("No spell slot available!")
+           return False
+        
+        self.spell_slots[level] -= 1
+        return True
 
 
 class Companion(Character):

@@ -22,6 +22,10 @@ class Attack(Action):
            self.spell_slot_level: int = 0
     
     def action(self, character, enemies, team):
+        
+        if self.spell_slot_level > 0:
+            if not character.cast_leveled_spell(spell_slot_level):
+                return character, enemies, team
 
         attack_modifier = self.get_modifier(self.modifier, character)
 
