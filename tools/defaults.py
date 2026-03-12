@@ -42,7 +42,7 @@ base_actions = {
     CharClass.bard: [Shortbow],
     CharClass.cleric: [Mace, CureWounds],
     CharClass.druid: [Shortsword],
-    CharClass.fighter: [Longsword],
+    CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],
     CharClass.paladin: [Longsword],
     CharClass.ranger: [Shortbow],

@@ -17,6 +17,9 @@ class Character():
         
         self.ability_scores: dict = ability_scores
     
+    def __repr__(self):
+        return f"Character('{self.name}')"
+
     def action(self, monsters=list, party=list, skipped_fighters=list):
         
         # Choosing action
@@ -51,7 +54,7 @@ class Character():
     def choose_enemy(self, enemies):
         
         if len(enemies) > 1:
-            return menu(enemies, f"\nWho would {self.name} like to attack?")
+            return menu(enemies, f"\nWho would {self.name} like to attack?", show_hp=True)
         else:
             return enemies[0]
 
@@ -94,7 +97,9 @@ class Companion(Character):
         # self.subclass = subclass
         # self.subrace = subrace
         
-        self.max_hp: int = int(base_hp[charclass] + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+        self.max_hp: int = int(base_hp[charclass] + 
+                               level * ability_scores[AbilityScore.CON] + 
+                               ((level - 1) * (base_hp[charclass] // 2 + 1)))
         self.current_hp: int = self.max_hp
         
         self.armor_class: int = base_armor_class[self.charclass]
@@ -103,6 +108,9 @@ class Companion(Character):
         self.ability_scores: dict = ability_scores
 
         # self.equipment = base_equipment[self.charclass]
+    
+    def __repr__(self):
+        return self.name
     
 class Monster(Character):
     
@@ -118,6 +126,9 @@ class Monster(Character):
         self.actions: list = actions
 
         self.ability_scores: dict = ability_scores
+    
+    def __repr__(self):
+        return self.name
     
     def choose_enemy(self, enemies):
         # Will flesh this out later with aggro algorithm

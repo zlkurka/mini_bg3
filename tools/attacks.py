@@ -4,13 +4,16 @@ from random import randint
 
 class Attack(Action):
 
-    def __init__(self, name, damage_dice=dict, modifier=AbilityScore, multi_attack=int, use_damage_modifier=bool):
+    def __init__(self, name=str, damage_dice=dict, modifier=AbilityScore, multi_attack=int, use_damage_modifier=bool):
         
-        self.name = name
+        self.name: str = name
         self.damage_dice: dict = damage_dice
         self.modifier: AbilityScore = modifier
         self.multi_attack: int = multi_attack
         self.use_damage_modifier: bool = use_damage_modifier
+
+    def __repr__(self):
+        return self.name
     
     def action(self, character, enemies, team):
 

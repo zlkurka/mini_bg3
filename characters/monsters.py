@@ -1,6 +1,6 @@
 from tools.enums import EnemyType, Encounter, AbilityScore
 from tools.character import Monster
-from random import sample, randint
+from random import sample, randint, choice
 from tools.attacks import Shortsword, Shortbow, OwlbearClaw
 
 def get_monsters(encounter=Encounter):
@@ -9,76 +9,28 @@ def get_monsters(encounter=Encounter):
         
         names = sample(goblin_names,4)
 
-        Goblin1 = Monster(
-            name = names[0], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        Goblin2 = Monster(
-            name = names[1], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        Goblin3 = Monster(
-            name = names[2], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        Goblin4 = Monster(
-            name = names[3], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        
-        return [Goblin1, Goblin2, Goblin3, Goblin4]
+        monsters = []
+        for iter in range(4):
+            monsters.append(
+                Monster(
+                    name = names[iter], 
+                    enemytype = EnemyType.goblin, 
+                    max_hp = randint(7,11), 
+                    armor_class = 12,
+                    actions = [
+                        Shortsword,
+                        Shortbow,
+                    ],
+                    ability_scores = {
+                        AbilityScore.STR: 2,
+                        AbilityScore.DEX: 0,
+                        AbilityScore.CON: 1,
+                        AbilityScore.INT: -1,
+                        AbilityScore.WIS: 1,
+                        AbilityScore.CHA: 0,
+                    },))
+                   
+        return monsters
 
     if encounter == Encounter.owlbear:
         Owlbear = Monster(

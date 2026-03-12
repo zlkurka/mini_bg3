@@ -4,11 +4,14 @@ from random import randint
 
 class Action():
 
-    def __init__(self, name, dice, modifier, multi_target):
-        self.name = name
+    def __init__(self, name=str, dice=dict, modifier=AbilityScore, multi_target=int):
+        self.name: str = name
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
         self.multi_target: int = multi_target
+
+    def __repr__(self):
+        return self.name
 
     def action(self, character, enemies=list, team=list):
         return character, enemies, team
@@ -43,7 +46,7 @@ class Heal(Action):
     
     def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int):
         
-        self.name = name
+        self.name: str = name
 
         self.heal_dice: dict = heal_dice
         self.heal_const: int = heal_const
@@ -51,10 +54,13 @@ class Heal(Action):
         self.can_choose_target: bool = can_choose_target
         self.target_count: int = target_count
     
+    def __repr__(self):
+        return self.name
+
     def action(self, character, enemies=list, team=list):
         
         if self.can_choose_target:
-            target = menu(team, f"Who would {character.name} like to heal?")
+            target = menu(team, f"Who would {character.name} like to heal?", show_hp=True)
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
             
             print(f"{character.name} healed {target.name} for {heal_amount} HP.")

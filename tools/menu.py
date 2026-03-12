@@ -1,12 +1,14 @@
 from string import ascii_uppercase
 
-def menu(options=list, menu_text=str):
+def menu(options=list, menu_text=str, show_charclass=bool, show_race=bool, show_hp=bool):
 
     # Acceptable list item types:
         # str
         # Enum child class
         # int
         # float
+        # custom classes with __repr__
+        # Enum child classes with __str__
     # List item types that would print but would be weird
         # array
         # tuple
@@ -18,18 +20,33 @@ def menu(options=list, menu_text=str):
     print(menu_text)
     for item_num in range(len(options)):
         
-        # I'm sorry this is so scuffed. I'm so sorry.
-        # Case Enum:
-        try:
-            print(f'{ascii_uppercase[item_num]}) {options[item_num].value.capitalize()}')
-        except AttributeError:
-            # Case Character:
+        letter = ascii_uppercase[item_num]
+        option = options[item_num]
+        
+        print(f'{letter}) {str(option).capitalize()}', end='')
+
+        if show_charclass and show_race:
             try:
-                print(f'{ascii_uppercase[item_num]}) {options[item_num].name.capitalize()}')
-            # Case _:
+                print(f', {option.race} {option.charclass}', end='')
             except AttributeError:
-                print(f'{ascii_uppercase[item_num]}) {str(options[item_num]).capitalize()}')
-        # Will print like "A) Squid"
+                pass
+        elif show_charclass:
+            try:
+                print(f', {option.charclass}', end='')
+            except AttributeError:
+                pass
+        elif show_race:
+            try:
+                print(f', {option.race}', end='')
+            except AttributeError:
+                pass
+        if show_hp:
+            try:
+                print(f', {option.current_hp} / {option.max_hp} HP', end='')
+            except AttributeError:
+                pass
+        
+        print()
 
     # Taking input and translating to list item
     while True:
