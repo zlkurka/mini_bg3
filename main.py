@@ -85,7 +85,7 @@ def combat(party=list, encounter=Encounter):
 
         if not party:
             print("You lose!")
-            return party
+            return []
         if not monsters:
             print("\nYou win!\n")
 
@@ -94,6 +94,7 @@ def combat(party=list, encounter=Encounter):
                     print(f"{char.name}: {char.current_hp} HP remaining.")
                 else:
                     print(f"{char.name}: died in combat.")
+                    party.remove(char)
 
             return party
 
