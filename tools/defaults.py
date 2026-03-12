@@ -96,6 +96,59 @@ base_actions = {
 
 }
 
+class_caster_types = {
+  
+   CharClass.barbarian: CasterType.nonCaster,
+   CharClass.bard: CasterType.fullCaster,
+   CharClass.cleric: CasterType.fullCaster,
+   CharClass.druid: CasterType.fullCaster,
+   CharClass.fighter: CasterType.nonCaster,
+   CharClass.monk: CasterType.nonCaster,
+   CharClass.paladin: CasterType.halfCaster,
+   CharClass.ranger: CasterType.halfCaster,
+   CharClass.rogue: CasterType.nonCaster,
+   CharClass.sorcerer: CasterType.fullCaster,
+   CharClass.warlock: CasterType.nonCaster,
+   CharClass.wizard: CasterType.fullCaster,
+
+}
+
+spell_slot_counts = {
+
+    # Caster Types
+
+    CasterType.fullCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 2,
+       },
+    },
+    CasterType.halfCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
+    CasterType.quarterCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
+    CasterType.quarterCaster: {
+       # Char Levels
+       1: {
+        # Spell Levels
+        1: 0,
+       },
+    },
+
+
+}
+
 base_equipment = {
 
     CharClass.barbarian: [Weapon.longsword],
@@ -125,4 +178,8 @@ armor_values = {
     Armor.chain_shirt: 13,
     Armor.scale_mail: 14,
 
+}
+
+empty_spell_slots = {
+    1: 0,
 }

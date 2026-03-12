@@ -1,11 +1,11 @@
 from random import choice
 from tools.menu import menu
 from tools.enums import CharClass, Race, EnemyType, AbilityScore
-from tools.defaults import base_hp, base_armor_class, base_actions
+from tools.defaults import base_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 
 class Character():
     
-    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
+    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict, spell_slots=dict):
         
         self.name = name
         
@@ -17,11 +17,13 @@ class Character():
         
         self.ability_scores: dict = ability_scores
 
+        if spell_slots:
+            self.spell_slots: dict = spell_slots
+        else:
+            self.spell_slots = empty_spell_slots
+
     def __repr__(self):
-        try:
-            return self.name.value
-        except AttributeError:
-            return self.name
+        return str(self.name)
     
     def action(self, monsters=list, party=list, skipped_fighters=list):
         
@@ -89,6 +91,15 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
+    def cast_leveled_spell(self, level):
+       if not self.spell_slots[level]:
+           print("No spell slot available!")
+           return False
+        
+        self.spell_slots[level] -= 1
+        return True
+
+
 class Companion(Character):
     
     def __init__(self, name, charclass=CharClass, race=Race, level=int, ability_scores=dict):
@@ -98,6 +109,7 @@ class Companion(Character):
         self.race: Race = race
         self.level: int = level
         self.ability_scores: dict = ability_scores
+        self.spell_slots: dict = spell_slot_counts[class_caster_types[charclass]][level]
         # self.subclass = subclass
         # self.subrace = subrace
         
@@ -141,6 +153,7 @@ class Monster(Character):
         self.actions: list = actions
 
         self.ability_scores: dict = ability_scores
+        self.spell_slots: dict = spell_slots
     
     def choose_enemy(self, enemies):
         
