@@ -92,7 +92,7 @@ class Character():
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
     def cast_leveled_spell(self, level):
-       if not self.spell_slots[level]:
+        if not self.spell_slots[level]:
            print("No spell slot available!")
            return False
         

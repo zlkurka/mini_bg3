@@ -7,19 +7,19 @@ class Attack(Action):
     self.name = name
 
 
-       self.damage_dice: dict = damage_dice
-       self.modifier: AbilityScore = modifier
-       self.multi_attack: int = multi_attack
+    self.damage_dice: dict = damage_dice
+    self.modifier: AbilityScore = modifier
+    self.multi_attack: int = multi_attack
 
 
-       self.ranged: bool = ranged
-       self.use_damage_modifier: bool = use_damage_modifier
+    self.ranged: bool = ranged
+    self.use_damage_modifier: bool = use_damage_modifier
 
 
-       if spell_slot_level:
-           self.spell_slot_level: int = spell_slot_level
-       else:
-           self.spell_slot_level: int = 0
+    if spell_slot_level:
+        self.spell_slot_level: int = spell_slot_level
+    else:
+        self.spell_slot_level: int = 0
     
     def action(self, character, enemies, team):
         
