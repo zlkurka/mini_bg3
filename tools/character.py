@@ -141,7 +141,7 @@ class Companion(Character):
     
 class Monster(Character):
     
-    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list, ability_scores=dict):
+    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list, ability_scores=dict, spell_slots=dict):
         
         self.name = name
         self.enemytype: CharClass = enemytype
@@ -153,7 +153,10 @@ class Monster(Character):
         self.actions: list = actions
 
         self.ability_scores: dict = ability_scores
-        self.spell_slots: dict = spell_slots
+        if spell_slots:
+            self.spell_slots: dict = spell_slots
+        else:
+            self.spell_slots: dict = empty_spell_slots
     
     def choose_enemy(self, enemies):
         

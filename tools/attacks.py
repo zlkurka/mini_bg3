@@ -1,30 +1,26 @@
-from tools.enums import Weapon, AbilityScore, Dice, CharClass
+from tools.enums import Weapon, AbilityScore, Dice, CharClass, Spell
 from tools.actions import Action
 from random import randint
 
 class Attack(Action):
+    
+    def __init__(self, name=Weapon, damage_dice=dict, modifier=AbilityScore, multi_attack=int, ranged=bool, use_damage_modifier=bool, spell_slot_level=int):
+        
+        self.name = name
 
-    self.name = name
+        self.damage_dice: dict = damage_dice
+        self.modifier: AbilityScore = modifier
+        self.multi_attack: int = multi_attack
 
+        self.ranged: bool = ranged
+        self.use_damage_modifier: bool = use_damage_modifier
 
-    self.damage_dice: dict = damage_dice
-    self.modifier: AbilityScore = modifier
-    self.multi_attack: int = multi_attack
-
-
-    self.ranged: bool = ranged
-    self.use_damage_modifier: bool = use_damage_modifier
-
-
-    if spell_slot_level:
-        self.spell_slot_level: int = spell_slot_level
-    else:
         self.spell_slot_level: int = 0
     
     def action(self, character, enemies, team):
         
         if self.spell_slot_level > 0:
-            if not character.cast_leveled_spell(spell_slot_level):
+            if not character.cast_leveled_spell(self.spell_slot_level):
                 return character, enemies, team
 
         attack_modifier = self.get_modifier(self.modifier, character)
@@ -75,6 +71,7 @@ Crossbow = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 Dagger = Attack(
     name = Weapon.dagger, 
@@ -83,6 +80,7 @@ Dagger = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 EldritchBlast = Attack(
     name = Weapon.eldritch_blast, 
@@ -91,6 +89,7 @@ EldritchBlast = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
+    spell_slot_level = 0,
 )
 Firebolt = Attack(
     name = Weapon.firebolt, 
@@ -99,6 +98,7 @@ Firebolt = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
+    spell_slot_level = 0,
 )
 Greataxe = Attack(
     name = Weapon.greataxe, 
@@ -107,6 +107,7 @@ Greataxe = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 Longsword = Attack(
     name = Weapon.longsword, 
@@ -115,6 +116,7 @@ Longsword = Attack(
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 Mace = Attack(
     name = Weapon.mace, 
@@ -123,6 +125,7 @@ Mace = Attack(
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 RayOfFrost = Attack(
     name = Weapon.ray_of_frost, 
@@ -131,6 +134,7 @@ RayOfFrost = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
+    spell_slot_level = 0,
 )
 Shillelagh = Attack(
     name = Weapon.shillelagh, 
@@ -139,6 +143,7 @@ Shillelagh = Attack(
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 Shortbow = Attack(
     name = Weapon.shortbow, 
@@ -147,6 +152,7 @@ Shortbow = Attack(
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 Shortsword = Attack(
     name = Weapon.shortsword, 
@@ -155,6 +161,7 @@ Shortsword = Attack(
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 MonkUnarmed = Attack(
     name = Weapon.unarmed, 
@@ -163,6 +170,7 @@ MonkUnarmed = Attack(
     multi_attack = 2,
     ranged = False,
     use_damage_modifier = True,
+    spell_slot_level = 0,
 )
 
 

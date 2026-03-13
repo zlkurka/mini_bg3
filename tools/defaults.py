@@ -1,4 +1,4 @@
-from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore
+from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
 from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt
 from tools.actions import CureWounds
 
@@ -138,7 +138,7 @@ spell_slot_counts = {
         1: 0,
        },
     },
-    CasterType.quarterCaster: {
+    CasterType.nonCaster: {
        # Char Levels
        1: {
         # Spell Levels

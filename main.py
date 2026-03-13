@@ -31,6 +31,8 @@ def main():
                 
                 if not party:
                     party = pick_party(companions)
+                
+                
 
                 encounter = menu(encounters, "Who would you like to fight?")
                 party = combat(party, encounter)
@@ -94,7 +96,6 @@ def combat(party=list, encounter=Encounter):
                     print(f"{char.name}: {char.current_hp} HP remaining.")
                 else:
                     print(f"{char.name}: died in combat.")
-                    party.remove(char)
 
             return party
 
