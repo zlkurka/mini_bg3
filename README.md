@@ -58,7 +58,6 @@ Since I only have combat and character creation developed for this game, I'm not
 
 ## Other features
 - Keep from wasting action on empty spell slot 
-  - don’t display if no slots, 
   - Nevermind option if don’t want to upcast
 - Add Nevermind to action targeting
 - Add equipment; auto-equip during __init__
@@ -68,3 +67,4 @@ Since I only have combat and character creation developed for this game, I'm not
 - Migrate character saves to pickle
 - Add reviving dead characters (Withers, spend gold; revivify)
 - Add higher levels
+  - Spell casters are reassigned spell slots with base_spell_slots[casterType][level]

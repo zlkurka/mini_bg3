@@ -10,8 +10,8 @@ from tools.save_handler import load_character, save_character
 
 def main():
     
-    # Set to False if you want to play normal-mode. Sorry if I leave it on True
-    DEV_MODE = False
+    # Set to False if you want to  play normal-mode. Sorry if I leave it on True
+    DEV_MODE = True
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
@@ -19,8 +19,8 @@ def main():
 
     if DEV_MODE:
         
-        party = [Gale, Shadowheart, Karlach, Laezel]
-        encounter = Encounter.goblins_4x
+        party = [Gale, Shadowheart, Halsin, Jaheira]
+        encounter = Encounter.training_dummy
         party = combat(party, encounter)
     
     while True:

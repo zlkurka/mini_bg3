@@ -175,7 +175,7 @@ spell_slot_counts = {
 
 }
 
-empty_spell_slots = spell_slot_counts[CasterType.nonCaster]
+empty_spell_slots = spell_slot_counts[CasterType.nonCaster][1]
 
 base_equipment = {
 

@@ -20,21 +20,27 @@ class Character():
         extra_actions=list,
     ):
         
+        # I'm sorry this is disgusting
+
         self.name = name
 
         self.character_type: CharacterType = character_type
         self.charclass: CharClass = charclass
         self.race: Race = race
+        self.ability_scores: dict = ability_scores
+
+        # Level
         if level != int:
             self.level: int = level
         else: 
             self.level: int = 1
         
+        # hp
         if max_hp != int:
             self.max_hp: int = max_hp
         else: 
             if character_type == CharacterType.companion:
-                self.max_hp: int = int(base_hp[charclass] + (level * ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+                self.max_hp: int = int(base_hp[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
             elif character_type == CharacterType.monster:
                 self.max_hp = base_hp[charclass] + round(base_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
             else:
@@ -46,18 +52,18 @@ class Character():
                         print("Invalid input!")
         self.current_hp: int = self.max_hp
         
+        # AC
         if armor_class != int:
             self.armor_class: int = armor_class
         else: 
             self.armor_class: int = base_armor_class[self.charclass]
-
+        
+        # Actions
+        self.actions: list = base_actions[self.charclass]
         if extra_actions != list:
-            self.actions: list = base_actions[self.charclass] + extra_actions
-        else:
-            self.actions: list = base_actions[self.charclass]
-        
-        self.ability_scores: dict = ability_scores
-        
+            self.actions += extra_actions
+             
+        # Spell slots
         if spell_slots != dict:
             self.spell_slots: dict = spell_slots
         else:
@@ -102,9 +108,16 @@ class Character():
         return enemies, team, skipped_fighters
     
     def choose_action(self):
+        
+        action_options = list(self.actions)
+
+        for act in self.actions:
+            if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
+                action_options.remove(act)
+
         if self.character_type == CharacterType.monster:
-            return choice(self.actions)
-        return menu(self.actions, f"\nWhat would {self.name} like to do?")
+            return choice(action_options)
+        return menu(action_options, f"\nWhat would {self.name} like to do?")
     
     def choose_enemy(self, enemies):
         
@@ -150,12 +163,12 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
-    def cast_leveled_spell(self, level):
-        if not self.spell_slots[level]:
+    def cast_leveled_spell(self, spell_level):
+        if not self.spell_slots[spell_level]:
            print("No spell slot available!")
            return False
         
-        self.spell_slots[level] -= 1
+        self.spell_slots[spell_level] -= 1
         return True
     
     def get_aggro(self):
