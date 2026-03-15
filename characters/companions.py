@@ -85,3 +85,17 @@ Wyll = Companion(
         AbilityScore.CHA: 3,
     },
 )
+Halsin = Companion(
+    name=CharacterName.halsin, 
+    charclass=CharClass.druid, 
+    race=Race.elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 2,
+        AbilityScore.CON: 1,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 0,
+    },
+)

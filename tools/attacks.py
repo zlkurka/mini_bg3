@@ -15,7 +15,10 @@ class Attack(Action):
         self.ranged: bool = ranged
         self.use_damage_modifier: bool = use_damage_modifier
 
-        self.spell_slot_level: int = 0
+        if spell_slot_level:
+            self.spell_slot_level: int = spell_slot_level
+        else: 
+            self.spell_slot_level: int = 0
     
     def action(self, character, enemies, team):
         

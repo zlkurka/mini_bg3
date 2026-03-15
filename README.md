@@ -10,7 +10,6 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons* and *Ba
     - Mage armor
     - Burning hands
     - Guiding bolt
-    - Chromatic orb
     - Cure wounds (integrate into other spells)
   - Add later
     - Armor of agathys
@@ -30,6 +29,8 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons* and *Ba
 - Add equip method to character and auto equip stuff during __init__
 - Add action economy (action, bonus action, reaction, movement?)
 - Add higher levels
+- Migrate character saves to pickle
+- Add reviving dead characters (Withers, spend gold; revivify)
 
 I think I need to focus on fleshing out just a few classes first. I'll work on:
 - Wizard

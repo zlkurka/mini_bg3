@@ -1,5 +1,5 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
-from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt
+from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb
 from tools.actions import CureWounds
 
 char_classes = [
@@ -82,17 +82,17 @@ base_armor_class = {
 base_actions = {
     
     CharClass.barbarian: [Longsword],
-    CharClass.bard: [Shortbow],
+    CharClass.bard: [Shortbow, CureWounds],
     CharClass.cleric: [Mace, CureWounds],
-    CharClass.druid: [Shortsword],
+    CharClass.druid: [Shortsword, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],
     CharClass.paladin: [Longsword],
     CharClass.ranger: [Shortbow],
     CharClass.rogue: [Shortsword, Shortbow],
-    CharClass.sorcerer: [Firebolt],
+    CharClass.sorcerer: [Firebolt, ChromaticOrb],
     CharClass.warlock: [Firebolt],
-    CharClass.wizard: [Firebolt],
+    CharClass.wizard: [Firebolt, ChromaticOrb],
 
 }
 
@@ -166,7 +166,20 @@ base_equipment = {
 
 }
 
-base_spells = {}
+base_spells = {
+    CharClass.barbarian: [],
+    CharClass.bard: [CureWounds],
+    CharClass.cleric: [CureWounds],
+    CharClass.druid: [CureWounds],
+    CharClass.fighter: [],
+    CharClass.monk: [],
+    CharClass.paladin: [],
+    CharClass.ranger: [],
+    CharClass.rogue: [],
+    CharClass.sorcerer: [ChromaticOrb],
+    CharClass.warlock: [],
+    CharClass.wizard: [ChromaticOrb],
+}
 
 armor_values = {
 

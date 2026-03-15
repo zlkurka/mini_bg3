@@ -54,7 +54,7 @@ PassAction = Action(
 
 class Heal(Action):
     
-    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int):
+    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int, spell_slot_level=int, isConsumable=bool):
         
         self.name = name
 
@@ -63,9 +63,23 @@ class Heal(Action):
 
         self.can_choose_target: bool = can_choose_target
         self.target_count: int = target_count
+
+        if spell_slot_level:
+            self.spell_slot_level: int = spell_slot_level
+        else: 
+            self.spell_slot_level: int = 0
+
+        if isConsumable:
+            self.isConsumable: bool = isConsumable
+        else: 
+            self.isConsumable: bool = False
     
     def action(self, character, enemies=list, team=list):
         
+        if self.spell_slot_level > 0:
+            if not character.cast_leveled_spell(self.spell_slot_level):
+                return character, enemies, team
+
         if self.can_choose_target:
             target = menu(team, f"Who would {character.name} like to heal?", show_race=False, show_class=False, show_hp=True)
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
@@ -90,4 +104,5 @@ CureWounds = Heal(
     heal_const = 1,
     can_choose_target = True,
     target_count = 1,
+    spell_slot_level=1
 )

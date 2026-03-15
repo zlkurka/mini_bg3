@@ -125,4 +125,9 @@ goblin_names = [
     "Gunk",
     "Skunk",
     "Bucket",
+    "Haldron",
+    "Cauldron",
+    "Bingus Gringus",
+    "Schlerb Holdonimthinkingofsomethinginteresting",
+    "Bajesus Beezlebub"
 ]

@@ -22,6 +22,8 @@ class Character():
         else:
             self.spell_slots = empty_spell_slots
 
+        # Add spells?
+
     def __repr__(self):
         return str(self.name)
     
@@ -109,11 +111,11 @@ class Companion(Character):
         self.race: Race = race
         self.level: int = level
         self.ability_scores: dict = ability_scores
-        self.spell_slots: dict = spell_slot_counts[class_caster_types[charclass]][level]
+        self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[charclass]][level])
         # self.subclass = subclass
         # self.subrace = subrace
         
-        self.max_hp: int = int(base_hp[charclass] + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+        self.max_hp: int = int(base_hp[charclass] + (level * ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
         self.current_hp: int = self.max_hp
         
         self.armor_class: int = base_armor_class[self.charclass]
