@@ -57,6 +57,10 @@ Since I only have combat and character creation developed for this game, I'm not
 
 
 ## Other features
+- Keep from wasting action on empty spell slot 
+  - don’t display if no slots, 
+  - Nevermind option if don’t want to upcast
+- Add Nevermind to action targeting
 - Add equipment; auto-equip during __init__
 - Add visual combat in Godot
 - Add race features

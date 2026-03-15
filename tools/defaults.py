@@ -1,6 +1,6 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
-from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb
-from tools.actions import CureWounds
+from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, OwlbearClaw
+from tools.actions import CureWounds, PassAction
 
 char_classes = [
 
@@ -41,12 +41,14 @@ ability_scores = [
     AbilityScore.CON,
     AbilityScore.INT,
     AbilityScore.WIS,
-    AbilityScore.CHA
+    AbilityScore.CHA,
     
 ]
 
 base_hp = {
     
+    # Companion classes
+
     CharClass.barbarian: 12,
     CharClass.bard: 8,
     CharClass.cleric: 8,
@@ -60,9 +62,18 @@ base_hp = {
     CharClass.warlock: 8,
     CharClass.wizard: 6,
 
+
+    # Monster classes
+
+    CharClass.goblin: 9,
+    CharClass.owlbear: 90,
+    CharClass.training_dummy: 1000
+
 }
 
 base_armor_class = {
+
+    # Companion classes
 
     CharClass.barbarian: 13,
     CharClass.bard: 13,
@@ -77,10 +88,19 @@ base_armor_class = {
     CharClass.warlock: 12,
     CharClass.wizard: 10,
 
+
+    # Monster classes
+
+    CharClass.goblin: 12,
+    CharClass.owlbear: 14,
+    CharClass.training_dummy: 10,
+
 }
 
 base_actions = {
     
+    # Companion classes
+
     CharClass.barbarian: [Longsword],
     CharClass.bard: [Shortbow, CureWounds],
     CharClass.cleric: [Mace, CureWounds],
@@ -93,6 +113,13 @@ base_actions = {
     CharClass.sorcerer: [Firebolt, ChromaticOrb],
     CharClass.warlock: [Firebolt],
     CharClass.wizard: [Firebolt, ChromaticOrb],
+
+
+    # Monster classes
+
+    CharClass.goblin: [Shortsword, Shortsword],
+    CharClass.owlbear: [OwlbearClaw],
+    CharClass.training_dummy: [PassAction],
 
 }
 
@@ -118,35 +145,37 @@ spell_slot_counts = {
     # Caster Types
 
     CasterType.fullCaster: {
-       # Char Levels
-       1: {
-        # Spell Levels
-        1: 2,
-       },
+        # Char Levels
+        1: {
+            # Spell Levels
+            1: 2,
+        },
     },
     CasterType.halfCaster: {
-       # Char Levels
-       1: {
-        # Spell Levels
-        1: 0,
-       },
+        # Char Levels
+        1: {
+            # Spell Levels
+            1: 0,
+        },
     },
     CasterType.quarterCaster: {
-       # Char Levels
-       1: {
-        # Spell Levels
-        1: 0,
-       },
+        # Char Levels
+        1: {
+            # Spell Levels
+            1: 0,
+        },
     },
     CasterType.nonCaster: {
-       # Char Levels
-       1: {
-        # Spell Levels
-        1: 0,
-       },
+        # Char Levels
+        1: {
+            # Spell Levels
+            1: 0,
+        },
     },
 
 }
+
+empty_spell_slots = spell_slot_counts[CasterType.nonCaster]
 
 base_equipment = {
 
@@ -190,8 +219,4 @@ armor_values = {
     Armor.chain_shirt: 13,
     Armor.scale_mail: 14,
 
-}
-
-empty_spell_slots = {
-    1: 0,
 }

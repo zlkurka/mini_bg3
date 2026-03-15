@@ -3,9 +3,8 @@ from tools.menu import menu
 from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc
 from characters.monsters import get_monsters
-from tools.enums import Encounter, AbilityScore
+from tools.enums import Encounter
 from tools.defaults import char_classes, char_races, ability_scores
-from tools.character import Companion
 from tools.save_handler import load_character, save_character
 
 

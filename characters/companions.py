@@ -1,8 +1,9 @@
-from tools.character import Companion
-from tools.enums import CharacterName, CharClass, Race, AbilityScore
+from tools.character import Character
+from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType
 
-Astarion = Companion(
+Astarion = Character(
     name=CharacterName.astarion, 
+    character_type=CharacterType.companion,
     charclass=CharClass.rogue, 
     race=Race.elf, 
     level=1,
@@ -15,8 +16,9 @@ Astarion = Companion(
         AbilityScore.CHA: 2,
     },
 )
-Gale = Companion(
-    name=CharacterName.gale, 
+Gale = Character(
+    name=CharacterName.gale,  
+    character_type=CharacterType.companion,
     charclass=CharClass.wizard, 
     race=Race.human, 
     level=1,
@@ -29,8 +31,9 @@ Gale = Companion(
         AbilityScore.CHA: 0,
     },
 )
-Karlach = Companion(
-    name=CharacterName.karlach, 
+Karlach = Character(
+    name=CharacterName.karlach,  
+    character_type=CharacterType.companion,
     charclass=CharClass.barbarian, 
     race=Race.tiefling, 
     level=1,
@@ -43,8 +46,9 @@ Karlach = Companion(
         AbilityScore.CHA: 1,
     },
 )
-Laezel = Companion(
-    name=CharacterName.laezel, 
+Laezel = Character(
+    name=CharacterName.laezel,  
+    character_type=CharacterType.companion,
     charclass=CharClass.fighter, 
     race=Race.githyanki, 
     level=1,
@@ -57,8 +61,9 @@ Laezel = Companion(
         AbilityScore.CHA: -1,
     },
 )
-Shadowheart = Companion(
-    name=CharacterName.shadowheart, 
+Shadowheart = Character(
+    name=CharacterName.shadowheart,  
+    character_type=CharacterType.companion,
     charclass=CharClass.cleric, 
     race=Race.half_elf, 
     level=1,
@@ -71,8 +76,9 @@ Shadowheart = Companion(
         AbilityScore.CHA: 0,
     },
 )
-Wyll = Companion(
-    name=CharacterName.wyll, 
+Wyll = Character(
+    name=CharacterName.wyll,  
+    character_type=CharacterType.companion,
     charclass=CharClass.warlock, 
     race=Race.human, 
     level=1,
@@ -85,8 +91,9 @@ Wyll = Companion(
         AbilityScore.CHA: 3,
     },
 )
-Minthara = Companion(
-    name=CharacterName.minthara, 
+Minthara = Character(
+    name=CharacterName.minthara,  
+    character_type=CharacterType.companion,
     charclass=CharClass.paladin, 
     race=Race.drow, 
     level=1,
@@ -99,8 +106,9 @@ Minthara = Companion(
         AbilityScore.CHA: 2,
     },
 )
-Halsin = Companion(
-    name=CharacterName.halsin, 
+Halsin = Character(
+    name=CharacterName.halsin,  
+    character_type=CharacterType.companion,
     charclass=CharClass.druid, 
     race=Race.elf, 
     level=1,
@@ -113,8 +121,9 @@ Halsin = Companion(
         AbilityScore.CHA: 0,
     },
 )
-Jaheira = Companion(
-    name=CharacterName.jaheira, 
+Jaheira = Character(
+    name=CharacterName.jaheira,  
+    character_type=CharacterType.companion,
     charclass=CharClass.druid, 
     race=Race.half_elf, 
     level=1,
@@ -127,8 +136,9 @@ Jaheira = Companion(
         AbilityScore.CHA: 1,
     },
 )
-Minsc = Companion(
-    name=CharacterName.minsc, 
+Minsc = Character(
+    name=CharacterName.minsc,  
+    character_type=CharacterType.companion,
     charclass=CharClass.ranger, 
     race=Race.human, 
     level=1,

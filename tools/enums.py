@@ -28,6 +28,9 @@ class CharacterName(EnumWithValueRepr):
 
 class CharClass(EnumWithValueRepr):
 
+
+    # Companion classes
+
     barbarian = "barbarian"
     bard = "bard"
     cleric = "cleric"
@@ -40,6 +43,14 @@ class CharClass(EnumWithValueRepr):
     sorcerer = "sorcerer"
     warlock = "warlock"
     wizard = "wizard"
+
+
+    # Enemy classes
+    
+    goblin = "goblin"
+    bugbear = "bugbear"
+    owlbear = "owlbear"
+    training_dummy = "training dummy"
 
 class Race(EnumWithValueRepr):
 
@@ -54,13 +65,6 @@ class Race(EnumWithValueRepr):
     halfling = "halfling"
     human = "human"
     tiefling = "tiefling"
-
-class EnemyType(EnumWithValueRepr):
-    
-    goblin = "goblin"
-    bugbear = "bugbear"
-    owlbear = "owlbear"
-    training_dummy = "training dummy"
 
 class Weapon(EnumWithValueRepr):
     
@@ -149,3 +153,8 @@ class CasterType(EnumWithValueRepr):
    halfCaster = "half caster"
    quarterCaster = "quarter caster"
    nonCaster = "non-caster"
+
+class CharacterType(EnumWithValueRepr):
+
+    companion = "companion"
+    monster = "monster"

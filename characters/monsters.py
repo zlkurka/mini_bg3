@@ -1,24 +1,19 @@
-from tools.enums import EnemyType, Encounter, AbilityScore
-from tools.character import Monster
-from random import sample, randint
-from tools.attacks import Shortsword, Shortbow, OwlbearClaw
-from tools.actions import PassAction
+from tools.enums import CharClass, Encounter, AbilityScore, CharacterType
+from tools.character import Character
+from random import sample
 
 def get_monsters(encounter=Encounter):
     
     if encounter == Encounter.goblins_4x:
         
         names = sample(goblin_names,4)
+        enemies = []
 
-        Goblin1 = Monster(
-            name = names[0], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
+        for iter in range(4):
+            enemies.append(Character(
+            name = names[iter], 
+            character_type = CharacterType.monster,
+            charclass = CharClass.goblin, 
             ability_scores={
                 AbilityScore.STR: 2,
                 AbilityScore.DEX: 0,
@@ -26,70 +21,15 @@ def get_monsters(encounter=Encounter):
                 AbilityScore.INT: -1,
                 AbilityScore.WIS: 1,
                 AbilityScore.CHA: 0,
-            },)
-        Goblin2 = Monster(
-            name = names[1], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        Goblin3 = Monster(
-            name = names[2], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
-        Goblin4 = Monster(
-            name = names[3], 
-            enemytype = EnemyType.goblin, 
-            max_hp = randint(7,11), 
-            armor_class = 12,
-            actions = [
-                Shortsword,
-                Shortbow,
-            ],
-            ability_scores={
-                AbilityScore.STR: 2,
-                AbilityScore.DEX: 0,
-                AbilityScore.CON: 1,
-                AbilityScore.INT: -1,
-                AbilityScore.WIS: 1,
-                AbilityScore.CHA: 0,
-            },)
+            },))
         
-        return [Goblin1, Goblin2, Goblin3, Goblin4]
+        return enemies
 
     if encounter == Encounter.owlbear:
-        Owlbear = Monster(
-            name = "Owlbear", 
-            enemytype = EnemyType.owlbear, 
-            max_hp = randint(85,100), 
-            armor_class = 14,
-            actions = [
-                OwlbearClaw,
-            ],
+        Owlbear = Character(
+            name = "owlbear",
+            character_type = CharacterType.monster,
+            charclass = CharClass.owlbear, 
             ability_scores={
                 AbilityScore.STR: 4,
                 AbilityScore.DEX: 1,
@@ -102,12 +42,11 @@ def get_monsters(encounter=Encounter):
     
 
     if encounter == Encounter.training_dummy:
-        TrainingDummy = Monster(
+        TrainingDummy = Character(
             name = "training dummy", 
-            enemytype = EnemyType.training_dummy, 
+            character_type = CharacterType.monster,
+            charclass = CharClass.training_dummy, 
             max_hp = 9999, 
-            armor_class = 10,
-            actions = [PassAction],
             ability_scores={
                 AbilityScore.STR: 0,
                 AbilityScore.DEX: 0,

@@ -1,4 +1,4 @@
-from tools.enums import Weapon, AbilityScore, Dice, CharClass, Spell
+from tools.enums import Weapon, AbilityScore, Dice, Spell
 from tools.actions import Action
 from random import randint
 

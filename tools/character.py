@@ -1,33 +1,79 @@
-from random import choice
+from random import choice, randint
 from tools.menu import menu
-from tools.enums import CharClass, Race, EnemyType, AbilityScore
+from tools.enums import CharClass, Race, AbilityScore, CharacterType
 from tools.defaults import base_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 
 class Character():
     
-    def __init__(self, name, max_hp=int, armor_class=int, actions=list, ability_scores=dict, spell_slots=dict):
+    def __init__(self, 
+        
+        name, 
+        character_type=CharacterType, 
+        charclass=CharClass, 
+        race=Race, 
+        level=int, 
+        ability_scores=dict, 
+
+        spell_slots=dict,
+        max_hp=int, 
+        armor_class=int, 
+        extra_actions=list,
+    ):
         
         self.name = name
+
+        self.character_type: CharacterType = character_type
+        self.charclass: CharClass = charclass
+        self.race: Race = race
+        if level != int:
+            self.level: int = level
+        else: 
+            self.level: int = 1
         
-        self.max_hp: int = max_hp
+        if max_hp != int:
+            self.max_hp: int = max_hp
+        else: 
+            if character_type == CharacterType.companion:
+                self.max_hp: int = int(base_hp[charclass] + (level * ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+            elif character_type == CharacterType.monster:
+                self.max_hp = base_hp[charclass] + round(base_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
+            else:
+                while True:
+                    try:
+                        self.max_hp = int(input("Unable to get max_hp. What should this character's max_hp be? ").strip())
+                        break
+                    except:
+                        print("Invalid input!")
         self.current_hp: int = self.max_hp
         
-        self.armor_class: int = armor_class
-        self.actions: list = actions
+        if armor_class != int:
+            self.armor_class: int = armor_class
+        else: 
+            self.armor_class: int = base_armor_class[self.charclass]
+
+        if extra_actions != list:
+            self.actions: list = base_actions[self.charclass] + extra_actions
+        else:
+            self.actions: list = base_actions[self.charclass]
         
         self.ability_scores: dict = ability_scores
-
-        if spell_slots:
+        
+        if spell_slots != dict:
             self.spell_slots: dict = spell_slots
         else:
-            self.spell_slots = empty_spell_slots
+            if character_type == CharacterType.companion:
+                self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[charclass]][level])
+            else:
+                self.spell_slots = dict(empty_spell_slots)
 
-        # Add spells?
+        # self.equipment = base_equipment[self.charclass]
+
+        self.lastAttack_isMelee: bool = False
 
     def __repr__(self):
         return str(self.name)
     
-    def action(self, monsters=list, party=list, skipped_fighters=list):
+    def action(self, enemies=list, team=list, skipped_fighters=list):
         
         # Choosing action
         if len(self.actions) > 1:
@@ -36,30 +82,41 @@ class Character():
            action_choice = self.actions[0]
         
         # Doing action
-        if type(self) == Companion:
-            self, monsters, party = action_choice.action(character=self, enemies=monsters, team=party)
-        elif type(self) == Monster:
-            self, party, monsters = action_choice.action(character=self, enemies=party, team=monsters)
+        if self.character_type == CharacterType.companion:
+            self, enemies, team = action_choice.action(character=self, enemies=enemies, team=team)
+        elif self.character_type == CharacterType.monster:
+            self, team, enemies = action_choice.action(character=self, enemies=team, team=enemies)
         else:
             print("Error: unacceptable character type!")
         
         # Removing dead characters
-        for char in monsters:
+        for char in enemies:
             if char.current_hp <= 0:
                 skipped_fighters.append(char)
-                monsters.remove(char)
-        for char in party:
+                enemies.remove(char)
+        for char in team:
             if char.current_hp <= 0:
                 skipped_fighters.append(char)
-                party.remove(char)
+                team.remove(char)
         
-        return monsters, party, skipped_fighters
+        return enemies, team, skipped_fighters
     
     def choose_action(self):
+        if self.character_type == CharacterType.monster:
+            return choice(self.actions)
         return menu(self.actions, f"\nWhat would {self.name} like to do?")
     
     def choose_enemy(self, enemies):
         
+        if self.character_type == CharacterType.monster:
+            aggro_raffle = []
+
+            for char in enemies:
+                for tix in range(char.get_aggro()):
+                    aggro_raffle.append(char)
+
+            return choice(aggro_raffle)
+
         if len(enemies) > 1:
             return menu(enemies, f"\nWho would {self.name} like to attack?", show_race=False, show_class=False, show_hp=True)
         else:
@@ -100,36 +157,8 @@ class Character():
         
         self.spell_slots[level] -= 1
         return True
-
-
-class Companion(Character):
     
-    def __init__(self, name, charclass=CharClass, race=Race, level=int, ability_scores=dict):
-        
-        self.name = name
-        self.charclass: CharClass = charclass
-        self.race: Race = race
-        self.level: int = level
-        self.ability_scores: dict = ability_scores
-        self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[charclass]][level])
-        # self.subclass = subclass
-        # self.subrace = subrace
-        
-        self.max_hp: int = int(base_hp[charclass] + (level * ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
-        self.current_hp: int = self.max_hp
-        
-        self.armor_class: int = base_armor_class[self.charclass]
-        self.actions: list = base_actions[self.charclass]
-
-        # self.equipment = base_equipment[self.charclass]
-
-        self.lastAttack_isMelee: bool = False
-        
-
     def get_aggro(self):
-        
-        # I want aggro to work kind of like raffle tickets. Party members will have a self.aggro / total party aggro chance to be attacked
-        # Maybe dead characters will get 0 aggro so they aren't multi-attacked?
 
         aggro = 1
 
@@ -139,36 +168,3 @@ class Companion(Character):
             aggro += 2
         
         return aggro
-    
-    
-class Monster(Character):
-    
-    def __init__(self, name=str, enemytype=EnemyType, max_hp=int, armor_class=int, actions=list, ability_scores=dict, spell_slots=dict):
-        
-        self.name = name
-        self.enemytype: CharClass = enemytype
-        
-        self.max_hp: int = max_hp
-        self.current_hp: int = self.max_hp
-        self.armor_class: int = armor_class
-
-        self.actions: list = actions
-
-        self.ability_scores: dict = ability_scores
-        if spell_slots:
-            self.spell_slots: dict = spell_slots
-        else:
-            self.spell_slots: dict = empty_spell_slots
-    
-    def choose_enemy(self, enemies):
-        
-        aggro_raffle = []
-
-        for char in enemies:
-            for tix in range(char.get_aggro()):
-                aggro_raffle.append(char)
-
-        return choice(aggro_raffle)
-    
-    def choose_action(self):
-        return choice(self.actions)
