@@ -44,6 +44,7 @@ class CharClass(EnumWithValueRepr):
 class Race(EnumWithValueRepr):
 
     dragonborn = "dragonborn"
+    drow = "drow"
     dwarf = "dwarf"
     elf = "elf"
     githyanki = "githyanki"

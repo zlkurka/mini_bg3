@@ -1,12 +1,12 @@
 from random import shuffle
 from tools.menu import menu
 from tools.print_list import print_list
-from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Halsin
+from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc
 from characters.monsters import get_monsters
 from tools.enums import Encounter, AbilityScore
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.character import Companion
-from tools.load_and_save_characters import load_character, save_character
+from tools.save_handler import load_character, save_character
 
 
 def main():
@@ -14,13 +14,13 @@ def main():
     # Set to False if you want to play normal-mode. Sorry if I leave it on True
     DEV_MODE = False
 
-    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Halsin] 
+    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     party = []
 
     if DEV_MODE:
         
-        party = [Wyll, Shadowheart, Karlach, Laezel]
+        party = [Gale, Shadowheart, Karlach, Laezel]
         encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     

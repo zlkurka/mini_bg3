@@ -85,6 +85,20 @@ Wyll = Companion(
         AbilityScore.CHA: 3,
     },
 )
+Minthara = Companion(
+    name=CharacterName.minthara, 
+    charclass=CharClass.paladin, 
+    race=Race.drow, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 3,
+        AbilityScore.DEX: -1,
+        AbilityScore.CON: 1,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 2,
+    },
+)
 Halsin = Companion(
     name=CharacterName.halsin, 
     charclass=CharClass.druid, 
@@ -95,6 +109,34 @@ Halsin = Companion(
         AbilityScore.DEX: 2,
         AbilityScore.CON: 1,
         AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 0,
+    },
+)
+Jaheira = Companion(
+    name=CharacterName.jaheira, 
+    charclass=CharClass.druid, 
+    race=Race.half_elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -1,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 1,
+    },
+)
+Minsc = Companion(
+    name=CharacterName.minsc, 
+    charclass=CharClass.ranger, 
+    race=Race.human, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 2,
+        AbilityScore.CON: 1,
+        AbilityScore.INT: -1,
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
     },

@@ -146,7 +146,6 @@ spell_slot_counts = {
        },
     },
 
-
 }
 
 base_equipment = {
@@ -177,7 +176,7 @@ base_spells = {
     CharClass.ranger: [],
     CharClass.rogue: [],
     CharClass.sorcerer: [ChromaticOrb],
-    CharClass.warlock: [],
+    CharClass.warlock: [], # Add spell
     CharClass.wizard: [ChromaticOrb],
 }
 
