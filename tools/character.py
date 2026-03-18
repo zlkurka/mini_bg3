@@ -1,7 +1,7 @@
 from random import choice, randint
 from tools.menu import menu
 from tools.enums import CharClass, Race, AbilityScore, CharacterType
-from tools.defaults import base_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
+from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 
 class Character():
     
@@ -15,6 +15,7 @@ class Character():
         ability_scores=dict, 
 
         spell_slots=dict,
+        base_hp=int,
         max_hp=int, 
         armor_class=int, 
         extra_actions=list,
@@ -28,6 +29,7 @@ class Character():
         self.charclass: CharClass = charclass
         self.race: Race = race
         self.ability_scores: dict = ability_scores
+        self.proficiency_bonus: int = 2
 
         # Level
         if level != int:
@@ -38,11 +40,13 @@ class Character():
         # hp
         if max_hp != int:
             self.max_hp: int = max_hp
+        elif base_hp != int:
+            self.max_hp: int = base_hp + round(base_max_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
         else: 
             if character_type == CharacterType.companion:
-                self.max_hp: int = int(base_hp[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
+                self.max_hp: int = int(base_max_hp[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_max_hp[charclass] / 2 + 1)))
             elif character_type == CharacterType.monster:
-                self.max_hp: int = base_hp[charclass] + round(base_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
+                self.max_hp: int = base_max_hp[charclass] + round(base_max_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_max_hp
             else:
                 print("Invalid character type!")
                 self.max_hp: int = 1
@@ -52,10 +56,15 @@ class Character():
         if armor_class != int:
             self.armor_class: int = armor_class
         else: 
-            self.armor_class: int = base_armor_class[self.charclass]
+            if self.charclass in base_armor_class:
+                self.armor_class: int = base_armor_class[self.charclass]
+            else:
+                self.armor_class: int = 10 + self.ability_scores[AbilityScore.DEX]
         
         # Actions
-        self.actions: list = base_actions[self.charclass]
+        self.actions: list = []
+        if self.charclass in base_actions:
+            self.actions: list = base_actions[self.charclass]
         if extra_actions != list:
             self.actions += extra_actions
              
@@ -72,8 +81,21 @@ class Character():
 
         self.lastAttack_isMelee: bool = False
 
+        # Saving other input for resets
+        self.base_hp = base_hp
+
     def __repr__(self):
         return str(self.name)
+    
+    def reset(self):
+        if self.character_type == CharacterType.companion:
+                self.max_hp: int = int(base_max_hp[self.charclass] + (self.level * self.ability_scores[AbilityScore.CON]) + ((self.level - 1) * (base_max_hp[self.charclass] / 2 + 1)))
+        elif self.character_type == CharacterType.monster:
+            self.max_hp: int = base_max_hp[self.charclass] + round(base_max_hp[self.charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
+        else:
+            print("Invalid character type!")
+            self.max_hp: int = 1
+        self.current_hp: int = self.max_hp
     
     def action(self, enemies=list, team=list, skipped_fighters=list):
         

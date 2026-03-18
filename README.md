@@ -1,6 +1,6 @@
 This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
 
-I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler with *Slay the Spire*-inspired rooms (combat and events) and a *Binding of Isaac*-inspired dungeon layout and progression.
+I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
 # To-do's
 
@@ -67,14 +67,14 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 
 ## Other features
-- Keep from wasting action on empty spell slot 
-  - Nevermind option if don’t want to upcast
 - Add Nevermind to action targeting
 - Add equipment; auto-equip during __init__
 - Add visual combat in Godot
 - Add race features
 - Add action economy (action, bonus action, reaction, movement?)
-- Migrate character saves to pickle
 - Add reviving dead characters (Withers, spend gold; revivify)
 - Add higher levels
   - Spell casters are reassigned spell slots with base_spell_slots[casterType][level]
+
+# Copyright statement
+© 2026 Zoey Kurka. All rights reserved.

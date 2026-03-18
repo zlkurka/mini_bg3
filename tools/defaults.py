@@ -45,7 +45,7 @@ ability_scores = [
     
 ]
 
-base_hp = {
+base_max_hp = {
     
     # Companion classes
 

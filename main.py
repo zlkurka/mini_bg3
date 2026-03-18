@@ -1,9 +1,10 @@
 from random import shuffle
 from tools.menu import menu
+from tools.character import Character
 from tools.print_list import print_list
 from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc
 from characters.monsters import get_monsters
-from tools.enums import Encounter
+from tools.enums import Encounter, CharacterType
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.save_handler import load_character, save_character
 
@@ -11,7 +12,7 @@ from tools.save_handler import load_character, save_character
 def main():
     
     # Set to False if you want to  play normal-mode. Sorry if I leave it on True
-    DEV_MODE = False
+    DEV_MODE = True
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
@@ -19,8 +20,8 @@ def main():
 
     if DEV_MODE:
         
-        party = [Gale, Shadowheart, Karlach, Laezel]
-        encounter = Encounter.goblins_4x
+        party = [Gale, Minthara, Karlach, Laezel]
+        encounter = Encounter.owlbear
         party = combat(party, encounter)
     
     while True:
@@ -102,12 +103,11 @@ def combat(party=list, encounter=Encounter):
         if initiative >= len(fighters):
             initiative = 0
 
-        if fighter in skipped_fighters:
+        if fighter in skipped_fighters or fighter.current_hp <= 0:
             continue
         
-        if fighter.current_hp >= 0:
-            monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
-
+        monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
+        
         if not party:
             print("You lose!")
             return []
@@ -187,7 +187,7 @@ def create_custom_character():
         standard_array_scores.remove(score_assigned)
         custom_character_ability_scores.update({score: score_assigned})
     
-    custom_character = Companion(name=custom_character_name, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
+    custom_character = Character(name=custom_character_name, character_type=CharacterType.companion, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
     
     match menu(['Yes', 'No'], "Would you like to save this character?"):
         case 'Yes':

@@ -43,7 +43,7 @@ class Action():
                 character.ability_scores[AbilityScore.CHA]
             )
         else:
-            return character.ability_scores[ability_type]
+            return character.proficiency_bonus + character.ability_scores[ability_type]
 
 PassAction = Action(
     name='Pass action', 

@@ -51,6 +51,8 @@ class Attack(Action):
 
         # Single-target
         for iter in range(self.multi_attack):
+            if not enemies:
+                break
             while True:
                 target = character.choose_enemy(enemies)
                 if target.current_hp <= 0:
@@ -79,7 +81,7 @@ class Attack(Action):
             hitSuccessful =  roll + attack_modifier >= target.armor_class
         
         if not hitSuccessful and not self.halfDamage_onSave:
-            print(f"\n{character.name} misses {target.name} with {self.name}.")
+            print(f"\n{str(character.name).capitalize()} misses {target.name} with {self.name}.")
         return hitSuccessful
     
     def deal_damage(self, character, target, enemies, halved_damage):
@@ -88,10 +90,10 @@ class Attack(Action):
             damage += self.get_modifier(self.modifier, character)
         
         if halved_damage:
-            print(f"\n{target.name} resists {character.name}'s {self.name}, but they still take {damage} damage!")
             damage = damage // 2
+            print(f"\n{str(target.name).capitalize()} resists {character.name}'s {self.name}, but they still take {damage} damage!")
         else: 
-            print(f"\n{character.name} hits {target.name} with {self.name} for {damage} damage!")
+            print(f"\n{str(character.name).capitalize()} hits {target.name} with {self.name} for {damage} damage!")
         target.take_damage(damage)
 
         if target.current_hp <= 0:
@@ -103,7 +105,6 @@ class Attack(Action):
         
             
 # Melee weapons
-
 Dagger = Attack(
     name = Weapon.dagger, 
     damage_dice = {Dice.d4: 1},
@@ -172,6 +173,7 @@ Shortbow = Attack(
     use_damage_modifier = True,
 )
 
+
 # Cantrips
 EldritchBlast = Attack(
     name = Weapon.eldritch_blast, 
@@ -210,6 +212,7 @@ Shillelagh = Attack(
     spell_slot_level = 0,
 )
 
+
 # Leveled spells
 ArmsOfHadar = Attack(
     name = Spell.arms_of_hadar,
@@ -245,6 +248,14 @@ ChromaticOrb = Attack(
 
 
 # Enemy-specific
+CatScratch = Attack(
+    name = Weapon.owlbear_claw, 
+    damage_dice = {Dice.d1: 1},
+    modifier = AbilityScore.finesse,
+    multi_attack = 1,
+    ranged = False,
+    use_damage_modifier = True,
+)
 OwlbearClaw = Attack(
     name = Weapon.owlbear_claw, 
     damage_dice = {Dice.d8: 2},

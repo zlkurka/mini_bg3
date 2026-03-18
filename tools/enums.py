@@ -47,6 +47,7 @@ class CharClass(EnumWithValueRepr):
 
     # Enemy classes
     
+    cat = "cat"
     goblin = "goblin"
     bugbear = "bugbear"
     owlbear = "owlbear"
@@ -142,6 +143,7 @@ class Dice(Enum):
     def __repr__(self):
         return self.name
 
+    d1 = 1
     d4 = 4
     d6 = 6
     d8 = 8

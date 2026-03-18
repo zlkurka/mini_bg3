@@ -7,7 +7,7 @@ character_save_path = 'saved_characters/'
 
 def save_character(character):
     
-    file_name = "character_" + str(character.name)
+    file_name = "character_" + str(character.name) + ".pkl"
     complete_fileName = path.join(character_save_path, file_name)
     
     with open(complete_fileName, 'wb') as character_file:
@@ -25,7 +25,7 @@ def load_character():
 
     for entry in save_files:
         if entry.is_dir() or entry.is_file():
-            saved_characters.update({str(entry.name).lstrip("character_"): entry.name})
+            saved_characters.update({str(entry.name).lstrip("character_").replace(".pkl",""): entry.name})
     save_files.close()
     
     if not saved_characters:
