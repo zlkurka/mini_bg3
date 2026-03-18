@@ -20,7 +20,7 @@ def main():
 
     if DEV_MODE:
         
-        party = [Gale, Minthara, Karlach, Laezel]
+        party = [Gale, Shadowheart, Karlach, Laezel]
         encounter = Encounter.owlbear
         party = combat(party, encounter)
     

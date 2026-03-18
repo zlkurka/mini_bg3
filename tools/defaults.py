@@ -1,5 +1,5 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
-from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, BurningHands, ArmsOfHadar, OwlbearClaw
+from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, BurningHands, ArmsOfHadar, OwlbearClaw, Greataxe, RayOfFrost, EldritchBlast, Crossbow, Dagger, Shillelagh
 from tools.actions import CureWounds, PassAction
 
 char_classes = [
@@ -101,17 +101,17 @@ base_actions = {
     
     # Companion classes
 
-    CharClass.barbarian: [Longsword],
-    CharClass.bard: [Shortbow, CureWounds],
-    CharClass.cleric: [Mace, CureWounds],
-    CharClass.druid: [Shortsword, CureWounds],
+    CharClass.barbarian: [Greataxe],
+    CharClass.bard: [Shortsword, Crossbow, CureWounds],
+    CharClass.cleric: [Mace, Crossbow, CureWounds],
+    CharClass.druid: [Shillelagh, Shortbow, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],
-    CharClass.paladin: [Longsword],
-    CharClass.ranger: [Shortbow],
-    CharClass.rogue: [Shortsword, Shortbow],
+    CharClass.paladin: [Longsword, Crossbow],
+    CharClass.ranger: [Shortsword, Shortbow],
+    CharClass.rogue: [Dagger, Shortbow],
     CharClass.sorcerer: [Firebolt, ChromaticOrb, BurningHands],
-    CharClass.warlock: [Firebolt, ArmsOfHadar],
+    CharClass.warlock: [EldritchBlast, ArmsOfHadar],
     CharClass.wizard: [Firebolt, ChromaticOrb, BurningHands],
 
 
