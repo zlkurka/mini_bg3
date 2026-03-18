@@ -177,3 +177,6 @@ class Character():
             aggro += 2
         
         return aggro
+    
+    def roll_initiative(self):
+        return randint(1,20) + self.ability_scores[AbilityScore.DEX]

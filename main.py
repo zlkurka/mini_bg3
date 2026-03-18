@@ -11,7 +11,7 @@ from tools.save_handler import load_character, save_character
 def main():
     
     # Set to False if you want to  play normal-mode. Sorry if I leave it on True
-    DEV_MODE = True
+    DEV_MODE = False
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
@@ -60,10 +60,32 @@ def combat(party=list, encounter=Encounter):
     monsters = get_monsters(encounter)
     original_party = list(party)
 
-    # Initiative
-    fighters = party + monsters
-    shuffle(fighters)
+    # Roll initiative
+    initiative_rolls = {}
+    for char in party + monsters:
+        roll = 1
+        if roll not in initiative_rolls:
+            initiative_rolls.update({roll: [char]})
+        else: 
+            chars_at_initiative = initiative_rolls[roll]
+            chars_at_initiative.append(char)
+            initiative_rolls.update({roll: chars_at_initiative})
     
+    fighters = list(initiative_rolls.keys())
+    fighters.sort()
+    fighters.reverse()
+
+    for roll in list(fighters):
+        chars = initiative_rolls[roll]
+        if type(chars) != list:
+            chars = [chars]
+        else:
+            shuffle(chars)
+        for char in chars:
+            fighters.append(char)
+        fighters.remove(roll)
+
+    # Print initiative
     print("\nInitiative: ")
     for fighter in fighters:
         print("- " + str(fighter).capitalize())

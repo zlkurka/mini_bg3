@@ -1,5 +1,3 @@
-So I asked my friend Goop if I should code or play Baldur's Gate and she said "code Baldur's Gate," so I did.
-
 This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
 
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler with *Slay the Spire*-inspired rooms (combat and events) and a *Binding of Isaac*-inspired dungeon layout and progression.
@@ -16,19 +14,17 @@ I plan on adding a dungeon-crawler component and potentially RPG elements. My en
 
 
 ## 1st lvl spells
-Area of effect spells with deal damage to all enemies depending on a saving throw. Like attacks, they'll still be short or long range, which will impact aggro. So burning hands or arms of hadar would be short range, while fireball would be long range.
 
 ### Priority
   - Magic missile
   - Mage armor
-  - Burning hands
   - Guiding bolt
+  - Find familiar
   
 ### Add later
   - Armor of agathys
   - Witch bolt
   - Bless
-  - Find familiar
   - Sleep
   - Hunter's mark
   - Shield
