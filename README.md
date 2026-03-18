@@ -2,6 +2,8 @@ So I asked my friend Goop if I should code or play Baldur's Gate and she said "c
 
 This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
 
+I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler with *Slay the Spire*-inspired rooms (combat and events) and a *Binding of Isaac*-inspired dungeon layout and progression.
+
 # To-do's
 
 
@@ -14,6 +16,7 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and 
 
 
 ## 1st lvl spells
+Area of effect spells with deal damage to all enemies depending on a saving throw. Like attacks, they'll still be short or long range, which will impact aggro. So burning hands or arms of hadar would be short range, while fireball would be long range.
 
 ### Priority
   - Magic missile
@@ -48,12 +51,23 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and 
 For now, I think it's simplest to have characters only be able to use potions on themselves? If I had an action economy I could make it more expensive to use it on others...
 - Healing potion (each character gets one per combat)
 
-## Game progression
-Since I only have combat and character creation developed for this game, I'm not sure what I want the full adventure to look like. Right now, I can imagine a few things:
-- Finding new companions (so the companion list isn't super long at the start)
-  - Starting party: Shadowheart, Lae'zel, Gale, Astarion? How do I factor in potential custom character? Or should I work under the assumption that you start with a custom character? That might make more sense
-- Dungeon crawl: move through different rooms and have different encounters. Maybe the rooms could be STS-style, with combat, events, or maybe merchants; rooms mapped out like in Isaac
-- Treasure: gold and items!
+## Game concept, story, and characters
+
+### Concept
+Dungeon crawler (roguelike?)
+- Isaac-style room mapping- start from the dungeon's entrance. Can move from a cleared room to any adjacent room. If you enter an uncleared room, you will encounter a fight or an event (e.g., a trap or puzzle).
+- Along the way, you find new companions, magic items, and, of course, gold
+
+### Characters
+
+#### Companions
+I currently use all the companions from *Baldur's Gate 3*, but if this becomes legit, I want to have non-licensed characters.
+- **Nightkill**: A halfling teenager turned emo rogue. She ran off from her parents who don't understand her and wound up in a dungeon.
+- **Faylen**: A half-elf druid and cult escapee.
+- A runaway goblin (wizard?). 
+
+#### Monsters
+- A party of goblins led by a hobgoblin are prowling the dungeons looking for a runaway- and maybe some treasure while they're there. Watch out for their bugbear warrior!
 
 
 ## Other features

@@ -89,6 +89,8 @@ class Weapon(EnumWithValueRepr):
 
 class Spell(EnumWithValueRepr):
 
+    arms_of_hadar = "arms of hadar"
+    burning_hands = "burning hands"
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
     

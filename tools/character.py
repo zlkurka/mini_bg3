@@ -42,14 +42,10 @@ class Character():
             if character_type == CharacterType.companion:
                 self.max_hp: int = int(base_hp[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp[charclass] / 2 + 1)))
             elif character_type == CharacterType.monster:
-                self.max_hp = base_hp[charclass] + round(base_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
+                self.max_hp: int = base_hp[charclass] + round(base_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
             else:
-                while True:
-                    try:
-                        self.max_hp = int(input("Unable to get max_hp. What should this character's max_hp be? ").strip())
-                        break
-                    except:
-                        print("Invalid input!")
+                print("Invalid character type!")
+                self.max_hp: int = 1
         self.current_hp: int = self.max_hp
         
         # AC

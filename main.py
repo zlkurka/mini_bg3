@@ -19,8 +19,8 @@ def main():
 
     if DEV_MODE:
         
-        party = [Gale, Shadowheart, Halsin, Jaheira]
-        encounter = Encounter.training_dummy
+        party = [Gale, Shadowheart, Karlach, Laezel]
+        encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     
     while True:
@@ -82,8 +82,9 @@ def combat(party=list, encounter=Encounter):
 
         if fighter in skipped_fighters:
             continue
-
-        monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
+        
+        if fighter.current_hp >= 0:
+            monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
 
         if not party:
             print("You lose!")

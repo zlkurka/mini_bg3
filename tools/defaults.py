@@ -1,5 +1,5 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
-from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, OwlbearClaw
+from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, BurningHands, ArmsOfHadar, OwlbearClaw
 from tools.actions import CureWounds, PassAction
 
 char_classes = [
@@ -110,9 +110,9 @@ base_actions = {
     CharClass.paladin: [Longsword],
     CharClass.ranger: [Shortbow],
     CharClass.rogue: [Shortsword, Shortbow],
-    CharClass.sorcerer: [Firebolt, ChromaticOrb],
-    CharClass.warlock: [Firebolt],
-    CharClass.wizard: [Firebolt, ChromaticOrb],
+    CharClass.sorcerer: [Firebolt, ChromaticOrb, BurningHands],
+    CharClass.warlock: [Firebolt, ArmsOfHadar],
+    CharClass.wizard: [Firebolt, ChromaticOrb, BurningHands],
 
 
     # Monster classes

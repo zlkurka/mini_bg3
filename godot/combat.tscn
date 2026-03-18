@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bckr6hgfprxdj"]
+
+[ext_resource type="Texture2D" uid="uid://c6c0o1n3o58ln" path="res://Shadowheart_Model.png" id="1_raif2"]
+
+[node name="Combat" type="Node2D" unique_id=2106770083]
+
+[node name="Companion1" type="Sprite2D" parent="." unique_id=1546881897]
+position = Vector2(243.50003, 404.12366)
+scale = Vector2(0.14899002, 0.14899002)
+texture = ExtResource("1_raif2")
+
+[node name="Label" type="Label" parent="Companion1" unique_id=905505471]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0830001
+anchor_right = 0.5
+anchor_bottom = 1.0830001
+offset_left = -456.40677
+offset_top = -698.3423
+offset_right = 47.79648
+offset_bottom = -550.6814
+text = "10 / 10 HP"
+horizontal_alignment = 1

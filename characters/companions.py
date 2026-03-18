@@ -1,6 +1,8 @@
 from tools.character import Character
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType
 
+# BG3 companions
+
 Astarion = Character(
     name=CharacterName.astarion, 
     character_type=CharacterType.companion,
@@ -149,5 +151,53 @@ Minsc = Character(
         AbilityScore.INT: -1,
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
+    },
+)
+
+# Original characters
+
+Nightkill = Character(
+    name="Nightkill",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.rogue, 
+    race=Race.halfling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -1,
+        AbilityScore.DEX: 3,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 1,
+        AbilityScore.WIS: 2,
+        AbilityScore.CHA: 0,
+    },
+)
+Faylen = Character(
+    name="Faylen",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.druid, 
+    race=Race.half_elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 1,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 0,
+    },
+)
+Monk = Character(
+    name="Monk",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.monk, 
+    race=Race.elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 1,
+        AbilityScore.DEX: 3,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 2,
+        AbilityScore.CHA: -1,
     },
 )
