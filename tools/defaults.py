@@ -137,7 +137,7 @@ class_caster_types = {
    CharClass.ranger: CasterType.halfCaster,
    CharClass.rogue: CasterType.nonCaster,
    CharClass.sorcerer: CasterType.fullCaster,
-   CharClass.warlock: CasterType.nonCaster,
+   CharClass.warlock: CasterType.fullCaster,
    CharClass.wizard: CasterType.fullCaster,
 
 }

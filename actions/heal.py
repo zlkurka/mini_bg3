@@ -57,7 +57,7 @@ CureWounds = Heal(
     spell_slot_level=1
 )
 HealingWord = Heal(
-    name = Spell.cure_wounds,
+    name = Spell.healing_word,
     heal_dice = {Dice.d4: 1},
     heal_const = 1,
     can_choose_target = True,
