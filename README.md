@@ -2,6 +2,29 @@ This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and 
 
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
+# How to play
+
+This program can be run in a few different ways, none of which are particularly straightforward unfortunately (hoping to find a solution soon). Here are a few different ways:
+
+
+## Using an IDE
+
+- Download this repository. I will have releases soon where you can download it.
+- If you already have an IDE like VS Code installed, this will be your easiest choice. 
+- Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
+- Open this project's root folder in your IDE. Navigate to `main.py`
+- Execute the code in `main.py`
+
+
+## From your computer's terminal
+
+- Download this repository. I will have releases soon where you can download it.
+- Make sure you have Python installed on your computer.
+- Copy the path to `main.py` in your file navigation system
+- Enter `python` into your terminal (`python3` on Mac I believe), and paste the path to the file before hitting enter
+  - Example: `python users/name/Downloads/mini_bg3/main.py`
+
+
 # To-do's
 
 

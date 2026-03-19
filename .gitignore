@@ -1,7 +1,6 @@
 __pycache__
 .DS_Store
-Lib
-Scripts
-Include
-pyvenv.cfg
+.vscode
+
 saved_characters/*
+circular.md

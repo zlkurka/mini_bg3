@@ -1,6 +1,8 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
-from tools.attacks import Longsword, Shortbow, Mace, Shortsword, MonkUnarmed, Firebolt, ChromaticOrb, BurningHands, ArmsOfHadar, OwlbearClaw, Greataxe, RayOfFrost, EldritchBlast, Crossbow, Dagger, Shillelagh
-from tools.actions import CureWounds, PassAction
+from actions.attacks import *
+from actions.heal import *
+from actions.summon import *
+from actions.actions import PassAction
 
 char_classes = [
 
@@ -103,16 +105,16 @@ base_actions = {
 
     CharClass.barbarian: [Greataxe],
     CharClass.bard: [Shortsword, Crossbow, CureWounds],
-    CharClass.cleric: [Mace, Crossbow, CureWounds],
-    CharClass.druid: [Shillelagh, Shortbow, CureWounds],
+    CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds],
+    CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],
     CharClass.paladin: [Longsword, Crossbow],
-    CharClass.ranger: [Shortsword, Shortbow],
+    CharClass.ranger: [Shortsword, Shortbow, FindFamiliar],
     CharClass.rogue: [Dagger, Shortbow],
-    CharClass.sorcerer: [Firebolt, ChromaticOrb, BurningHands],
-    CharClass.warlock: [EldritchBlast, ArmsOfHadar],
-    CharClass.wizard: [Firebolt, ChromaticOrb, BurningHands],
+    CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
+    CharClass.warlock: [EldritchBlast, PoisonSpray, ArmsOfHadar],
+    CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
 
 
     # Monster classes

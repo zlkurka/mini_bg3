@@ -1,25 +1,20 @@
 from random import shuffle
 from tools.menu import menu
-from tools.character import Character
 from tools.print_list import print_list
-from characters.companions import Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc
-from characters.monsters import get_monsters
 from tools.enums import Encounter, CharacterType
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.save_handler import load_character, save_character
+from characters.companions import *
+from characters.monsters import get_monsters
 
 
 def main():
-    
-    # Set to False if you want to  play normal-mode. Sorry if I leave it on True
-    DEV_MODE = True
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     party = []
 
-    if DEV_MODE:
-        
+    if input('Press [ENTER] to start.') == 'dev':    
         party = [Gale, Shadowheart, Karlach, Laezel]
         encounter = Encounter.owlbear
         party = combat(party, encounter)
@@ -92,7 +87,6 @@ def combat(party=list, encounter=Encounter):
         print("- " + str(fighter).capitalize())
     
     initiative = 0
-    skipped_fighters = []
     
     # Combat
     while True:
@@ -103,10 +97,10 @@ def combat(party=list, encounter=Encounter):
         if initiative >= len(fighters):
             initiative = 0
 
-        if fighter in skipped_fighters or fighter.current_hp <= 0:
+        if fighter.current_hp <= 0:
             continue
         
-        monsters, party, skipped_fighters = fighter.action(monsters, party, skipped_fighters)
+        monsters, party, fighters = fighter.action(monsters, party, fighters)
         
         if not party:
             print("You lose!")

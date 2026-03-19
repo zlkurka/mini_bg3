@@ -82,8 +82,10 @@ class Weapon(EnumWithValueRepr):
     # Cantrips
     eldritch_blast = "eldritch blast"
     firebolt = "firebolt"
-    shillelagh = "shillelagh"
+    poison_spray = "poison spray"
     ray_of_frost = "ray of frost"
+    sacred_flame = "sacred flame"
+    shillelagh = "shillelagh"
 
     # Enemy-specific attacks
     owlbear_claw = "claw"
@@ -94,6 +96,7 @@ class Spell(EnumWithValueRepr):
     burning_hands = "burning hands"
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
+    healing_word = "healing word"
     
     # Class-specific
     barbarian_rage = "rage"
@@ -162,3 +165,7 @@ class CharacterType(EnumWithValueRepr):
 
     companion = "companion"
     monster = "monster"
+
+class SummonType(EnumWithValueRepr):
+
+    familiar = "familiar"

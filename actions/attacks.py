@@ -1,5 +1,5 @@
 from tools.enums import Weapon, AbilityScore, Dice, Spell
-from tools.actions import Action
+from actions.actions import Action
 from random import randint
 
 class Attack(Action):
@@ -33,7 +33,7 @@ class Attack(Action):
         else: 
             self.savingThrow_abilityScore: AbilityScore = None
     
-    def action(self, character, enemies=list, team=list):
+    def action(self, character, enemies=list, team=list, fighters=list):
         
         # Expend spell slot
         if self.spell_slot_level > 0:
@@ -193,6 +193,16 @@ Firebolt = Attack(
     use_damage_modifier = False,
     spell_slot_level = 0,
 )
+PoisonSpray = Attack(
+    name = Weapon.poison_spray, 
+    damage_dice = {Dice.d12: 1},
+    modifier = AbilityScore.spellcasting,
+    multi_attack = 1,
+    ranged = True,
+    savingThrow_abilityScore=AbilityScore.CON,
+    use_damage_modifier = False,
+    spell_slot_level = 0,
+)
 RayOfFrost = Attack(
     name = Weapon.ray_of_frost, 
     damage_dice = {Dice.d8: 1},
@@ -202,10 +212,20 @@ RayOfFrost = Attack(
     use_damage_modifier = False,
     spell_slot_level = 0,
 )
+SacredFlame = Attack(
+    name = Weapon.sacred_flame, 
+    damage_dice = {Dice.d8: 1},
+    modifier = AbilityScore.spellcasting,
+    multi_attack = 1,
+    ranged = True,
+    savingThrow_abilityScore=AbilityScore.DEX,
+    use_damage_modifier = False,
+    spell_slot_level = 0,
+)
 Shillelagh = Attack(
     name = Weapon.shillelagh, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.WIS,
+    modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,

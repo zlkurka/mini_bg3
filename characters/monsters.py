@@ -1,6 +1,6 @@
-from tools.enums import CharClass, Encounter, AbilityScore, CharacterType
-from tools.character import Character
-from tools.attacks import CatScratch
+from tools.enums import CharClass, Encounter, AbilityScore, CharacterType, SummonType
+from characters.character import Character
+from actions.attacks import CatScratch
 from random import sample
 from copy import deepcopy
 
@@ -89,3 +89,9 @@ goblin_names = [
     "Schlerb",
     "Bajesus"
 ]
+
+summon_types = {
+    SummonType.familiar: [
+        Cat,
+    ],
+}

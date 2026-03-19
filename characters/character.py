@@ -19,6 +19,7 @@ class Character():
         max_hp=int, 
         armor_class=int, 
         extra_actions=list,
+
     ):
         
         # I'm sorry this is disgusting
@@ -97,7 +98,7 @@ class Character():
             self.max_hp: int = 1
         self.current_hp: int = self.max_hp
     
-    def action(self, enemies=list, team=list, skipped_fighters=list):
+    def action(self, enemies=list, team=list, fighters=list):
         
         # Choosing action
         if len(self.actions) > 1:
@@ -107,23 +108,21 @@ class Character():
         
         # Doing action
         if self.character_type == CharacterType.companion:
-            self, enemies, team = action_choice.action(character=self, enemies=enemies, team=team)
+            self, enemies, team = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters)
         elif self.character_type == CharacterType.monster:
-            self, team, enemies = action_choice.action(character=self, enemies=team, team=enemies)
+            self, team, enemies = action_choice.action(character=self, enemies=team, team=enemies, fighters=fighters)
         else:
             print("Error: unacceptable character type!")
         
         # Removing dead characters
         for char in enemies:
             if char.current_hp <= 0:
-                skipped_fighters.append(char)
                 enemies.remove(char)
         for char in team:
             if char.current_hp <= 0:
-                skipped_fighters.append(char)
                 team.remove(char)
         
-        return enemies, team, skipped_fighters
+        return enemies, team, fighters
     
     def choose_action(self):
         
