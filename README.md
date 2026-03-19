@@ -1,19 +1,14 @@
 This is a simple, terminal-based game inspired by *Dungeons and Dragons 5e* and *Baldur's Gate 3*. You can choose characters to fight alongside or build your own and battle different groups of monsters.
 
+I only began learning Python a few months ago, and with it the ins and outs of computer stuff, so I apologize if some of my instructions are unclear, unoptimal, or don't work altogether. I also apologize that my code is disgusting, lol.
+
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
 # How to play
 
-This program can be run in a few different ways, none of which are particularly straightforward unfortunately (hoping to find a solution soon). Here are a few different ways:
+The game is executed from the shortcut `mini_bg3` in the root project folder, which points to dist\main\main.exe. Make sure you have python installed on your device in order to run the program. 
 
-
-## Using an IDE
-
-- Download this repository. I will have releases soon where you can download it.
-- If you already have an IDE like VS Code installed, this will be your easiest choice. 
-- Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
-- Open this project's root folder in your IDE. Navigate to `main.py`
-- Execute the code in `main.py`
+The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can execute the code using your device's terminal or an installed IDE. 
 
 
 ## From your computer's terminal
@@ -23,6 +18,15 @@ This program can be run in a few different ways, none of which are particularly 
 - Copy the path to `main.py` in your file navigation system
 - Enter `python` into your terminal (`python3` on Mac I believe), and paste the path to the file before hitting enter
   - Example: `python users/name/Downloads/mini_bg3/main.py`
+
+
+## Using an IDE
+
+- Download this repository. I will have releases soon where you can download it.
+- If you already have an IDE like VS Code installed, this will be your easiest choice. 
+- Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
+- Open this project's root folder in your IDE. Navigate to `main.py`
+- Execute the code in `main.py`
 
 
 # To-do's
