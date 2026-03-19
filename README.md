@@ -6,7 +6,7 @@ I plan on adding a dungeon-crawler component and potentially RPG elements. My en
 
 # How to play
 
-The game is executed from the shortcut `mini_bg3` in the root project folder, which points to dist\main\main.exe. Make sure you have python installed on your device in order to run the program. 
+The game is executed from `main.exe` in the root project folder. Make sure you have python installed on your device in order to run the program. 
 
 The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can execute the code using your device's terminal or an installed IDE. 
 
