@@ -5,6 +5,10 @@ from tools.defaults import base_max_hp, base_armor_class, base_actions, class_ca
 
 class Character():
     
+    def make_character() -> "Character":
+        # I'm not sure how to do this, but I'm hoping this will help with the FindFamiliar circular imports
+        pass
+
     def __init__(self, 
         
         name, 

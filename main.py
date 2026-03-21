@@ -193,5 +193,5 @@ def create_custom_character():
 
     return custom_character
 
-
-main()
+if __name__ == "__main__":
+    main()

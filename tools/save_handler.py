@@ -1,4 +1,4 @@
-from os import path, scandir
+from os import path, scandir, makedirs
 from pickle import dump, load, HIGHEST_PROTOCOL
 from tools.menu import menu
 
@@ -9,7 +9,10 @@ def save_character(character):
     
     file_name = "character_" + str(character.name) + ".pkl"
     complete_fileName = path.join(character_save_path, file_name)
-    
+
+    if not path.exists(character_save_path):
+        makedirs(character_save_path)
+
     with open(complete_fileName, 'wb') as character_file:
         dump(character, character_file, protocol=HIGHEST_PROTOCOL)
         character_file.close()

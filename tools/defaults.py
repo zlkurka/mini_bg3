@@ -110,7 +110,7 @@ base_actions = {
     CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],
     CharClass.paladin: [Longsword, Crossbow],
-    CharClass.ranger: [Shortsword, Shortbow, FindFamiliar],
+    CharClass.ranger: [Shortsword, Shortbow],
     CharClass.rogue: [Dagger, Shortbow],
     CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
     CharClass.warlock: [EldritchBlast, PoisonSpray, ArmsOfHadar],
