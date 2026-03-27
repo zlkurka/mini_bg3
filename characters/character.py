@@ -84,6 +84,7 @@ class Character():
 
         # self.equipment = base_equipment[self.charclass]
 
+        self.conditions: list = []
         self.lastAttack_isMelee: bool = False
 
         # Saving other input for resets
@@ -160,6 +161,9 @@ class Character():
         
         if damage:
             
+            for cond in self.conditions:
+                damage = cond.reduce_damage(damage)
+
             self.current_hp -= damage
 
             if self.current_hp <= 0:

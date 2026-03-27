@@ -201,3 +201,48 @@ Monk = Character(
         AbilityScore.CHA: -1,
     },
 )
+Barb2 = Character(
+    name=CharacterName.karlach,  
+    character_type=CharacterType.companion,
+    charclass=CharClass.barbarian, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 3,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 1,
+    },
+)
+Barb3 = Character(
+    name=CharacterName.karlach,  
+    character_type=CharacterType.companion,
+    charclass=CharClass.barbarian, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 3,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 1,
+    },
+)
+Barb4 = Character(
+    name=CharacterName.karlach,  
+    character_type=CharacterType.companion,
+    charclass=CharClass.barbarian, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 3,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 1,
+    },
+)

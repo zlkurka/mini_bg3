@@ -3,11 +3,12 @@ from random import randint
 
 class Action():
 
-    def __init__(self, name, dice, modifier, multi_target):
+    def __init__(self, name, dice=dict, modifier=AbilityScore, multi_target=int, spell_slot_level=int):
         self.name = name
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
         self.multi_target: int = multi_target
+        self.spell_slot_level: int = spell_slot_level
 
     def __repr__(self):
         return str(self.name)

@@ -15,7 +15,7 @@ def main():
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':    
-        party = [Gale, Shadowheart, Karlach, Laezel]
+        party = [Karlach, Barb2, Barb3, Barb4]
         encounter = Encounter.owlbear
         party = combat(party, encounter)
     

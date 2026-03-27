@@ -97,7 +97,9 @@ class Spell(EnumWithValueRepr):
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
     healing_word = "healing word"
-    
+
+class SpecialAction(EnumWithValueRepr):
+
     # Class-specific
     barbarian_rage = "rage"
 
@@ -165,6 +167,10 @@ class CharacterType(EnumWithValueRepr):
 
     companion = "companion"
     monster = "monster"
+
+class Buff(EnumWithValueRepr):
+
+    resistant = "resistant"
 
 class SummonType(EnumWithValueRepr):
 

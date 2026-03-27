@@ -1,6 +1,6 @@
 from tools.menu import menu
 from tools.enums import Spell, Dice
-from actions.actions import Action
+from actions.action import Action
 
 class Heal(Action):
     

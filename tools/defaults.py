@@ -2,7 +2,8 @@ from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, Abil
 from actions.attacks import *
 from actions.heal import *
 from actions.summon import *
-from actions.actions import PassAction
+from actions.buff_debuff import *
+from actions.action import PassAction
 
 char_classes = [
 
@@ -103,7 +104,7 @@ base_actions = {
     
     # Companion classes
 
-    CharClass.barbarian: [Greataxe],
+    CharClass.barbarian: [Greataxe, Rage],
     CharClass.bard: [Shortsword, Crossbow, CureWounds],
     CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds],
     CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
