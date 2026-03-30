@@ -2,6 +2,6 @@ __pycache__
 .DS_Store
 .vscode
 
-saved_characters/*
+saved_characters
 circular.md
 create_pyinstaller_exe.bat

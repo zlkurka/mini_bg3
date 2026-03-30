@@ -6,102 +6,113 @@ I plan on adding a dungeon-crawler component and potentially RPG elements. My en
 
 # How to play
 
-The game is executed from `main.exe` in the root project folder. Make sure you have python installed on your device in order to run the program. 
+Make sure you have Python 3.14 installed, along with Rich (use `pip install rich` or `python -m pip install rich`)
 
-The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can execute the code using your device's terminal or an installed IDE. 
+## Using executable
 
+The game is executed from `main.exe` in the root project folder of the latest release. The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can execute the code using your device's terminal or an installed IDE.
+
+I’m working on a better way of making an exectuable, but I’m a beginner to software development and Python is a wacky language, so it’s taking some time.
 
 ## From your computer's terminal
 
-- Download this repository. I will have releases soon where you can download it.
-- Make sure you have Python installed on your computer.
-- Copy the path to `main.py` in your file navigation system
-- Enter `python` into your terminal (`python3` on Mac I believe), and paste the path to the file before hitting enter
-  - Example: `python users/name/Downloads/mini_bg3/main.py`
-
+* Download this repository. I will have releases soon where you can download it.
+* Make sure you have Python installed on your computer.
+* Copy the path to `main.py` in your file navigation system
+* Enter `python` into your terminal (`python3` on Mac I believe), and paste the path to the file before hitting enter
+  * Example: `python users/name/Downloads/mini_bg3/main.py`
 
 ## Using an IDE
 
-- Download this repository. I will have releases soon where you can download it.
-- If you already have an IDE like VS Code installed, this will be your easiest choice. 
-- Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
-- Open this project's root folder in your IDE. Navigate to `main.py`
-- Execute the code in `main.py`
+* Download this repository. I will have releases soon where you can download it.
+* If you already have an IDE like VS Code installed, this will be your easiest choice.
+* Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
+* Open this project's root folder in your IDE. Navigate to `main.py`
+* Execute the code in `main.py`
 
 
 # To-do's
 
-
 ## Class-specific features
-- Rogue: Sneak attack
-- Barbarian: rage
-- Druid: wildshape
-- Bard: inspo
-- Cleric: healing cantrip
 
+* Rogue: Sneak attack
+* Druid: wildshape
+* Bard: inspo
 
 ## 1st lvl spells
 
 ### Priority
-  - Magic missile
-  - Mage armor
-  - Guiding bolt
-  - Find familiar
-  
-### Add later
-  - Armor of agathys
-  - Witch bolt
-  - Bless
-  - Sleep
-  - Hunter's mark
-  - Shield
-  - Ensnaring strike
 
+* Magic missile
+* Mage armor
+* Guiding bolt
+* Find familiar
+  * Can be played automatically at the start of combat at the cost of a spell slot (or ability use for ranger)
+
+### Add later
+
+* Armor of agathys
+* Witch bolt
+* Bless
+* Sleep
+* Hunter's mark
+* Shield
+* Ensnaring strike
 
 ## Monsters
 
 ### New monsters
-- Giant spider
-- Goblin variants (warrior, archer, mage, healer); randomly sampled in goblin fight
+
+* Giant spider
+* Goblin variants (warrior, archer, mage, healer); randomly sampled in goblin fight
 
 ### New combat styles
-- Tactical levels: some enemies are smarter than others and will try to target squishier party members and healers
 
+* Tactical levels: some enemies are smarter than others and will try to target squishier party members and healers
 
 ## Magic items
 
 ### Potions
+
 For now, I think it's simplest to have characters only be able to use potions on themselves? If I had an action economy I could make it more expensive to use it on others...
-- Healing potion (each character gets one per combat)
+
+* Healing potion (each character gets one per combat)
 
 ## Game concept, story, and characters
 
 ### Concept
+
 Dungeon crawler (roguelike?)
-- Isaac-style room mapping- start from the dungeon's entrance. Can move from a cleared room to any adjacent room. If you enter an uncleared room, you will encounter a fight or an event (e.g., a trap or puzzle).
-- Along the way, you find new companions, magic items, and, of course, gold
+
+* *Binding of Isaac*-style room mapping- start from the dungeon's entrance. Can move from a cleared room to any adjacent room. If you enter an uncleared room, you will encounter a fight or an event (e.g., a trap or puzzle).
+* Along the way, you find new companions, magic items, and, of course, gold.
 
 ### Characters
 
 #### Companions
-I currently use all the companions from *Baldur's Gate 3*, but if this becomes legit, I want to have non-licensed characters.
-- **Nightkill**: A halfling teenager turned emo rogue. She ran off from her parents who don't understand her and wound up in a dungeon.
-- **Faylen**: A half-elf druid and cult escapee.
-- A runaway goblin (wizard?). 
+
+I currently use all the companions from *Baldur's Gate 3*, but if this becomes legit, I want to have non-licensed characters. I’d like to have one companion for each class.
+
+* **Nightkill**: A halfling teenager turned emo rogue. She ran off from her parents who don't understand her and wound up in a dungeon.
+* **Faylen**: A half-elf druid and cult escapee.
+* A runaway goblin (wizard?).
 
 #### Monsters
-- A party of goblins led by a hobgoblin are prowling the dungeons looking for a runaway- and maybe some treasure while they're there. Watch out for their bugbear warrior!
 
+* A party of goblins led by a hobgoblin are prowling the dungeons looking for a runaway- and maybe some treasure while they're there. Watch out for their bugbear warrior!
+* An artificer and their collection of constructs.
 
 ## Other features
-- Add Nevermind to action targeting
-- Add equipment; auto-equip during __init__
-- Add visual combat in Godot
-- Add race features
-- Add action economy (action, bonus action, reaction, movement?)
-- Add reviving dead characters (Withers, spend gold; revivify)
-- Add higher levels
-  - Spell casters are reassigned spell slots with base_spell_slots[casterType][level]
+
+* Add Nevermind to action targeting
+* Add equipment; auto-equip during `__init__`
+* Add combat UI in Textual
+* Add race features
+* Add action economy (action, bonus action, reaction, movement?)
+* Add reviving dead characters (Withers, spend gold; revivify)
+* Add higher levels
+  * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
 
 # Copyright statement
+
 © 2026 Zoey Kurka. All rights reserved.
