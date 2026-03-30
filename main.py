@@ -117,7 +117,7 @@ def combat(party=list, encounter=Encounter):
                     print(f"{char.name}: {char.current_hp} HP remaining.")
                 else:
                     print(f"{char.name}: died in combat.")
-
+            print()
             return party
 
 

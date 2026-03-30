@@ -2,6 +2,7 @@ from random import choice, randint
 from actions.action import PassAction
 from actions.buff_debuff import Buff
 from tools.menu import menu
+from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 from rich import print
@@ -147,7 +148,7 @@ class Character():
 
         if self.character_type == CharacterType.monster:
             return choice(action_options)
-        return menu(action_options, f"\nWhat would {self.name} like to do?")
+        return menu(action_options, f"\nWhat would {str(self)} like to do?")
     
     def choose_enemy(self, enemies):
         
@@ -161,7 +162,7 @@ class Character():
             return choice(aggro_raffle)
 
         if len(enemies) > 1:
-            return menu(enemies, f"\nWho would {self.name} like to attack?", show_race=False, show_class=False, show_hp=True)
+            return menu(enemies, f"\nWho would {str(self)} like to attack?", show_hp=True)
         else:
             return enemies[0]
 
@@ -179,7 +180,7 @@ class Character():
                 print(f"{self.name} has died!")
 
             else:
-                print(f"{str(self.name).capitalize()} has {self.current_hp} health remaining.")
+                print(f"{rich_capitalize(self)} has {self.current_hp} health remaining.")
         
         else:
             print("No damage dealt.")

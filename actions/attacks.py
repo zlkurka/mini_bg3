@@ -2,6 +2,7 @@ from tools.enums import Weapon, AbilityScore, Dice, Spell
 from actions.action import Action
 from random import randint
 from rich import print
+from tools.rich_capitalize import rich_capitalize
 
 class Attack(Action):
     
@@ -82,7 +83,7 @@ class Attack(Action):
             hitSuccessful =  roll + attack_modifier >= target.armor_class
         
         if not hitSuccessful and not self.halfDamage_onSave:
-            print(f"\n{str(character.name).capitalize()} misses {target.name} with {self.name}.")
+            print(f"\n{rich_capitalize(character)} misses {target} with {self.name}.")
         return hitSuccessful
     
     def deal_damage(self, character, target, enemies, halved_damage):
@@ -92,9 +93,9 @@ class Attack(Action):
         
         if halved_damage:
             damage = damage // 2
-            print(f"\n{str(target.name).capitalize()} resists {character.name}'s {self.name}, but they still take {damage} damage!")
+            print(f"\n{rich_capitalize(target)} resists {character}'s {self.name}, but they still take {damage} damage!")
         else: 
-            print(f"\n{str(character.name).capitalize()} hits {target.name} with {self.name} for {damage} damage!")
+            print(f"\n{rich_capitalize(character)} hits {target} with {self.name} for {damage} damage!")
         target.take_damage(damage)
 
         if target.current_hp <= 0:
