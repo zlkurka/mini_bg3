@@ -1,4 +1,5 @@
 from string import ascii_uppercase
+from rich import print
 
 def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=bool):
 
@@ -29,8 +30,14 @@ def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=b
     for iter in range(len(options)):
         
         list_item = options[iter]
+        list_item_name = str(list_item).capitalize()
+        if "]" in list_item_name:
+            item_name_listed = list(list_item_name)
+            index_char_after_end_bracket = item_name_listed.index("]") + 1
+            item_name_listed.insert(index_char_after_end_bracket, item_name_listed.pop(index_char_after_end_bracket).upper())
+            list_item_name = "".join(item_name_listed)
 
-        print(f'{ascii_uppercase[iter]}) {str(list_item).capitalize()}', end='')
+        print(f'{ascii_uppercase[iter]}) {list_item_name}', end='')
         
         if show_race and show_class:
             try:

@@ -4,6 +4,7 @@ from tools.print_list import print_list
 from tools.enums import Encounter, CharacterType
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.save_handler import load_character, save_character
+from rich import print
 from characters.companions import *
 from characters.monsters import get_monsters
 

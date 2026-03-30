@@ -2,12 +2,9 @@ from random import choice, randint
 from tools.menu import menu
 from tools.enums import CharClass, Race, AbilityScore, CharacterType
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
+from rich import print
 
 class Character():
-    
-    def make_character() -> "Character":
-        # I'm not sure how to do this, but I'm hoping this will help with the FindFamiliar circular imports
-        pass
 
     def __init__(self, 
         
@@ -91,7 +88,11 @@ class Character():
         self.base_hp = base_hp
 
     def __repr__(self):
-        return str(self.name)
+        if self.character_type == CharacterType.companion:
+            return "[bold yellow]" + str(self.name) + "[/bold yellow]"
+        if self.character_type == CharacterType.monster:
+            return "[bold red]" + str(self.name) + "[/bold red]"
+        return "[bold]" + str(self.name) + "[/bold]"
     
     def reset(self):
         if self.character_type == CharacterType.companion:

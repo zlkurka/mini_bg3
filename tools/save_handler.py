@@ -1,6 +1,7 @@
 from os import path, scandir, makedirs
 from pickle import dump, load, HIGHEST_PROTOCOL
 from tools.menu import menu
+from rich import print
 
 character_save_path = 'saved_characters/'
 

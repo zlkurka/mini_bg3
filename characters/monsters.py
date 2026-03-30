@@ -3,6 +3,7 @@ from characters.character import Character
 from actions.attacks import CatScratch
 from random import sample
 from copy import deepcopy
+from rich import print
 
 def get_monsters(encounter=Encounter):
     

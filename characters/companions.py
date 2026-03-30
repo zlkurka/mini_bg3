@@ -1,5 +1,6 @@
 from characters.character import Character
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType
+from rich import print
 
 # BG3 companions
 
