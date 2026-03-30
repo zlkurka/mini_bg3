@@ -1,10 +1,11 @@
 from random import shuffle
+from rich import print
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.enums import Encounter, CharacterType
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.save_handler import load_character, save_character
-from rich import print
+from tools.rich_capitalize import rich_capitalize
 from characters.companions import *
 from characters.monsters import get_monsters
 
@@ -27,6 +28,8 @@ def main():
                 
                 if not party:
                     party = pick_party(companions)
+                if not party:
+                    continue
 
                 for char in party:
                     companions.remove(char)
@@ -85,7 +88,7 @@ def combat(party=list, encounter=Encounter):
     # Print initiative
     print("\nInitiative: ")
     for fighter in fighters:
-        print("- " + str(fighter).capitalize())
+        print("- " + rich_capitalize(fighter))
     
     initiative = 0
     
