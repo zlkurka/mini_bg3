@@ -1,6 +1,7 @@
 from random import choice, randint
 from actions.action import PassAction
 from actions.buff_debuff import Buff
+from actions.heal import Heal
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType
@@ -109,7 +110,7 @@ class Character():
     
     def action(self, enemies=list, team=list, fighters=list):
         
-        action_choice = self.choose_action()
+        action_choice = self.choose_action(enemies, team)
         
         # Doing action
         if self.character_type == CharacterType.companion:
@@ -129,19 +130,30 @@ class Character():
         
         return enemies, team, fighters
     
-    def choose_action(self):
+    def choose_action(self, enemies=list, team=list):
         
         action_options = []
 
         for act in self.actions:
+            
             if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
                 continue
+            
             if type(act) == Buff:
                 if act.targetSelf and act.condition in self.conditions:
                     continue
+            
+            if type(act) == Heal:
+                team_missing_hp = 0
+                for char in team:
+                    team_missing_hp += char.max_hp - char.current_hp
+                if team_missing_hp <= 0:
+                    continue
+            
             action_options.append(act)
         
-        action_options.append(PassAction)
+        if self.character_type == CharacterType.companion:
+            action_options.append(PassAction)
 
         if len(action_options) == 1:
             return action_options[0]
