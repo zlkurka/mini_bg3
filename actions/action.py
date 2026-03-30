@@ -1,5 +1,6 @@
 from tools.enums import Dice, AbilityScore
 from random import randint
+from rich import print
 
 class Action():
 

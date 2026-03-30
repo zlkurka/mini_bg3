@@ -2,6 +2,7 @@ from actions.action import Action
 from tools.menu import menu
 from tools.enums import SummonType
 from copy import deepcopy
+from rich import print
 
 class Summon(Action):
 

@@ -1,4 +1,6 @@
 from random import choice, randint
+from actions.action import PassAction
+from actions.buff_debuff import Buff
 from tools.menu import menu
 from tools.enums import CharClass, Race, AbilityScore, CharacterType
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
@@ -106,11 +108,7 @@ class Character():
     
     def action(self, enemies=list, team=list, fighters=list):
         
-        # Choosing action
-        if len(self.actions) > 1:
-            action_choice = self.choose_action()
-        else:
-           action_choice = self.actions[0]
+        action_choice = self.choose_action()
         
         # Doing action
         if self.character_type == CharacterType.companion:
@@ -132,11 +130,20 @@ class Character():
     
     def choose_action(self):
         
-        action_options = list(self.actions)
+        action_options = []
 
         for act in self.actions:
             if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
-                action_options.remove(act)
+                continue
+            if type(act) == Buff:
+                if act.targetSelf and act.condition in self.conditions:
+                    continue
+            action_options.append(act)
+        
+        action_options.append(PassAction)
+
+        if len(action_options) == 1:
+            return action_options[0]
 
         if self.character_type == CharacterType.monster:
             return choice(action_options)
@@ -197,6 +204,9 @@ class Character():
         self.spell_slots[spell_level] -= 1
         return True
     
+    def get_actions(self):
+        pass
+
     def get_aggro(self):
 
         aggro = 1

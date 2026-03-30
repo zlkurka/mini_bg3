@@ -1,6 +1,7 @@
 from tools.enums import Weapon, AbilityScore, Dice, Spell
 from actions.action import Action
 from random import randint
+from rich import print
 
 class Attack(Action):
     
