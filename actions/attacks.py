@@ -160,7 +160,7 @@ MonkUnarmed = Attack(
     name = Weapon.unarmed, 
     damage_dice = {Dice.d4: 1},
     modifier = AbilityScore.finesse,
-    multi_attack = 2,
+    multi_attack = 3,
     ranged = False,
     use_damage_modifier = True,
 )

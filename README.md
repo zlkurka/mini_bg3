@@ -32,6 +32,12 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 
 # To-do's
 
+## Priority
+
+* Rogue sneak attack
+* New monsters
+* Consumable abilities
+
 ## Class-specific features
 
 * Rogue: Sneak attack
@@ -103,7 +109,8 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
-* Add Nevermind to action targeting
+* Add consumable abilities (rage)
+  * Maybe I’ll have a dict like {BarbarianRage: 2}
 * Add other options for setting ability scores (point buy, rolling scores)
 * Add equipment; auto-equip during `__init__`
 * Add combat UI in Textual

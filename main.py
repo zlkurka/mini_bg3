@@ -1,4 +1,4 @@
-from random import shuffle
+from random import shuffle, sample
 from rich import print
 from tools.menu import menu
 from tools.print_list import print_list
@@ -22,7 +22,7 @@ def main():
         party = combat(party, encounter)
     
     while True:
-        match menu(["Go to combat", "Choose party", "Add custom character", "Save a character to file",], "What would you like to do?"):
+        match menu(["Go to combat", "Choose party", "Add custom character", "Save a character to file", "Romance"], "What would you like to do?"):
             
             case "Go to combat":
                 
@@ -50,6 +50,10 @@ def main():
             
             case "Save a character to file":
                 save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
+
+            case "Romance":
+                sex_havers = sample(companions, 2)
+                print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
         
             case _:
                 print("Invalid option!")

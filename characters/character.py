@@ -154,7 +154,7 @@ class Character():
         if self.character_type == CharacterType.monster:
             return choice(action_options)
         
-        return menu(action_options, f"\nWhat would {str(self)} like to do?")
+        return menu(action_options, f"\nWhat would {str(self)} like to do?", show_spell_level=True)
     
     def choose_target(self, targets, action):
         
@@ -203,6 +203,16 @@ class Character():
                 self.current_hp += heal_amount
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
+    
+    def ability_check(self, ability_type, difficulty_class):
+        roll = randint(1,20) + self.ability_scores[ability_type]
+        checkSuccessful = roll >= difficulty_class
+        print(f"{self} rolled a {roll} and ", end="")
+        if checkSuccessful:
+            print("succeeded!")
+        else:
+            print("failed.")
+        return checkSuccessful
 
     def cast_leveled_spell(self, spell_level: int) -> bool:
         if not self.spell_slots[spell_level]:

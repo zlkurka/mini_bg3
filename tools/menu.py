@@ -2,7 +2,7 @@ from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
 
-def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False):
+def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False):
 
     # Acceptable list item types:
         # str
@@ -44,6 +44,13 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
         if show_hp:
             try:
                 print(f", {list_item.current_hp} / {list_item.max_hp} HP", end='')
+            except AttributeError:
+                pass
+        
+        if show_spell_level:
+            try:
+                if list_item.spell_slot_level > 0:
+                    print(f", level {list_item.spell_slot_level} spell", end='')
             except AttributeError:
                 pass
 
