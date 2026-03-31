@@ -1,4 +1,4 @@
-from tools.enums import Weapon, AbilityScore, Dice, Spell
+from tools.enums import Weapon, AbilityScore, Dice, Spell, MenuOptions
 from actions.action import Action
 from random import randint
 from rich import print
@@ -45,6 +45,8 @@ class Attack(Action):
             if not character.cast_leveled_spell(self.spell_slot_level):
                 return character, enemies, team
         
+        nevermindSelected = False 
+        
         # Area of effect
         if self.area_of_effect:
             for target in list(enemies):
@@ -59,10 +61,14 @@ class Attack(Action):
             if not enemies:
                 break
             while True:
-                target = character.choose_enemy(enemies)
+                
+                target = character.choose_target(targets=enemies, action=self)
+                if target == MenuOptions.nevermind:
+                    nevermindSelected = True
+                    return character, enemies, team, nevermindSelected
+                
                 if target.current_hp <= 0:
                     continue
-
                 if self.check_if_hit(character, target):
                     target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=False)
                 break
@@ -74,7 +80,7 @@ class Attack(Action):
             character.lastAttack_isMelee = True
         
         # Return
-        return character, enemies, team
+        return character, enemies, team, nevermindSelected
     
     def check_if_hit(self, character, target):
         roll = randint(1,20)

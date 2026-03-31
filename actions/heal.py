@@ -1,5 +1,4 @@
-from tools.menu import menu
-from tools.enums import Spell, Dice
+from tools.enums import Spell, Dice, MenuOptions
 from actions.action import Action
 from rich import print
 
@@ -16,12 +15,20 @@ class Heal(Action):
     
     def action(self, character, enemies: list, team: list, fighters: list):
         
+        nevermindSelected = False
+
         if self.spell_slot_level > 0:
             if not character.cast_leveled_spell(self.spell_slot_level):
-                return character, enemies, team
+                nevermindSelected = True
+                return character, enemies, team, nevermindSelected
 
         if self.can_choose_target:
-            target = menu(team, f"Who would {character.name} like to heal?", show_hp=True)
+            
+            target = character.choose_target(team, self)
+            if target == MenuOptions.nevermind:
+                nevermindSelected = True
+                return character, enemies, team, nevermindSelected
+                
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
             
             print(f"{character.name} healed {target.name} for {heal_amount} HP.")
@@ -36,7 +43,7 @@ class Heal(Action):
 
             print(f"{character.name} healed self for {heal_amount} HP.")
 
-        return character, enemies, team
+        return character, enemies, team, nevermindSelected
 
 CureWounds = Heal(
     name = Spell.cure_wounds,

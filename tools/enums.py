@@ -176,3 +176,7 @@ class BuffCondition(EnumWithValueRepr):
 class SummonType(EnumWithValueRepr):
 
     familiar = "familiar"
+
+class MenuOptions(EnumWithValueRepr):
+
+    nevermind = "nevermind"

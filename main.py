@@ -104,7 +104,14 @@ def combat(party=list, encounter=Encounter):
         if fighter.current_hp <= 0:
             continue
         
-        monsters, party, fighters = fighter.action(monsters, party, fighters)
+        # Do action
+        if fighter.character_type == CharacterType.companion:
+            monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
+        elif fighter.character_type == CharacterType.monster:
+            party, monsters, fighters = fighter.action(enemies=party, team=monsters, fighters=fighters)
+        else:
+            print("Error: unacceptable character type!")
+            monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
         
         if not party:
             print("\nYou lose!\n")

@@ -104,6 +104,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 ## Other features
 
 * Add Nevermind to action targeting
+* Add other options for setting ability scores (point buy, rolling scores)
 * Add equipment; auto-equip during `__init__`
 * Add combat UI in Textual
 * Add race features

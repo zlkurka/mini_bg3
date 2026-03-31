@@ -4,7 +4,7 @@ from actions.buff_debuff import Buff
 from actions.heal import Heal
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 from rich import print
 
@@ -109,16 +109,12 @@ class Character():
         self.current_hp: int = self.max_hp
     
     def action(self, enemies: list, team: list, fighters: list) -> tuple:
-        
-        action_choice = self.choose_action(enemies, team)
-        
-        # Doing action
-        if self.character_type == CharacterType.companion:
-            self, enemies, team = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters)
-        elif self.character_type == CharacterType.monster:
-            self, team, enemies = action_choice.action(character=self, enemies=team, team=enemies, fighters=fighters)
-        else:
-            print("Error: unacceptable character type!")
+
+        while True:
+            action_choice = self.choose_action(enemies=enemies, team=team)
+            self, enemies, team, nevermindSelected = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters)
+            if not nevermindSelected:
+                break
         
         # Removing dead characters
         for char in enemies:
@@ -155,28 +151,27 @@ class Character():
         if self.character_type == CharacterType.companion:
             action_options.append(PassAction)
 
-        if len(action_options) == 1:
-            return action_options[0]
-
         if self.character_type == CharacterType.monster:
             return choice(action_options)
+        
         return menu(action_options, f"\nWhat would {str(self)} like to do?")
     
-    def choose_enemy(self, enemies):
+    def choose_target(self, targets, action):
         
         if self.character_type == CharacterType.monster:
             aggro_raffle = []
 
-            for char in enemies:
+            for char in targets:
                 for tix in range(char.get_aggro()):
                     aggro_raffle.append(char)
 
             return choice(aggro_raffle)
 
-        if len(enemies) > 1:
-            return menu(enemies, f"\nWho would {str(self)} like to attack?", show_hp=True)
+        if len(targets) > 1:
+            options = targets + [MenuOptions.nevermind]
+            return menu(options, f"\nWho would {str(self)} like to target with {action}?", show_hp=True)
         else:
-            return enemies[0]
+            return targets[0]
 
     def take_damage(self, damage: int = 0):
         

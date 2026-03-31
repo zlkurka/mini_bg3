@@ -15,7 +15,8 @@ class Action():
         return str(self.name)
 
     def action(self, character, enemies: list, team: list, fighters: list):
-        return character, enemies, team
+        nevermindSelected = False
+        return character, enemies, team, nevermindSelected
     
     def roll_dice(self, dice: dict):
         
