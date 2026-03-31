@@ -6,18 +6,10 @@ from rich import print
 
 class Summon(Action):
 
-    def __init__(self, spell_slot_level=int, summon_type=SummonType, creatureCanAttack=bool):
-        
-        if spell_slot_level != int:
-            self.spell_slot_level = spell_slot_level
-        else:
-            self.spell_slot_level = 0
-
+    def __init__(self, spell_slot_level=int | 0, summon_type=SummonType, creatureCanAttack=bool | True):
+        self.spell_slot_level: int = spell_slot_level
         self.summon_type: SummonType = summon_type
-        if creatureCanAttack != bool:
-            self.creatureCanAttack = creatureCanAttack
-        else:
-            self.creatureCanAttack = True
+        self.creatureCanAttack: bool = creatureCanAttack
     
     def action(self, character, enemies=list, team=list, fighters=list):
         
@@ -29,6 +21,7 @@ class Summon(Action):
         return character, enemies, team
 
 FindFamiliar = Summon(
+    spell_slot_level=1,
     summon_type=SummonType.familiar,
     creatureCanAttack=True,
 )

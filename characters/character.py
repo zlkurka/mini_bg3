@@ -16,14 +16,14 @@ class Character():
         character_type=CharacterType, 
         charclass=CharClass, 
         race=Race, 
-        level=int, 
+        level=int | 1, 
         ability_scores=dict, 
 
-        spell_slots=dict,
-        base_hp=int,
-        max_hp=int, 
-        armor_class=int, 
-        extra_actions=list,
+        spell_slots=dict | None,
+        base_hp=int | None,
+        max_hp=int | None, 
+        armor_class=int | None, 
+        extra_actions=list | None,
 
     ):
         
@@ -38,15 +38,12 @@ class Character():
         self.proficiency_bonus: int = 2
 
         # Level
-        if level != int:
-            self.level: int = level
-        else: 
-            self.level: int = 1
+        self.level: int = level
         
         # hp
-        if max_hp != int:
+        if max_hp:
             self.max_hp: int = max_hp
-        elif base_hp != int:
+        elif base_hp:
             self.max_hp: int = base_hp + round(base_max_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
         else: 
             if character_type == CharacterType.companion:
@@ -59,7 +56,7 @@ class Character():
         self.current_hp: int = self.max_hp
         
         # AC
-        if armor_class != int:
+        if armor_class:
             self.armor_class: int = armor_class
         else: 
             if self.charclass in base_armor_class:
@@ -71,11 +68,11 @@ class Character():
         self.actions: list = []
         if self.charclass in base_actions:
             self.actions: list = base_actions[self.charclass]
-        if extra_actions != list:
+        if extra_actions:
             self.actions += extra_actions
              
         # Spell slots
-        if spell_slots != dict:
+        if spell_slots:
             self.spell_slots: dict = spell_slots
         else:
             if character_type == CharacterType.companion:

@@ -2,7 +2,7 @@ from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
 
-def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=bool):
+def menu(options=list, menu_text=str, show_race=bool | False, show_class=bool | False, show_hp=bool | False):
 
     # Acceptable list item types:
         # str
@@ -16,22 +16,12 @@ def menu(options=list, menu_text=str, show_race=bool, show_class=bool, show_hp=b
         # dict
     
     # Multiple different types are acceptable!
-    
-    if show_race == bool:
-        show_race = False
-    if show_class == bool:
-        show_class = False
-    if show_hp == bool:
-        show_hp = False
-
 
     # Printing menu
     
     print(menu_text)
     for iter in range(len(options)):
-        
         list_item = options[iter]
-        
 
         print(f'{ascii_uppercase[iter]}) {rich_capitalize(list_item)}', end='')
         

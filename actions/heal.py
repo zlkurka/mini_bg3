@@ -5,25 +5,15 @@ from rich import print
 
 class Heal(Action):
     
-    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int, spell_slot_level=int, isConsumable=bool):
+    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int, spell_slot_level=int | 0, isConsumable=bool | False):
         
         self.name = name
-
         self.heal_dice: dict = heal_dice
         self.heal_const: int = heal_const
-
         self.can_choose_target: bool = can_choose_target
         self.target_count: int = target_count
-
-        if spell_slot_level:
-            self.spell_slot_level: int = spell_slot_level
-        else: 
-            self.spell_slot_level: int = 0
-
-        if isConsumable:
-            self.isConsumable: bool = isConsumable
-        else: 
-            self.isConsumable: bool = False
+        self.spell_slot_level: int = spell_slot_level
+        self.isConsumable: bool = isConsumable
     
     def action(self, character, enemies=list, team=list, fighters=list):
         
@@ -32,7 +22,7 @@ class Heal(Action):
                 return character, enemies, team
 
         if self.can_choose_target:
-            target = menu(team, f"Who would {character.name} like to heal?", show_race=False, show_class=False, show_hp=True)
+            target = menu(team, f"Who would {character.name} like to heal?", show_hp=True)
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const
             
             print(f"{character.name} healed {target.name} for {heal_amount} HP.")

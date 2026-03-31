@@ -6,34 +6,37 @@ from tools.rich_capitalize import rich_capitalize
 
 class Attack(Action):
     
-    def __init__(self, name=Weapon, damage_dice=dict, modifier=AbilityScore, multi_attack=int, ranged=bool, area_of_effect=bool, savingThrow_abilityScore=AbilityScore, halfDamage_onSave=bool, use_damage_modifier=bool, spell_slot_level=int):
+    def __init__(
+        self, 
+        name, 
+        damage_dice=dict, 
+        modifier=AbilityScore, 
+        multi_attack=int, 
+        ranged=bool, 
+        area_of_effect=bool, 
+        savingThrow_abilityScore=AbilityScore | None, 
+        halfDamage_onSave=bool | False, 
+        use_damage_modifier=bool | True, 
+        spell_slot_level=int | 0
+    ):
         
         self.name = name
-
         self.damage_dice: dict = damage_dice
         self.modifier: AbilityScore = modifier
-
         self.ranged: bool = ranged
         self.use_damage_modifier: bool = use_damage_modifier
-
-        if spell_slot_level != int:
-            self.spell_slot_level: int = spell_slot_level
-        else: 
-            self.spell_slot_level: int = 0
+        self.spell_slot_level: int = spell_slot_level
+        self.savingThrow_abilityScore: AbilityScore = savingThrow_abilityScore
 
         if area_of_effect == True:
             self.area_of_effect: bool = True
-            self.multi_attack=0
-            self.halfDamage_onSave = halfDamage_onSave
+            self.multi_attack: int = 0
+            self.halfDamage_onSave: bool = halfDamage_onSave
         else: 
             self.area_of_effect: bool = False
             self.multi_attack: int = multi_attack
-            self.halfDamage_onSave = False
+            self.halfDamage_onSave: bool = False
 
-        if savingThrow_abilityScore != AbilityScore:
-            self.savingThrow_abilityScore: AbilityScore = savingThrow_abilityScore
-        else: 
-            self.savingThrow_abilityScore: AbilityScore = None
     
     def action(self, character, enemies=list, team=list, fighters=list):
         
