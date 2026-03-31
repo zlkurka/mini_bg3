@@ -1,4 +1,4 @@
-def rich_capitalize(text):
+def rich_capitalize(text) -> str:
     
     text = str(text)
 

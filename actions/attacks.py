@@ -9,15 +9,15 @@ class Attack(Action):
     def __init__(
         self, 
         name, 
-        damage_dice=dict, 
-        modifier=AbilityScore, 
-        multi_attack=int, 
-        ranged=bool, 
-        area_of_effect=bool, 
-        savingThrow_abilityScore=AbilityScore | None, 
-        halfDamage_onSave=bool | False, 
-        use_damage_modifier=bool | True, 
-        spell_slot_level=int | 0
+        damage_dice: dict, 
+        modifier: AbilityScore, 
+        multi_attack: int = 1, 
+        ranged: bool = False, 
+        area_of_effect: bool = False, 
+        savingThrow_abilityScore: AbilityScore = None, 
+        halfDamage_onSave: bool = False, 
+        use_damage_modifier: bool = True, 
+        spell_slot_level: int = 0
     ):
         
         self.name = name
@@ -38,7 +38,7 @@ class Attack(Action):
             self.halfDamage_onSave: bool = False
 
     
-    def action(self, character, enemies=list, team=list, fighters=list):
+    def action(self, character, enemies: list, team: list, fighters: list):
         
         # Expend spell slot
         if self.spell_slot_level > 0:
@@ -89,7 +89,7 @@ class Attack(Action):
             print(f"\n{rich_capitalize(character)} misses {target} with {self.name}.")
         return hitSuccessful
     
-    def deal_damage(self, character, target, enemies, halved_damage):
+    def deal_damage(self, character, target, enemies, halved_damage: bool):
         damage = self.roll_dice(self.damage_dice)
         if self.use_damage_modifier:
             damage += self.get_modifier(self.modifier, character)

@@ -5,7 +5,7 @@ from rich import print
 
 class Heal(Action):
     
-    def __init__(self, name=str, heal_dice=dict, heal_const=int, can_choose_target=bool, target_count=int, spell_slot_level=int | 0, isConsumable=bool | False):
+    def __init__(self, name: str, heal_dice: dict, heal_const: int, can_choose_target: bool, target_count: int = 1, spell_slot_level: int = 0):
         
         self.name = name
         self.heal_dice: dict = heal_dice
@@ -13,9 +13,8 @@ class Heal(Action):
         self.can_choose_target: bool = can_choose_target
         self.target_count: int = target_count
         self.spell_slot_level: int = spell_slot_level
-        self.isConsumable: bool = isConsumable
     
-    def action(self, character, enemies=list, team=list, fighters=list):
+    def action(self, character, enemies: list, team: list, fighters: list):
         
         if self.spell_slot_level > 0:
             if not character.cast_leveled_spell(self.spell_slot_level):

@@ -13,31 +13,35 @@ class Character():
     def __init__(self, 
         
         name, 
-        character_type=CharacterType, 
-        charclass=CharClass, 
-        race=Race, 
-        level=int | 1, 
-        ability_scores=dict, 
+        character_type: CharacterType = CharacterType.monster, 
+        charclass: CharClass = None, 
+        race: Race = None, 
+        level: int = 1, 
+        ability_scores: dict = {
+            AbilityScore.STR: 0,
+            AbilityScore.DEX: 0,
+            AbilityScore.CON: 0,
+            AbilityScore.INT: 0,
+            AbilityScore.WIS: 0,
+            AbilityScore.CHA: 0,
+        }, 
 
-        spell_slots=dict | None,
-        base_hp=int | None,
-        max_hp=int | None, 
-        armor_class=int | None, 
-        extra_actions=list | None,
+        spell_slots: dict = None,
+        base_hp: int = None,
+        max_hp: int = None, 
+        armor_class: int = None, 
+        extra_actions: list = [],
 
     ):
         
         # I'm sorry this is disgusting
 
         self.name = name
-
         self.character_type: CharacterType = character_type
         self.charclass: CharClass = charclass
         self.race: Race = race
         self.ability_scores: dict = ability_scores
         self.proficiency_bonus: int = 2
-
-        # Level
         self.level: int = level
         
         # hp
@@ -68,8 +72,7 @@ class Character():
         self.actions: list = []
         if self.charclass in base_actions:
             self.actions: list = base_actions[self.charclass]
-        if extra_actions:
-            self.actions += extra_actions
+        self.actions += extra_actions
              
         # Spell slots
         if spell_slots:
@@ -88,7 +91,7 @@ class Character():
         # Saving other input for resets
         self.base_hp = base_hp
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         if self.character_type == CharacterType.companion:
             return "[bold yellow]" + str(self.name) + "[/bold yellow]"
         if self.character_type == CharacterType.monster:
@@ -105,7 +108,7 @@ class Character():
             self.max_hp: int = 1
         self.current_hp: int = self.max_hp
     
-    def action(self, enemies=list, team=list, fighters=list):
+    def action(self, enemies: list, team: list, fighters: list) -> tuple:
         
         action_choice = self.choose_action(enemies, team)
         
@@ -127,7 +130,7 @@ class Character():
         
         return enemies, team, fighters
     
-    def choose_action(self, enemies=list, team=list):
+    def choose_action(self, enemies: list, team: list):
         
         action_options = []
 
@@ -175,12 +178,12 @@ class Character():
         else:
             return enemies[0]
 
-    def take_damage(self, damage):
+    def take_damage(self, damage: int = 0):
         
         if damage:
             
             for cond in self.conditions:
-                damage = cond.reduce_damage(damage)
+                damage = cond.reduce_damage(damage, self)
 
             self.current_hp -= damage
 
@@ -194,7 +197,7 @@ class Character():
         else:
             print("No damage dealt.")
     
-    def heal(self, heal_amount):
+    def heal(self, heal_amount: int = 0):
         
         if heal_amount > 0:
             
@@ -206,7 +209,7 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
 
-    def cast_leveled_spell(self, spell_level):
+    def cast_leveled_spell(self, spell_level: int) -> bool:
         if not self.spell_slots[spell_level]:
            print("No spell slot available!")
            return False
@@ -214,10 +217,7 @@ class Character():
         self.spell_slots[spell_level] -= 1
         return True
     
-    def get_actions(self):
-        pass
-
-    def get_aggro(self):
+    def get_aggro(self) -> int:
 
         aggro = 1
 

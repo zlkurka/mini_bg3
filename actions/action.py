@@ -4,7 +4,7 @@ from rich import print
 
 class Action():
 
-    def __init__(self, name, dice=dict, modifier=AbilityScore, multi_target=int, spell_slot_level=int):
+    def __init__(self, name, dice: dict, modifier: AbilityScore, multi_target: int = 1, spell_slot_level: int = 0):
         self.name = name
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
@@ -14,10 +14,10 @@ class Action():
     def __repr__(self):
         return str(self.name)
 
-    def action(self, character, enemies=list, team=list, fighters=list):
+    def action(self, character, enemies: list, team: list, fighters: list):
         return character, enemies, team
     
-    def roll_dice(self, dice):
+    def roll_dice(self, dice: dict):
         
         output = 0
         
@@ -27,7 +27,7 @@ class Action():
         
         return output
     
-    def get_modifier(self, ability_type, character):
+    def get_modifier(self, ability_type: AbilityScore, character):
         
         if ability_type == AbilityScore.finesse:
             return max(

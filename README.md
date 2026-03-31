@@ -30,7 +30,6 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Open this project's root folder in your IDE. Navigate to `main.py`
 * Execute the code in `main.py`
 
-
 # To-do's
 
 ## Class-specific features

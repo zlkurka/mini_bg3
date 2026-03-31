@@ -2,7 +2,7 @@ from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
 
-def menu(options=list, menu_text=str, show_race=bool | False, show_class=bool | False, show_hp=bool | False):
+def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False):
 
     # Acceptable list item types:
         # str

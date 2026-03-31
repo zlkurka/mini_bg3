@@ -6,7 +6,7 @@ from rich import print
 
 class Summon(Action):
 
-    def __init__(self, spell_slot_level=int | 0, summon_type=SummonType, creatureCanAttack=bool | True):
+    def __init__(self, spell_slot_level: int = 0, summon_type: SummonType = SummonType.familiar, creatureCanAttack: bool = True):
         self.spell_slot_level: int = spell_slot_level
         self.summon_type: SummonType = summon_type
         self.creatureCanAttack: bool = creatureCanAttack

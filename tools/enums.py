@@ -168,9 +168,10 @@ class CharacterType(EnumWithValueRepr):
     companion = "companion"
     monster = "monster"
 
-class Buff(EnumWithValueRepr):
+class BuffCondition(EnumWithValueRepr):
 
     resistant = "resistant"
+    barbarian_raging = "raging"
 
 class SummonType(EnumWithValueRepr):
 

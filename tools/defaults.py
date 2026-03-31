@@ -104,7 +104,7 @@ base_actions = {
     
     # Companion classes
 
-    CharClass.barbarian: [Greataxe, Rage],
+    CharClass.barbarian: [Greataxe, BarbarianRage],
     CharClass.bard: [Shortsword, Crossbow, CureWounds],
     CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds],
     CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],

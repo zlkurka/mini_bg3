@@ -1,6 +1,6 @@
 from rich import print
 
-def print_list(items=list, text=str):
+def print_list(items: list, text: str):
 
     print(text, end=" ")
     

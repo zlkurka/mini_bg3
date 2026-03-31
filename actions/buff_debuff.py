@@ -1,11 +1,10 @@
 from actions.action import Action
-from conditions.condition import Condition, Resistant
-from tools.enums import Buff, SpecialAction
-from rich import print
+from conditions.condition import Condition, BarbarianRaging
+from tools.enums import SpecialAction
 
 class Buff(Action):
 
-    def __init__(self, name, condition=Condition, targetSelf=bool, spell_slot_level=int | 0):
+    def __init__(self, name, condition: Condition, targetSelf: bool = False, spell_slot_level: int = 0):
         self.name = name
         self.condition: Condition = condition
         self.targetSelf: bool = targetSelf
@@ -15,8 +14,8 @@ class Buff(Action):
         character.conditions.append(self.condition)
         return character, enemies, team
 
-Rage = Buff(
+BarbarianRage = Buff(
     name=SpecialAction.barbarian_rage, 
-    condition=Resistant, 
+    condition=BarbarianRaging, 
     targetSelf=True
 )
