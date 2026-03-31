@@ -7,7 +7,7 @@ class Condition():
         self.name = name
     
     def __repr__(self) -> str:
-        return "[lime italics]" + str(self.name) + "[/lime italics]"
+        return "[italic blue]" + str(self.name) + "[/italic blue]"
 
     def reduce_damage(self, damage: int, character) -> int:
         
@@ -17,9 +17,9 @@ class Condition():
             new_damage = damage // 2
         
         if new_damage < damage:
-            print(f"Damage reduced from {damage} to {new_damage} due to {str(self)} condition.")
+            print(f"Damage reduced from {damage} to {new_damage} due to {self} condition.")
         if new_damage > damage:
-            print(f"Damage increased from {damage} to {new_damage} due to {str(self)} condition.")
+            print(f"Damage increased from {damage} to {new_damage} due to {self} condition.")
         return new_damage
 
 Resistant = Condition(name=BuffCondition.resistant)
