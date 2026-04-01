@@ -246,3 +246,18 @@ Barb4 = Character(
         AbilityScore.CHA: 1,
     },
 )
+DexGod = Character(
+    name="The DEX God",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.rogue, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 99,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 0,
+    },
+)

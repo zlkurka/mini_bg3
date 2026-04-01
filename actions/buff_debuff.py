@@ -1,6 +1,7 @@
 from actions.action import Action
-from conditions.condition import Condition, BarbarianRaging
-from tools.enums import SpecialAction, MenuOptions
+from conditions.condition import Condition, BarbarianRaging, Hiding
+from tools.enums import SpecialAction, MenuOptions, AbilityScore
+from rich import print
 
 class Buff(Action):
 
@@ -13,8 +14,22 @@ class Buff(Action):
     def action(self, character, enemies: list, team: list, fighters: list) -> tuple:
         
         nevermindSelected = False
-
-        if self.targetSelf: 
+        
+        # Hide action is contested by max passive perception of enemies
+        if self.name == SpecialAction.hide:
+            roll = character.ability_check(ability_type=AbilityScore.DEX)
+            hide_success = True
+            for char in enemies:
+                if char.ability_scores[AbilityScore.WIS] + 10 >= roll:
+                    hide_success = False
+                    break
+            if hide_success:
+                print(f"{character} successfully hid.")
+                character.conditions.append(self.condition)
+            else:
+                print(f"{character} tried to hide, but was spotted.")
+        
+        elif self.targetSelf: 
             character.conditions.append(self.condition)
         
         else:
@@ -34,5 +49,10 @@ class Buff(Action):
 BarbarianRage = Buff(
     name=SpecialAction.barbarian_rage, 
     condition=BarbarianRaging, 
+    targetSelf=True
+)
+Hide = Buff(
+    name=SpecialAction.hide, 
+    condition=Hiding, 
     targetSelf=True
 )

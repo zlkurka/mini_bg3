@@ -1,5 +1,6 @@
 from tools.enums import Weapon, AbilityScore, Dice, Spell, MenuOptions
 from actions.action import Action
+from conditions.condition import Hiding
 from random import randint
 from rich import print
 from tools.rich_capitalize import rich_capitalize
@@ -40,12 +41,18 @@ class Attack(Action):
     
     def action(self, character, enemies: list, team: list, fighters: list):
         
+        nevermindSelected = False 
+
         # Expend spell slot
         if self.spell_slot_level > 0:
             if not character.cast_leveled_spell(self.spell_slot_level):
-                return character, enemies, team
-        
-        nevermindSelected = False 
+                nevermindSelected = True 
+                return character, enemies, team, nevermindSelected
+
+        # Sneak attack
+        if self.name == Weapon.rogue_sneak_attack and Hiding not in character.conditions:
+            nevermindSelected = True 
+            return character, enemies, team, nevermindSelected
         
         # Area of effect
         if self.area_of_effect:
@@ -63,6 +70,8 @@ class Attack(Action):
             while True:
                 
                 target = character.choose_target(targets=enemies, action=self)
+                if not target:
+                    break
                 if target == MenuOptions.nevermind:
                     nevermindSelected = True
                     return character, enemies, team, nevermindSelected
@@ -275,6 +284,17 @@ ChromaticOrb = Attack(
     ranged = True,
     use_damage_modifier = False,
     spell_slot_level = 1,
+)
+
+
+# Special attacks
+RogueSneakAttack = Attack(
+    name = Weapon.rogue_sneak_attack,
+    damage_dice = {Dice.d6: 4},
+    modifier = AbilityScore.finesse,
+    multi_attack = 1,
+    ranged = False,
+    use_damage_modifier = True,
 )
 
 

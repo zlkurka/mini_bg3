@@ -1,10 +1,12 @@
 from random import choice, randint
 from actions.action import PassAction
-from actions.buff_debuff import Buff
+from actions.attacks import RogueSneakAttack
+from actions.buff_debuff import Buff, Hide
 from actions.heal import Heal
+from conditions.condition import Hiding
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
 from rich import print
 
@@ -132,13 +134,20 @@ class Character():
 
         for act in self.actions:
             
+            # If no spell slots for leveled spell
             if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
                 continue
             
+            # If char already has self buff condition
             if type(act) == Buff:
                 if act.targetSelf and act.condition in self.conditions:
                     continue
             
+            # If sneak attack but not hiding
+            if (act == RogueSneakAttack) and (Hiding not in self.conditions):
+                continue
+            
+            # If heal but all allies have max hp
             if type(act) == Heal:
                 team_missing_hp = 0
                 for char in team:
@@ -149,7 +158,7 @@ class Character():
             action_options.append(act)
         
         if self.character_type == CharacterType.companion:
-            action_options.append(PassAction)
+            action_options.extend([Hide, PassAction])
 
         if self.character_type == CharacterType.monster:
             return choice(action_options)
@@ -158,20 +167,28 @@ class Character():
     
     def choose_target(self, targets, action):
         
+        possible_targets = list(targets)
+        for char in possible_targets:
+            if Hiding in char.conditions:
+                possible_targets.remove(char)
+        
+        if len(possible_targets) == 0:
+            print(f"{str(self)} was unable to target anyone.")
+            return None
+        if len(possible_targets) == 1:
+            return possible_targets[0]
+
         if self.character_type == CharacterType.monster:
             aggro_raffle = []
 
-            for char in targets:
+            for char in possible_targets:
                 for tix in range(char.get_aggro()):
                     aggro_raffle.append(char)
 
             return choice(aggro_raffle)
 
-        if len(targets) > 1:
-            options = targets + [MenuOptions.nevermind]
-            return menu(options, f"\nWho would {str(self)} like to target with {action}?", show_hp=True)
-        else:
-            return targets[0]
+        options = possible_targets + [MenuOptions.nevermind]
+        return menu(options, f"\nWho would {str(self)} like to target with {action}?", show_hp=True)
 
     def take_damage(self, damage: int = 0):
         
@@ -204,14 +221,19 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
     
-    def ability_check(self, ability_type, difficulty_class):
+    def ability_check(self, ability_type: AbilityScore, difficulty_class: int = None):
+        
         roll = randint(1,20) + self.ability_scores[ability_type]
+        if difficulty_class == None:
+            return roll
+        
         checkSuccessful = roll >= difficulty_class
         print(f"{self} rolled a {roll} and ", end="")
         if checkSuccessful:
             print("succeeded!")
         else:
             print("failed.")
+        
         return checkSuccessful
 
     def cast_leveled_spell(self, spell_level: int) -> bool:

@@ -12,15 +12,17 @@ class CharacterName(EnumWithValueRepr):
     
     tav = "TAV"
     
-    # Origin companions
+    # Original characters
+    nightkill = "Nightkill"
+    faylen = "Faylen"
+
+    # BG3 Characters
     astarion = "Astarion"
     gale = "Gale"
     karlach = "Karlach"
     laezel = "Lae'zel"
     shadowheart = "Shadowheart"
     wyll = "Wyll"
-
-    # Non-origin companions
     minthara = "Minthara"
     halsin = "Halsin"
     jaheira = "Jaheira"
@@ -87,18 +89,27 @@ class Weapon(EnumWithValueRepr):
     sacred_flame = "sacred flame"
     shillelagh = "shillelagh"
 
+    # Special attacks
+    rogue_sneak_attack = "sneak attack"
+    
     # Enemy-specific attacks
     owlbear_claw = "claw"
 
 class Spell(EnumWithValueRepr):
+    
+    # Cantrips
+    healing_word = "healing word"
 
+    # 1st level
     arms_of_hadar = "arms of hadar"
     burning_hands = "burning hands"
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
-    healing_word = "healing word"
 
 class SpecialAction(EnumWithValueRepr):
+
+    # General
+    hide = "hide"
 
     # Class-specific
     barbarian_rage = "rage"
@@ -172,6 +183,7 @@ class BuffCondition(EnumWithValueRepr):
 
     resistant = "resistant"
     barbarian_raging = "raging"
+    hiding = "hiding"
 
 class SummonType(EnumWithValueRepr):
 

@@ -7,7 +7,7 @@ from characters.character import Character
 
 class Event():
 
-    def __init__(self, name, description: str, options: list):
+    def __init__(self, name, description: str, options: list[EventOption]):
         self.name = name
         self.description: str = description
         self.options: list = options

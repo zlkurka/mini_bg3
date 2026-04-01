@@ -1,4 +1,4 @@
-from random import shuffle, sample
+from random import shuffle, sample, randint
 from rich import print
 from tools.menu import menu
 from tools.print_list import print_list
@@ -8,17 +8,18 @@ from tools.save_handler import load_character, save_character
 from tools.rich_capitalize import rich_capitalize
 from characters.companions import *
 from characters.monsters import get_monsters
+from conditions.condition import conditions_removed_at_turn_start, conditions_removed_at_turn_end
 
 
 def main():
 
-    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
+    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc, DexGod] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':    
-        party = [Karlach, Barb2, Barb3, Barb4]
-        encounter = Encounter.owlbear
+        party = [DexGod]
+        encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     
     while True:
@@ -67,7 +68,7 @@ def combat(party=list, encounter=Encounter):
     # Roll initiative
     initiative_rolls = {}
     for char in party + monsters:
-        roll = 1
+        roll = char.ability_check(ability_type = AbilityScore.DEX)
         if roll not in initiative_rolls:
             initiative_rolls.update({roll: [char]})
         else: 
@@ -108,6 +109,10 @@ def combat(party=list, encounter=Encounter):
         if fighter.current_hp <= 0:
             continue
         
+        for condition in fighter.conditions:
+            if condition in conditions_removed_at_turn_start:
+                fighter.conditions.remove(condition)
+
         # Do action
         if fighter.character_type == CharacterType.companion:
             monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
@@ -117,6 +122,10 @@ def combat(party=list, encounter=Encounter):
             print("Error: unacceptable character type!")
             monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
         
+        for condition in fighter.conditions:
+            if condition in conditions_removed_at_turn_end:
+                fighter.conditions.remove(condition)
+
         if not party:
             print("\nYou lose!\n")
             return party
