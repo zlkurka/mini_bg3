@@ -9,29 +9,43 @@ from tools.rich_capitalize import rich_capitalize
 from characters.companions import *
 from characters.monsters import get_monsters
 from conditions.condition import conditions_removed_at_turn_start, conditions_removed_at_turn_end
+from event import SwordInStone
 
 
 def main():
 
-    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc, DexGod] 
+    companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
     party = []
 
-    if input('Press [ENTER] to start.') == 'dev':    
+    if input('Press [ENTER] to start.') == 'dev':
         party = [DexGod]
         encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     
     while True:
-        match menu(["Go to combat", "Choose party", "Add custom character", "Save a character to file", "Romance"], "What would you like to do?"):
+        match menu(["Begin campaign", "Fight some monsters", "Choose party", "Add custom character", "Save a character to file", "Romance"], "What would you like to do?"):
             
-            case "Go to combat":
+            case "Begin campaign":
+
+                if not party:
+                    party = pick_party(companions)
+                if not party:
+                    continue
+                
+                party = combat(party, Encounter.goblins_4x)
+                party = group_long_rest(party)
+                
+                party = SwordInStone.begin(party)
+                party = combat(party, Encounter.owlbear)
+                party = group_long_rest(party)
+
+            case "Fight some monsters":
                 
                 if not party:
                     party = pick_party(companions)
                 if not party:
                     continue
-
                 for char in party:
                     companions.remove(char)
 
@@ -218,6 +232,11 @@ def create_custom_character():
             print('Invalid option!')
 
     return custom_character
+
+def group_long_rest(party):
+    for char in party:
+        char.long_rest()
+    return party
 
 if __name__ == "__main__":
     main()

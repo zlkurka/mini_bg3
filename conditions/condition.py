@@ -14,7 +14,7 @@ class Condition():
     def reduce_damage(self, damage: int, character) -> int:
         
         if not self.reduces_damage:
-            return 0
+            return damage
         
         # Checking conditions
         if self.name == BuffCondition.barbarian_raging:
@@ -33,8 +33,13 @@ Resistant = Condition(
     name=BuffCondition.resistant,
     reduces_damage=True,
 )
-BarbarianRaging = Condition(name=BuffCondition.barbarian_raging)
-Hiding = Condition(name=BuffCondition.hiding)
+BarbarianRaging = Condition(
+    name=BuffCondition.barbarian_raging
+)
+Hiding = Condition(
+    name=BuffCondition.hiding, 
+    gives_advantage=True
+)
 
 barbarian_rage_damage_reduction = {
     1: .3
@@ -42,3 +47,5 @@ barbarian_rage_damage_reduction = {
 
 conditions_removed_at_turn_start = []
 conditions_removed_at_turn_end = []
+conditions_removed_at_combat_end = [BarbarianRaging, Hiding]
+conditions_removed_on_action = [Hiding]

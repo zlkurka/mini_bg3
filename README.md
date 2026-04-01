@@ -40,7 +40,6 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 
 ## Class-specific features
 
-* Rogue: Sneak attack
 * Druid: wildshape
 * Bard: inspo
 
@@ -68,6 +67,8 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 
 ### New monsters
 
+* Hobgoblin (with improved tactical targeting)
+* Bugbear
 * Giant spider
 * Goblin variants (warrior, archer, mage, healer); randomly sampled in goblin fight
 
@@ -109,6 +110,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
+* Make Hiding condition give advantage
 * Add consumable abilities (rage)
   * Maybe I’ll have a dict like {BarbarianRage: 2}
 * Add other options for setting ability scores (point buy, rolling scores)

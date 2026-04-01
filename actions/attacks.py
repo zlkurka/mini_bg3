@@ -18,7 +18,8 @@ class Attack(Action):
         savingThrow_abilityScore: AbilityScore = None, 
         halfDamage_onSave: bool = False, 
         use_damage_modifier: bool = True, 
-        spell_slot_level: int = 0
+        spell_slot_level: int = 0,
+        weapon_bonus: int = 0,
     ):
         
         self.name = name
@@ -28,6 +29,7 @@ class Attack(Action):
         self.use_damage_modifier: bool = use_damage_modifier
         self.spell_slot_level: int = spell_slot_level
         self.savingThrow_abilityScore: AbilityScore = savingThrow_abilityScore
+        self.weapon_bonus: int = weapon_bonus
 
         if area_of_effect == True:
             self.area_of_effect: bool = True
@@ -38,7 +40,6 @@ class Attack(Action):
             self.multi_attack: int = multi_attack
             self.halfDamage_onSave: bool = False
 
-    
     def action(self, character, enemies: list, team: list, fighters: list):
         
         nevermindSelected = False 
@@ -88,12 +89,23 @@ class Attack(Action):
         else: 
             character.lastAttack_isMelee = True
         
+        if Hiding in character.conditions:
+            character.conditions.remove(Hiding)
+
         # Return
         return character, enemies, team, nevermindSelected
     
     def check_if_hit(self, character, target):
         roll = randint(1,20)
-        attack_modifier = self.get_modifier(self.modifier, character)
+        
+        # Advantage
+        for cond in character.conditions:
+            if cond.gives_advantage:
+                roll = max(roll, randint(1,20))
+                print(f"{character} has advantage on this attack!")
+                break
+
+        attack_modifier = self.get_modifier(self.modifier, character) + self.weapon_bonus
         
         if self.savingThrow_abilityScore:
             hitSuccessful = roll + target.ability_scores[self.savingThrow_abilityScore] >= attack_modifier + 12 # change if I add proficiency bonuses
@@ -107,7 +119,7 @@ class Attack(Action):
     def deal_damage(self, character, target, enemies, halved_damage: bool):
         damage = self.roll_dice(self.damage_dice)
         if self.use_damage_modifier:
-            damage += self.get_modifier(self.modifier, character)
+            damage += self.get_modifier(self.modifier, character) + self.weapon_bonus
         
         if halved_damage:
             damage = damage // 2
@@ -250,6 +262,17 @@ Shillelagh = Attack(
     ranged = False,
     use_damage_modifier = True,
     spell_slot_level = 0,
+)
+
+
+# Magic weapons
+Longsword_plus1 = Attack(
+    name = str(Weapon.longsword) + ", +1", 
+    damage_dice = {Dice.d10: 1},
+    modifier = AbilityScore.STR,
+    multi_attack = 1,
+    ranged = False,
+    use_damage_modifier = True,
 )
 
 

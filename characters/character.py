@@ -3,7 +3,7 @@ from actions.action import PassAction
 from actions.attacks import RogueSneakAttack
 from actions.buff_debuff import Buff, Hide
 from actions.heal import Heal
-from conditions.condition import Hiding
+from conditions.condition import Hiding, conditions_removed_on_action
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition
@@ -118,6 +118,16 @@ class Character():
             if not nevermindSelected:
                 break
         
+        if action_choice != PassAction:
+            for cond in self.conditions:
+                if cond in conditions_removed_on_action:
+                    try: 
+                        if cond != action_choice.condition:
+                            self.conditions.remove(cond)
+                    except AttributeError:
+                        self.conditions.remove(cond)
+                    
+
         # Removing dead characters
         for char in enemies:
             if char.current_hp <= 0:
@@ -257,3 +267,7 @@ class Character():
     
     def roll_initiative(self):
         return randint(1,20) + self.ability_scores[AbilityScore.DEX]
+    
+    def long_rest(self):
+        self.current_hp: int = self.max_hp
+        self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[self.charclass]][self.level])

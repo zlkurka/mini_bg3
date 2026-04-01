@@ -1,9 +1,11 @@
-from tools.enums import AbilityScore
-from tools.menu import menu
-from actions.attacks import Longsword
-from actions.action import PassAction
 from rich import print
 from characters.character import Character
+from actions.attacks import Attack, Longsword_plus1
+from actions.action import Action, PassAction
+from tools.enums import AbilityScore
+from tools.menu import menu
+from tools.defaults import empty_spell_slots
+from tools.rich_capitalize import rich_capitalize
 
 class Event():
 
@@ -31,8 +33,24 @@ class Event():
             print(choice.success_text.format(character_making_check))
 
             for item in choice.rewards:
+                if type(item) == Action or Attack:
+                    
+                    if item.spell_slot_level > 0:
+                        recipient_options = []
+                        for char in party:
+                            if char.spell_slots != empty_spell_slots:
+                                recipient_options.append(char)
+                    else:
+                        recipient_options = party
+                    choice = menu(menu_text="Who should recieve this?", options=recipient_options)
+                    choice.actions.append(item)
+                    print(f"{rich_capitalize(item)} added to {choice}'s actions.")
+                    continue
                 if type(item) == Character:
                     party.append(Character)
+                    continue
+
+        return party
 
 
 class EventOption():
@@ -50,13 +68,14 @@ class EventOption():
 
 SwordInStone = Event(
     name = "The Sword in the Stone",
-    description = "You find a longsword stuck firmly in a rock. You notice some runes carved into the stone.",
+    description = "In the center of this room, you see a longsword with its blade stuck into a stone pedestal.\n" \
+    "As you investigate, you notice some runes carved around the top of the pedestal.",
     options = [
         EventOption(
             name = "Pull out the sword",
             ability_check = AbilityScore.STR,
             difficulty_class = 15,
-            rewards = [Longsword],
+            rewards = [Longsword_plus1],
             success_text = "{} wrenches the sword from the stone. It gleams in your faint torchlight.",
             failure_text = "{} pulls at the sword with all their might, but it won't budge.",
         ),
@@ -72,5 +91,5 @@ SwordInStone = Event(
 )
 
 if __name__ == "__main__":
-    from characters.companions import Karlach, Gale
-    SwordInStone.begin([Karlach, Gale])
+    from characters.companions import Brains, Brawn
+    SwordInStone.begin([Brawn, Brains])

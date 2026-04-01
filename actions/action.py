@@ -12,7 +12,7 @@ class Action():
         self.spell_slot_level: int = spell_slot_level
 
     def __repr__(self):
-        return str(self.name)
+        return "[italic purple]" + str(self.name) + "[/italic purple]"
 
     def action(self, character, enemies: list, team: list, fighters: list):
         nevermindSelected = False

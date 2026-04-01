@@ -1,4 +1,5 @@
 from characters.character import Character
+from copy import deepcopy
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType
 
 # BG3 companions
@@ -186,66 +187,8 @@ Faylen = Character(
         AbilityScore.CHA: 0,
     },
 )
-Monk = Character(
-    name="Monk",  
-    character_type=CharacterType.companion,
-    charclass=CharClass.monk, 
-    race=Race.elf, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 1,
-        AbilityScore.DEX: 3,
-        AbilityScore.CON: 0,
-        AbilityScore.INT: 0,
-        AbilityScore.WIS: 2,
-        AbilityScore.CHA: -1,
-    },
-)
-Barb2 = Character(
-    name=CharacterName.karlach,  
-    character_type=CharacterType.companion,
-    charclass=CharClass.barbarian, 
-    race=Race.tiefling, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 3,
-        AbilityScore.DEX: 0,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: -1,
-        AbilityScore.WIS: 0,
-        AbilityScore.CHA: 1,
-    },
-)
-Barb3 = Character(
-    name=CharacterName.karlach,  
-    character_type=CharacterType.companion,
-    charclass=CharClass.barbarian, 
-    race=Race.tiefling, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 3,
-        AbilityScore.DEX: 0,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: -1,
-        AbilityScore.WIS: 0,
-        AbilityScore.CHA: 1,
-    },
-)
-Barb4 = Character(
-    name=CharacterName.karlach,  
-    character_type=CharacterType.companion,
-    charclass=CharClass.barbarian, 
-    race=Race.tiefling, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 3,
-        AbilityScore.DEX: 0,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: -1,
-        AbilityScore.WIS: 0,
-        AbilityScore.CHA: 1,
-    },
-)
+
+# Test characters
 DexGod = Character(
     name="The DEX God",  
     character_type=CharacterType.companion,
@@ -259,5 +202,50 @@ DexGod = Character(
         AbilityScore.INT: 0,
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 0,
+    },
+)
+Brains = Character(
+    name="The Brains",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.wizard, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -99,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 99,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 0,
+    },
+)
+Brawn = Character(
+    name="The Brawn",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.barbarian, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 99,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: -99,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 0,
+    },
+)
+Monk = Character(
+    name="Monk",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.monk, 
+    race=Race.elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 1,
+        AbilityScore.DEX: 3,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 2,
+        AbilityScore.CHA: -1,
     },
 )
