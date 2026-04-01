@@ -301,6 +301,26 @@ Brawn = Character(
         Skill.acrobatics,
     ],
 )
+Bard = Character(
+    name="Bard",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.bard, 
+    race=Race.tiefling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 2,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 1,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: 3,
+    },
+    skills=[
+        Skill.acrobatics,
+        Skill.performance,
+        Skill.persuasion,
+    ],
+)
 Monk = Character(
     name="Monk",  
     character_type=CharacterType.companion,

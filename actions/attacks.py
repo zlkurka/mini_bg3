@@ -4,6 +4,7 @@ from conditions.condition import Hiding
 from random import randint
 from rich import print
 from tools.rich_capitalize import rich_capitalize
+from tools.roll_d20 import roll_d20
 
 class Attack(Action):
     
@@ -88,24 +89,14 @@ class Attack(Action):
             character.lastAttack_isMelee = False
         else: 
             character.lastAttack_isMelee = True
-        
-        if Hiding in character.conditions:
-            character.conditions.remove(Hiding)
 
         # Return
         return character, enemies, team, nevermindSelected
     
     def check_if_hit(self, character, target):
-        roll = randint(1,20)
         
-        # Advantage
-        for cond in character.conditions:
-            if cond.gives_advantage:
-                roll = max(roll, randint(1,20))
-                print(f"{character} has advantage on this attack!")
-                break
-
         attack_modifier = self.get_modifier(self.modifier, character) + self.weapon_bonus
+        roll = roll_d20(character=character, roll_bonus=attack_modifier)
         
         if self.savingThrow_abilityScore:
             hitSuccessful = roll + target.ability_scores[self.savingThrow_abilityScore] >= attack_modifier + 12 # change if I add proficiency bonuses
@@ -113,7 +104,7 @@ class Attack(Action):
             hitSuccessful =  roll + attack_modifier >= target.armor_class
         
         if not hitSuccessful and not self.halfDamage_onSave:
-            print(f"\n{rich_capitalize(character)} misses {target} with {self.name}.")
+            print(f"{rich_capitalize(character)} misses {target} with {self.name}.")
         return hitSuccessful
     
     def deal_damage(self, character, target, enemies, halved_damage: bool):
@@ -123,9 +114,9 @@ class Attack(Action):
         
         if halved_damage:
             damage = damage // 2
-            print(f"\n{rich_capitalize(target)} resists {character}'s {self.name}, but they still take {damage} damage!")
+            print(f"{rich_capitalize(target)} resists {character}'s {self.name}, but they still take {damage} damage!")
         else: 
-            print(f"\n{rich_capitalize(character)} hits {target} with {self.name} for {damage} damage!")
+            print(f"{rich_capitalize(character)} hits {target} with {self.name} for {damage} damage!")
         target.take_damage(damage)
 
         if target.current_hp <= 0:
@@ -313,7 +304,7 @@ ChromaticOrb = Attack(
 # Special attacks
 RogueSneakAttack = Attack(
     name = Weapon.rogue_sneak_attack,
-    damage_dice = {Dice.d6: 4},
+    damage_dice = {Dice.d6: 2},
     modifier = AbilityScore.finesse,
     multi_attack = 1,
     ranged = False,

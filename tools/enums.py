@@ -170,6 +170,7 @@ class Spell(EnumWithValueRepr):
 
     # 1st level
     arms_of_hadar = "arms of hadar"
+    bless = "bless"
     burning_hands = "burning hands"
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
@@ -181,6 +182,7 @@ class SpecialAction(EnumWithValueRepr):
 
     # Class-specific
     barbarian_rage = "rage"
+    bardic_inspire = "bardic inspire"
 
 
 # Equipment
@@ -213,6 +215,7 @@ class Dice(Enum):
     def __repr__(self):
         return self.name
 
+    d0 = 0
     d1 = 1
     d4 = 4
     d6 = 6
@@ -227,6 +230,15 @@ class MenuOptions(EnumWithValueRepr):
 
 class BuffCondition(EnumWithValueRepr):
 
-    resistant = "resistant"
     barbarian_raging = "raging"
+    bardic_inspiration = "bardic inspiration"
+    blessed = "blessed"
     hiding = "hiding"
+    resistant = "resistant"
+
+class RollAlteration(EnumWithValueRepr):
+
+    advantage = "advantage"
+    disadvantage = "disadvantage"
+    dice_modifier = "dice modifier"
+    flat_modifer = "flat modifier"

@@ -5,6 +5,7 @@ from actions.buff_debuff import Buff, Hide
 from actions.heal import Heal
 from conditions.condition import Hiding, conditions_removed_on_action
 from tools.menu import menu
+from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
 from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores
@@ -246,7 +247,7 @@ class Character():
             print("Unacceptable ability type!")
 
         # Roll
-        roll = randint(1,20) + ability_bonus
+        roll = roll_d20(character=self, roll_bonus=ability_bonus)
         if difficulty_class == None:
             return roll
         # If no difficulty class set, returns roll (int)
@@ -279,9 +280,6 @@ class Character():
             aggro += 2
         
         return aggro
-    
-    def roll_initiative(self):
-        return randint(1,20) + self.ability_scores[AbilityScore.DEX]
     
     def long_rest(self):
         self.current_hp: int = self.max_hp

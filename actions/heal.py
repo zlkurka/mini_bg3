@@ -27,6 +27,8 @@ class Heal(Action):
             target = character.choose_target(team, self)
             if target == MenuOptions.nevermind:
                 nevermindSelected = True
+                if self.spell_slot_level:
+                    character.spell_slots[self.spell_slot_level] += 1
                 return character, enemies, team, nevermindSelected
                 
             heal_amount = self.roll_dice(self.heal_dice) + self.heal_const

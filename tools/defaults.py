@@ -125,7 +125,7 @@ base_actions: dict = {
     # Companion classes
 
     CharClass.barbarian: [Greataxe, BarbarianRage],
-    CharClass.bard: [Shortsword, Crossbow, CureWounds],
+    CharClass.bard: [Shortsword, Crossbow, BardicInspire, CureWounds],
     CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds],
     CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],

@@ -20,7 +20,7 @@ def main():
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':
-        party = [DexGod]
+        party = [Bard, Karlach, Laezel, Shadowheart]
         encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     
@@ -119,6 +119,7 @@ def combat(party=list, encounter=Encounter):
     while True:
         
         fighter = fighters[initiative]
+        print()
 
         initiative += 1
         if initiative >= len(fighters):
