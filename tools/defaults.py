@@ -126,7 +126,7 @@ base_actions: dict = {
 
     CharClass.barbarian: [Greataxe, BarbarianRage],
     CharClass.bard: [Shortsword, Crossbow, BardicInspire, CureWounds],
-    CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds],
+    CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds, Bless],
     CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],
     CharClass.monk: [MonkUnarmed],

@@ -71,6 +71,8 @@ BardicInspire = Buff(
 Bless = Buff(
     name=Spell.bless,
     condition=Blessed,
+    spell_slot_level=1,
+    multi_target=3
 )
 Hide = Buff(
     name=SpecialAction.hide, 
