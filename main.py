@@ -1,15 +1,16 @@
 from random import shuffle, sample, randint
 from rich import print
+from event import SwordInStone
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.enums import Encounter, CharacterType
 from tools.defaults import char_classes, char_races, ability_scores
 from tools.save_handler import load_character, save_character
 from tools.rich_capitalize import rich_capitalize
+from characters.create_custom_character import create_custom_character
 from characters.companions import *
 from characters.monsters import get_monsters
 from conditions.condition import conditions_removed_at_turn_start, conditions_removed_at_turn_end
-from event import SwordInStone
 
 
 def main():
@@ -35,7 +36,7 @@ def main():
                 
                 party = combat(party, Encounter.goblins_4x)
                 party = group_long_rest(party)
-                
+
                 party = SwordInStone.begin(party)
                 party = combat(party, Encounter.owlbear)
                 party = group_long_rest(party)
@@ -67,7 +68,10 @@ def main():
                 save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
 
             case "Romance":
-                sex_havers = sample(companions, 2)
+                while True:
+                    sex_havers = sample(companions, 2)
+                    if Nightkill not in sex_havers:
+                        break
                 print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
         
             case _:
@@ -82,7 +86,7 @@ def combat(party=list, encounter=Encounter):
     # Roll initiative
     initiative_rolls = {}
     for char in party + monsters:
-        roll = char.ability_check(ability_type = AbilityScore.DEX)
+        roll = char.ability_check(ability_type = Skill.initiative)
         if roll not in initiative_rolls:
             initiative_rolls.update({roll: [char]})
         else: 
@@ -195,43 +199,6 @@ def pick_party(companions_originalList=list):
     print_list(party, "You embark with")
     return party
 
-
-def create_custom_character():
-
-    match menu(['Create character','Load character'], "Would you like to create a new character or load a pre-existing one?"):
-        case 'Create character':
-            pass
-        case 'Load character':
-            loaded_character = load_character()
-            if loaded_character:
-                return loaded_character
-        case _: 
-            print("Invalid option!")
-            return None
-    
-    custom_character_name = input("Enter your character's name: ")
-    custom_character_charclass = menu(char_classes, "Select your character's class.")
-    custom_character_race = menu(char_races, "Select your character's race.")
-    custom_character_level = 1
-    custom_character_ability_scores = {}
-    
-    standard_array_scores = [3, 2, 1, 0, 0, -1]
-    for score in ability_scores:
-        score_assigned = menu(standard_array_scores, f"What score would you like to assign to {score}?")
-        standard_array_scores.remove(score_assigned)
-        custom_character_ability_scores.update({score: score_assigned})
-    
-    custom_character = Character(name=custom_character_name, character_type=CharacterType.companion, charclass=custom_character_charclass, race=custom_character_race, level=custom_character_level, ability_scores=custom_character_ability_scores)
-    
-    match menu(['Yes', 'No'], "Would you like to save this character?"):
-        case 'Yes':
-            save_character(custom_character)
-        case 'No':
-            pass
-        case _:
-            print('Invalid option!')
-
-    return custom_character
 
 def group_long_rest(party):
     for char in party:

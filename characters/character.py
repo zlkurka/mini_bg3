@@ -6,8 +6,8 @@ from actions.heal import Heal
 from conditions.condition import Hiding, conditions_removed_on_action
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition
-from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
+from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores
 from rich import print
 
 class Character():
@@ -27,7 +27,7 @@ class Character():
             AbilityScore.WIS: 0,
             AbilityScore.CHA: 0,
         }, 
-
+        skills: list = [],
         spell_slots: dict = None,
         base_hp: int = None,
         max_hp: int = None, 
@@ -43,6 +43,7 @@ class Character():
         self.charclass: CharClass = charclass
         self.race: Race = race
         self.ability_scores: dict = ability_scores
+        self.skills: list = skills
         self.proficiency_bonus: int = 2
         self.level: int = level
         
@@ -231,12 +232,26 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
     
-    def ability_check(self, ability_type: AbilityScore, difficulty_class: int = None):
+    def ability_check(self, ability_type, difficulty_class: int = None):
         
-        roll = randint(1,20) + self.ability_scores[ability_type]
+        # Get ability bonus
+        ability_bonus = 0
+        if type(ability_type) == Skill:
+            if ability_type in self.skills:
+                ability_bonus += self.proficiency_bonus
+            ability_bonus += self.ability_scores[skill_ability_scores[ability_type]]
+        elif type(ability_type) == AbilityScore:
+            ability_bonus += self.ability_scores[ability_type]
+        else:
+            print("Unacceptable ability type!")
+
+        # Roll
+        roll = randint(1,20) + ability_bonus
         if difficulty_class == None:
             return roll
+        # If no difficulty class set, returns roll (int)
         
+        # Check successful
         checkSuccessful = roll >= difficulty_class
         print(f"{self} rolled a {roll} and ", end="")
         if checkSuccessful:

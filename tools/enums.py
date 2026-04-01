@@ -8,6 +8,7 @@ class EnumWithValueRepr(Enum):
     def __str__(self):
         return self.value
 
+# Names
 class CharacterName(EnumWithValueRepr):
     
     tav = "TAV"
@@ -28,8 +29,15 @@ class CharacterName(EnumWithValueRepr):
     jaheira = "Jaheira"
     minsc = "Minsc"
 
-class CharClass(EnumWithValueRepr):
+class Encounter(EnumWithValueRepr):
+    
+    goblins_4x = "four goblins"
+    owlbear = "owlbear"
+    training_dummy = "training dummy"
 
+
+# Character attributes
+class CharClass(EnumWithValueRepr):
 
     # Companion classes
 
@@ -69,6 +77,66 @@ class Race(EnumWithValueRepr):
     human = "human"
     tiefling = "tiefling"
 
+class AbilityScore(EnumWithValueRepr):
+
+    STR = "strength"
+    DEX = "dexterity"
+    CON = "constitution"
+    INT = "intelligence"
+    WIS = "wisdom"
+    CHA = "charisma"
+
+    spellcasting = "spellcasting"
+    finesse = "finesse"
+
+class Skill(EnumWithValueRepr):
+
+    # Strength
+    athletics = "athletics"
+
+    # Dexterity
+    acrobatics = "acrobatics"
+    initiative = "initiative"
+    sleight_of_hand = "sleight of hand"
+    stealth = "stealth"
+
+    # Intelligence
+    arcana = "arcana"
+    history = "history"
+    investigation = "investigation"
+    nature = "nature"
+    religion = "religion"
+    
+    # Wisdom
+    animal_handling = "animal_handling"
+    insight = "insight"
+    medicine = "medicine"
+    perception = "perception"
+    survival = "survival"
+    
+    # Charisma
+    deception = "deception"
+    intimidation = "intimidation"
+    performance = "performance"
+    persuasion = "persuasion"
+
+class CasterType(EnumWithValueRepr):
+
+   fullCaster = "full caster"
+   halfCaster = "half caster"
+   quarterCaster = "quarter caster"
+   nonCaster = "non-caster"
+
+class CharacterType(EnumWithValueRepr):
+
+    companion = "companion"
+    monster = "monster"
+
+class SummonType(EnumWithValueRepr):
+
+    familiar = "familiar"
+
+# Actions
 class Weapon(EnumWithValueRepr):
     
     # Weapons
@@ -114,6 +182,8 @@ class SpecialAction(EnumWithValueRepr):
     # Class-specific
     barbarian_rage = "rage"
 
+
+# Equipment
 class Armor(EnumWithValueRepr):
     
     # Light
@@ -136,24 +206,8 @@ class Consumable(EnumWithValueRepr):
     # Potions
     healing_potion = "healing potion"
 
-class Encounter(EnumWithValueRepr):
-    
-    goblins_4x = "four goblins"
-    owlbear = "owlbear"
-    training_dummy = "training dummy"
 
-class AbilityScore(EnumWithValueRepr):
-
-    STR = "strength"
-    DEX = "dexterity"
-    CON = "constitution"
-    INT = "intelligence"
-    WIS = "wisdom"
-    CHA = "charisma"
-
-    spellcasting = "spellcasting"
-    finesse = "finesse"
-
+# Other
 class Dice(Enum):
 
     def __repr__(self):
@@ -167,28 +221,12 @@ class Dice(Enum):
     d12 = 12
     d20 = 20
 
-class CasterType(EnumWithValueRepr):
+class MenuOptions(EnumWithValueRepr):
 
-   fullCaster = "full caster"
-   halfCaster = "half caster"
-   quarterCaster = "quarter caster"
-   nonCaster = "non-caster"
-
-class CharacterType(EnumWithValueRepr):
-
-    companion = "companion"
-    monster = "monster"
+    nevermind = "nevermind"
 
 class BuffCondition(EnumWithValueRepr):
 
     resistant = "resistant"
     barbarian_raging = "raging"
     hiding = "hiding"
-
-class SummonType(EnumWithValueRepr):
-
-    familiar = "familiar"
-
-class MenuOptions(EnumWithValueRepr):
-
-    nevermind = "nevermind"

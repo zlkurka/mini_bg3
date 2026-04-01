@@ -42,6 +42,7 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 
 * Druid: wildshape
 * Bard: inspo
+  * Inspo should be accessible in events. I want bards to be super useful for events
 
 ## 1st lvl spells
 
@@ -110,8 +111,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
-* Make Hiding condition give advantage
-* Add consumable abilities (rage)
+* Add consumable abilities (rage, bardic inspo)
   * Maybe I’ll have a dict like {BarbarianRage: 2}
 * Add other options for setting ability scores (point buy, rolling scores)
 * Add equipment; auto-equip during `__init__`

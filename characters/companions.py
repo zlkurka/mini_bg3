@@ -1,6 +1,6 @@
 from characters.character import Character
 from copy import deepcopy
-from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType
+from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
 
 # BG3 companions
 
@@ -18,6 +18,12 @@ Astarion = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 2,
     },
+    skills=[
+        Skill.deception,
+        Skill.persuasion,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+    ],
 )
 Gale = Character(
     name=CharacterName.gale,  
@@ -33,6 +39,10 @@ Gale = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.arcana,
+        Skill.history,
+    ],
 )
 Karlach = Character(
     name=CharacterName.karlach,  
@@ -48,6 +58,10 @@ Karlach = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 1,
     },
+    skills=[
+        Skill.athletics,
+        Skill.intimidation,
+    ],
 )
 Laezel = Character(
     name=CharacterName.laezel,  
@@ -63,6 +77,10 @@ Laezel = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: -1,
     },
+    skills=[
+        Skill.athletics,
+        Skill.insight,
+    ],
 )
 Shadowheart = Character(
     name=CharacterName.shadowheart,  
@@ -78,6 +96,10 @@ Shadowheart = Character(
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.medicine,
+        Skill.religion,
+    ],
 )
 Wyll = Character(
     name=CharacterName.wyll,  
@@ -93,6 +115,10 @@ Wyll = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: 3,
     },
+    skills=[
+        Skill.history,
+        Skill.investigation,
+    ],
 )
 Minthara = Character(
     name=CharacterName.minthara,  
@@ -108,6 +134,10 @@ Minthara = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 2,
     },
+    skills=[
+        Skill.intimidation,
+        Skill.religion,
+    ],
 )
 Halsin = Character(
     name=CharacterName.halsin,  
@@ -123,6 +153,10 @@ Halsin = Character(
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.nature,
+        Skill.survival,
+    ],
 )
 Jaheira = Character(
     name=CharacterName.jaheira,  
@@ -138,6 +172,10 @@ Jaheira = Character(
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 1,
     },
+    skills=[
+        Skill.insight,
+        Skill.perception,
+    ],
 )
 Minsc = Character(
     name=CharacterName.minsc,  
@@ -153,6 +191,11 @@ Minsc = Character(
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.animal_handling,
+        Skill.athletics,
+        Skill.survival,
+    ],
 )
 
 # Original characters
@@ -171,6 +214,12 @@ Nightkill = Character(
         AbilityScore.WIS: 2,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.acrobatics,
+        Skill.investigation,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+    ],
 )
 Faylen = Character(
     name="Faylen",  
@@ -186,6 +235,10 @@ Faylen = Character(
         AbilityScore.WIS: 3,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.religion,
+        Skill.insight,
+    ]
 )
 
 # Test characters
@@ -203,6 +256,12 @@ DexGod = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.acrobatics,
+        Skill.investigation,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+    ],
 )
 Brains = Character(
     name="The Brains",  
@@ -218,6 +277,10 @@ Brains = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.arcana,
+        Skill.history,
+    ],
 )
 Brawn = Character(
     name="The Brawn",  
@@ -233,6 +296,10 @@ Brawn = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 0,
     },
+    skills=[
+        Skill.athletics,
+        Skill.acrobatics,
+    ],
 )
 Monk = Character(
     name="Monk",  
@@ -248,4 +315,8 @@ Monk = Character(
         AbilityScore.WIS: 2,
         AbilityScore.CHA: -1,
     },
+    skills=[
+        Skill.acrobatics,
+        Skill.religion,
+    ],
 )

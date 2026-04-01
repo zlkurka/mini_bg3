@@ -1,11 +1,12 @@
-from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType
+from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
 from actions.attacks import *
 from actions.heal import *
 from actions.summon import *
 from actions.buff_debuff import *
 from actions.action import PassAction
 
-char_classes = [
+# Character building blocks
+char_classes: list = [
 
     CharClass.barbarian,
     CharClass.bard,
@@ -22,7 +23,7 @@ char_classes = [
 
 ]
 
-char_races = [
+char_races: list = [
 
     Race.dragonborn,
     Race.dwarf,
@@ -37,7 +38,7 @@ char_races = [
 
 ]
 
-ability_scores = [
+ability_scores: list = [
 
     AbilityScore.STR,
     AbilityScore.DEX,
@@ -48,7 +49,26 @@ ability_scores = [
     
 ]
 
-base_max_hp = {
+class_caster_types: dict = {
+  
+    CharClass.barbarian: CasterType.nonCaster,
+    CharClass.bard: CasterType.fullCaster,
+    CharClass.cleric: CasterType.fullCaster,
+    CharClass.druid: CasterType.fullCaster,
+    CharClass.fighter: CasterType.nonCaster,
+    CharClass.monk: CasterType.nonCaster,
+    CharClass.paladin: CasterType.halfCaster,
+    CharClass.ranger: CasterType.halfCaster,
+    CharClass.rogue: CasterType.nonCaster,
+    CharClass.sorcerer: CasterType.fullCaster,
+    CharClass.warlock: CasterType.fullCaster,
+    CharClass.wizard: CasterType.fullCaster,
+
+}
+
+
+# Bases
+base_max_hp: dict = {
     
     # Companion classes
 
@@ -74,7 +94,7 @@ base_max_hp = {
 
 }
 
-base_armor_class = {
+base_armor_class: dict = {
 
     # Companion classes
 
@@ -100,7 +120,7 @@ base_armor_class = {
 
 }
 
-base_actions = {
+base_actions: dict = {
     
     # Companion classes
 
@@ -126,27 +146,153 @@ base_actions = {
 
 }
 
-class_caster_types = {
+base_skill_options: dict = {
   
-   CharClass.barbarian: CasterType.nonCaster,
-   CharClass.bard: CasterType.fullCaster,
-   CharClass.cleric: CasterType.fullCaster,
-   CharClass.druid: CasterType.fullCaster,
-   CharClass.fighter: CasterType.nonCaster,
-   CharClass.monk: CasterType.nonCaster,
-   CharClass.paladin: CasterType.halfCaster,
-   CharClass.ranger: CasterType.halfCaster,
-   CharClass.rogue: CasterType.nonCaster,
-   CharClass.sorcerer: CasterType.fullCaster,
-   CharClass.warlock: CasterType.fullCaster,
-   CharClass.wizard: CasterType.fullCaster,
+    CharClass.barbarian: [
+        Skill.athletics,
+        Skill.animal_handling,
+        Skill.intimidation,
+        Skill.nature,
+        Skill.perception,
+        Skill.survival,
+    ],
+    CharClass.bard: [
+        Skill.athletics,
+        Skill.acrobatics,
+        Skill.initiative,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+        Skill.arcana,
+        Skill.history,
+        Skill.investigation,
+        Skill.nature,
+        Skill.religion,
+        Skill.animal_handling,
+        Skill.insight,
+        Skill.medicine,
+        Skill.perception,
+        Skill.survival,
+        Skill.deception,
+        Skill.intimidation,
+        Skill.performance,
+        Skill.persuasion,
+    ],
+    CharClass.cleric: [
+        Skill.history,
+        Skill.insight,
+        Skill.medicine,
+        Skill.persuasion,
+        Skill.religion,
+    ],
+    CharClass.druid: [
+        Skill.animal_handling,
+        Skill.arcana,
+        Skill.insight,
+        Skill.medicine,
+        Skill.nature,
+        Skill.perception,
+        Skill.religion,
+        Skill.survival,
+    ],
+    CharClass.fighter: [
+        Skill.acrobatics,
+        Skill.animal_handling,
+        Skill.athletics,
+        Skill.history,
+        Skill.insight,
+        Skill.intimidation,
+        Skill.persuasion,
+        Skill.perception,
+        Skill.survival,
+    ],
+    CharClass.monk: [
+        Skill.acrobatics,
+        Skill.athletics,
+        Skill.history,
+        Skill.insight,
+        Skill.religion,
+        Skill.stealth,
+    ],
+    CharClass.paladin: [
+        Skill.athletics,
+        Skill.insight,
+        Skill.intimidation,
+        Skill.medicine,
+        Skill.persuasion,
+        Skill.religion,
+    ],
+    CharClass.ranger: [
+        Skill.animal_handling,
+        Skill.athletics,
+        Skill.athletics,
+        Skill.insight,
+        Skill.investigation,
+        Skill.nature,
+        Skill.perception,
+        Skill.stealth,
+        Skill.survival,
+    ],
+    CharClass.rogue: [
+        Skill.acrobatics,
+        Skill.athletics,
+        Skill.deception,
+        Skill.insight,
+        Skill.intimidation,
+        Skill.investigation,
+        Skill.perception,
+        Skill.persuasion,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+    ],
+    CharClass.sorcerer: [
+        Skill.arcana,
+        Skill.deception,
+        Skill.insight,
+        Skill.intimidation,
+        Skill.persuasion,
+        Skill.religion,
+    ],
+    CharClass.warlock: [
+        Skill.arcana,
+        Skill.deception,
+        Skill.history,
+        Skill.intimidation,
+        Skill.investigation,
+        Skill.nature,
+        Skill.religion,
+    ],
+    CharClass.wizard: [
+        Skill.arcana,
+        Skill.history,
+        Skill.insight,
+        Skill.investigation,
+        Skill.medicine,
+        Skill.nature,
+        Skill.religion,
+    ],
 
 }
 
-spell_slot_counts = {
+base_skill_choice_number: dict = {
+  
+    CharClass.barbarian: 2,
+    CharClass.bard: 3,
+    CharClass.cleric: 2,
+    CharClass.druid: 2,
+    CharClass.fighter: 2,
+    CharClass.monk: 2,
+    CharClass.paladin: 2,
+    CharClass.ranger: 3,
+    CharClass.rogue: 4,
+    CharClass.sorcerer: 2,
+    CharClass.warlock: 2,
+    CharClass.wizard: 2,
+
+}
+
+spell_slot_counts: dict = {
 
     # Caster Types
-
     CasterType.fullCaster: {
         # Char Levels
         1: {
@@ -175,12 +321,10 @@ spell_slot_counts = {
             1: 0,
         },
     },
-
 }
+empty_spell_slots: dict = spell_slot_counts[CasterType.nonCaster][1]
 
-empty_spell_slots = spell_slot_counts[CasterType.nonCaster][1]
-
-base_equipment = {
+base_equipment: dict = {
 
     CharClass.barbarian: [Weapon.longsword],
     CharClass.bard: [Weapon.shortbow, Armor.leather, Consumable.arrow],
@@ -197,7 +341,7 @@ base_equipment = {
 
 }
 
-base_spells = {
+base_spells: dict = {
     CharClass.barbarian: [],
     CharClass.bard: [CureWounds],
     CharClass.cleric: [CureWounds],
@@ -212,7 +356,41 @@ base_spells = {
     CharClass.wizard: [ChromaticOrb],
 }
 
-armor_values = {
+# Values
+skill_ability_scores: dict = {
+
+    # Strength
+    Skill.athletics: AbilityScore.STR,
+    
+    # Dexterity
+    Skill.acrobatics: AbilityScore.DEX,
+    Skill.initiative: AbilityScore.DEX,
+    Skill.sleight_of_hand: AbilityScore.DEX,
+    Skill.stealth: AbilityScore.DEX,
+    
+    # Intelligence
+    Skill.arcana: AbilityScore.INT,
+    Skill.history: AbilityScore.INT,
+    Skill.investigation: AbilityScore.INT,
+    Skill.nature: AbilityScore.INT,
+    Skill.religion: AbilityScore.INT,
+
+    # Wisdom
+    Skill.animal_handling: AbilityScore.WIS,
+    Skill.insight: AbilityScore.WIS,
+    Skill.medicine: AbilityScore.WIS,
+    Skill.perception: AbilityScore.WIS,
+    Skill.survival: AbilityScore.WIS,
+
+    # Charisma
+    Skill.deception: AbilityScore.CHA,
+    Skill.intimidation: AbilityScore.CHA,
+    Skill.performance: AbilityScore.CHA,
+    Skill.persuasion: AbilityScore.CHA,
+
+}
+
+armor_values: dict = {
 
     # Light
     Armor.leather: 11,

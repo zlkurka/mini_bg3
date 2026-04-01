@@ -2,7 +2,7 @@ from rich import print
 from characters.character import Character
 from actions.attacks import Attack, Longsword_plus1
 from actions.action import Action, PassAction
-from tools.enums import AbilityScore
+from tools.enums import AbilityScore, Skill
 from tools.menu import menu
 from tools.defaults import empty_spell_slots
 from tools.rich_capitalize import rich_capitalize
@@ -81,9 +81,10 @@ SwordInStone = Event(
         ),
         EventOption(
             name = "Examine the runes etched into the rock",
-            ability_check = AbilityScore.INT,
+            ability_check = Skill.arcana,
             difficulty_class = 15,
             rewards = [PassAction],
+                # I think this should be a control spell, which would make this decision more meaningful- big damage or control?
             success_text = "{} studies the runes and recognizes them as the incantation for a powerful spell.",
             failure_text = "{} examines the runes, but is unable to decipher them.",
         ),
