@@ -119,7 +119,6 @@ def combat(party=list, encounter=Encounter):
     while True:
         
         fighter = fighters[initiative]
-        print()
 
         initiative += 1
         if initiative >= len(fighters):
@@ -128,6 +127,7 @@ def combat(party=list, encounter=Encounter):
         if fighter.current_hp <= 0:
             continue
         
+        print()
         for condition in fighter.conditions:
             if condition in conditions_removed_at_turn_start:
                 fighter.conditions.remove(condition)

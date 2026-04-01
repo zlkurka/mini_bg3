@@ -175,7 +175,7 @@ class Character():
         if self.character_type == CharacterType.monster:
             return choice(action_options)
         
-        return menu(action_options, f"\nWhat would {str(self)} like to do?", show_spell_level=True)
+        return menu(action_options, f"What would {str(self)} like to do?", show_spell_level=True)
     
     def choose_target(self, targets, action):
         
@@ -200,7 +200,7 @@ class Character():
             return choice(aggro_raffle)
 
         options = possible_targets + [MenuOptions.nevermind]
-        return menu(options, f"\nWho would {str(self)} like to target with {action}?", show_hp=True)
+        return menu(options, f"Who would {str(self)} like to target with {action}?", show_hp=True)
 
     def take_damage(self, damage: int = 0):
         
