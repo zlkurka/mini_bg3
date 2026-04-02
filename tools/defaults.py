@@ -390,6 +390,23 @@ skill_ability_scores: dict = {
 
 }
 
+class_spellcasting_ability_scores: dict = {
+    AbilityScore.INT: [
+        CharClass.wizard,
+    ],
+    AbilityScore.WIS: [
+        CharClass.cleric,
+        CharClass.druid,
+        CharClass.ranger,
+    ],
+    AbilityScore.CHA: [
+        CharClass.bard,
+        CharClass.paladin,
+        CharClass.sorcerer,
+        CharClass.warlock,
+    ],
+}
+
 armor_values: dict = {
 
     # Light

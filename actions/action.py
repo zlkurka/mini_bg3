@@ -1,4 +1,4 @@
-from tools.enums import Dice, AbilityScore
+from tools.enums import Dice, AbilityScore, CharClass
 from random import randint
 from rich import print
 
@@ -27,22 +27,6 @@ class Action():
                 output += randint(1, die_type.value)
         
         return output
-    
-    def get_modifier(self, ability_type: AbilityScore, character):
-        
-        if ability_type == AbilityScore.finesse:
-            return max(
-                character.ability_scores[AbilityScore.STR], 
-                character.ability_scores[AbilityScore.DEX]
-            )
-        elif ability_type == AbilityScore.spellcasting:
-            return max(
-                character.ability_scores[AbilityScore.INT], 
-                character.ability_scores[AbilityScore.WIS], 
-                character.ability_scores[AbilityScore.CHA]
-            )
-        else:
-            return character.proficiency_bonus + character.ability_scores[ability_type]
 
 PassAction = Action(
     name='Pass action', 

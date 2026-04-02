@@ -12,7 +12,7 @@ class Attack(Action):
         self, 
         name, 
         damage_dice: dict, 
-        modifier: AbilityScore, 
+        ability_score_modifier: AbilityScore, 
         multi_attack: int = 1, 
         ranged: bool = False, 
         area_of_effect: bool = False, 
@@ -25,7 +25,7 @@ class Attack(Action):
         
         self.name = name
         self.damage_dice: dict = damage_dice
-        self.modifier: AbilityScore = modifier
+        self.ability_score_modifier: AbilityScore = ability_score_modifier
         self.ranged: bool = ranged
         self.use_damage_modifier: bool = use_damage_modifier
         self.spell_slot_level: int = spell_slot_level
@@ -95,13 +95,12 @@ class Attack(Action):
     
     def check_if_hit(self, character, target):
         
-        attack_modifier = self.get_modifier(self.modifier, character) + self.weapon_bonus
-        roll = roll_d20(character=character, roll_bonus=attack_modifier)
+        attack_modifier: int = character.get_modifier(ability_type=self.ability_score_modifier) + self.weapon_bonus
         
         if self.savingThrow_abilityScore:
-            hitSuccessful = roll + target.ability_scores[self.savingThrow_abilityScore] >= attack_modifier + 12 # change if I add proficiency bonuses
+            hitSuccessful = roll_d20(character=target, roll_bonus=target.ability_scores[self.savingThrow_abilityScore]) <= attack_modifier + 8 # change if I add proficiency bonuses
         else:
-            hitSuccessful =  roll + attack_modifier >= target.armor_class
+            hitSuccessful =  roll_d20(character=character, roll_bonus=attack_modifier) >= target.armor_class
         
         if not hitSuccessful and not self.halfDamage_onSave:
             print(f"{rich_capitalize(character)} misses {target} with {self.name}.")
@@ -110,7 +109,7 @@ class Attack(Action):
     def deal_damage(self, character, target, enemies, halved_damage: bool):
         damage = self.roll_dice(self.damage_dice)
         if self.use_damage_modifier:
-            damage += self.get_modifier(self.modifier, character) + self.weapon_bonus
+            damage += character.get_modifier(self.ability_score_modifier) + self.weapon_bonus
         
         if halved_damage:
             damage = damage // 2
@@ -131,7 +130,7 @@ class Attack(Action):
 Dagger = Attack(
     name = Weapon.dagger, 
     damage_dice = {Dice.d4: 1},
-    modifier = AbilityScore.finesse,
+    ability_score_modifier = AbilityScore.finesse,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
@@ -139,7 +138,7 @@ Dagger = Attack(
 Greataxe = Attack(
     name = Weapon.greataxe, 
     damage_dice = {Dice.d12: 1},
-    modifier = AbilityScore.STR,
+    ability_score_modifier = AbilityScore.STR,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
@@ -147,7 +146,7 @@ Greataxe = Attack(
 Longsword = Attack(
     name = Weapon.longsword, 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.STR,
+    ability_score_modifier = AbilityScore.STR,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -155,7 +154,7 @@ Longsword = Attack(
 Mace = Attack(
     name = Weapon.mace, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.STR,
+    ability_score_modifier = AbilityScore.STR,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -163,7 +162,7 @@ Mace = Attack(
 Shortsword = Attack(
     name = Weapon.shortsword, 
     damage_dice = {Dice.d6: 1},
-    modifier = AbilityScore.finesse,
+    ability_score_modifier = AbilityScore.finesse,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -171,7 +170,7 @@ Shortsword = Attack(
 MonkUnarmed = Attack(
     name = Weapon.unarmed, 
     damage_dice = {Dice.d4: 1},
-    modifier = AbilityScore.finesse,
+    ability_score_modifier = AbilityScore.finesse,
     multi_attack = 3,
     ranged = False,
     use_damage_modifier = True,
@@ -182,7 +181,7 @@ MonkUnarmed = Attack(
 Crossbow = Attack(
     name = Weapon.crossbow, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.DEX,
+    ability_score_modifier = AbilityScore.DEX,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
@@ -190,7 +189,7 @@ Crossbow = Attack(
 Shortbow = Attack(
     name = Weapon.shortbow, 
     damage_dice = {Dice.d6: 1},
-    modifier = AbilityScore.DEX,
+    ability_score_modifier = AbilityScore.DEX,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = True,
@@ -201,7 +200,7 @@ Shortbow = Attack(
 EldritchBlast = Attack(
     name = Weapon.eldritch_blast, 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
@@ -210,7 +209,7 @@ EldritchBlast = Attack(
 Firebolt = Attack(
     name = Weapon.firebolt, 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
@@ -219,7 +218,7 @@ Firebolt = Attack(
 PoisonSpray = Attack(
     name = Weapon.poison_spray, 
     damage_dice = {Dice.d12: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     savingThrow_abilityScore=AbilityScore.CON,
@@ -229,7 +228,7 @@ PoisonSpray = Attack(
 RayOfFrost = Attack(
     name = Weapon.ray_of_frost, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
@@ -238,7 +237,7 @@ RayOfFrost = Attack(
 SacredFlame = Attack(
     name = Weapon.sacred_flame, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     savingThrow_abilityScore=AbilityScore.DEX,
@@ -248,7 +247,7 @@ SacredFlame = Attack(
 Shillelagh = Attack(
     name = Weapon.shillelagh, 
     damage_dice = {Dice.d8: 1},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -260,7 +259,7 @@ Shillelagh = Attack(
 Longsword_plus1 = Attack(
     name = str(Weapon.longsword) + ", +1", 
     damage_dice = {Dice.d10: 1},
-    modifier = AbilityScore.STR,
+    ability_score_modifier = AbilityScore.STR,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -271,7 +270,7 @@ Longsword_plus1 = Attack(
 ArmsOfHadar = Attack(
     name = Spell.arms_of_hadar,
     damage_dice = {Dice.d6: 2},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     area_of_effect=True,
     savingThrow_abilityScore=AbilityScore.STR,
     halfDamage_onSave=True,
@@ -282,7 +281,7 @@ ArmsOfHadar = Attack(
 BurningHands = Attack(
     name = Spell.burning_hands,
     damage_dice = {Dice.d6: 2},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     area_of_effect=True,
     savingThrow_abilityScore=AbilityScore.DEX,
     halfDamage_onSave=True,
@@ -293,7 +292,7 @@ BurningHands = Attack(
 ChromaticOrb = Attack(
     name = Spell.chromatic_orb,
     damage_dice = {Dice.d8: 3},
-    modifier = AbilityScore.spellcasting,
+    ability_score_modifier = AbilityScore.spellcasting,
     multi_attack = 1,
     ranged = True,
     use_damage_modifier = False,
@@ -305,7 +304,7 @@ ChromaticOrb = Attack(
 RogueSneakAttack = Attack(
     name = Weapon.rogue_sneak_attack,
     damage_dice = {Dice.d6: 2},
-    modifier = AbilityScore.finesse,
+    ability_score_modifier = AbilityScore.finesse,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -316,7 +315,7 @@ RogueSneakAttack = Attack(
 CatScratch = Attack(
     name = Weapon.owlbear_claw, 
     damage_dice = {Dice.d1: 1},
-    modifier = AbilityScore.finesse,
+    ability_score_modifier = AbilityScore.finesse,
     multi_attack = 1,
     ranged = False,
     use_damage_modifier = True,
@@ -324,7 +323,7 @@ CatScratch = Attack(
 OwlbearClaw = Attack(
     name = Weapon.owlbear_claw, 
     damage_dice = {Dice.d8: 2},
-    modifier = AbilityScore.STR,
+    ability_score_modifier = AbilityScore.STR,
     multi_attack = 2,
     ranged = False,
     use_damage_modifier = True,

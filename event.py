@@ -9,7 +9,7 @@ from tools.rich_capitalize import rich_capitalize
 
 class Event():
 
-    def __init__(self, name, description: str, options: list[EventOption]):
+    def __init__(self, name, description: str, options: list):
         self.name = name
         self.description: str = description
         self.options: list = options

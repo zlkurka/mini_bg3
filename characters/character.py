@@ -8,7 +8,7 @@ from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
-from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores
+from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores
 from rich import print
 
 class Character():
@@ -261,7 +261,33 @@ class Character():
             print("failed.")
         
         return checkSuccessful
+    
+    def get_modifier(self, ability_type) -> int:
+        
+        if type(ability_type) == Skill:
+            ability_bonus: int = self.ability_scores[skill_ability_scores[ability_type]]
+            if ability_type in self.skills:
+                ability_bonus += self.proficiency_bonus
+            return ability_bonus
+        
+        elif type(ability_type) == AbilityScore:
+            
+            if ability_type == AbilityScore.finesse:
+                return max(self.ability_scores[AbilityScore.STR], self.ability_scores[AbilityScore.DEX]) + self.proficiency_bonus
+            
+            if ability_type == AbilityScore.spellcasting:
+                for ability in class_spellcasting_ability_scores:
+                    if self.charclass in class_spellcasting_ability_scores[ability]:
+                        return self.ability_scores[ability] + self.proficiency_bonus
+                return self.ability_scores[AbilityScore.INT]
 
+            return self.proficiency_bonus + self.ability_scores[ability_type]
+        
+        else:
+            print("Unacceptable ability type!")
+            return 0
+        
+   
     def cast_leveled_spell(self, spell_level: int) -> bool:
         if not self.spell_slots[spell_level]:
            print("No spell slot available!")
