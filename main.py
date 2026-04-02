@@ -1,16 +1,14 @@
-from random import shuffle, sample, randint
+from random import shuffle, sample
 from rich import print
 from event import SwordInStone
+from characters.companions import *
+from characters.monsters import get_monsters
+from characters.create_custom_character import create_custom_character
+from conditions.condition import conditions_removed_at_turn_start, conditions_removed_at_turn_end
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.enums import Encounter, CharacterType
-from tools.defaults import char_classes, char_races, ability_scores
-from tools.save_handler import load_character, save_character
 from tools.rich_capitalize import rich_capitalize
-from characters.create_custom_character import create_custom_character
-from characters.companions import *
-from characters.monsters import get_monsters
-from conditions.condition import conditions_removed_at_turn_start, conditions_removed_at_turn_end
 
 
 def main():
@@ -25,7 +23,7 @@ def main():
         party = combat(party, encounter)
     
     while True:
-        match menu(["Begin campaign", "Fight some monsters", "Choose party", "Add custom character", "Save a character to file", "Romance"], "What would you like to do?"):
+        match menu(options=["Begin campaign", "Fight some monsters", "Choose party", "Add custom character", "Romance"], menu_text="What would you like to do?"):
             
             case "Begin campaign":
 
@@ -63,9 +61,6 @@ def main():
             
             case "Add custom character":
                 companions.append(create_custom_character())
-            
-            case "Save a character to file":
-                save_character(menu(companions, "Which character would you like to save?", show_race=True, show_class=True))
 
             case "Romance":
                 while True:
