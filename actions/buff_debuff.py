@@ -23,7 +23,7 @@ class Buff(Action):
                 return character, enemies, team, nevermindSelected
 
         # Hide action is contested by max passive perception of enemies
-        elif self.name == SpecialAction.hide:
+        if self.name == SpecialAction.hide:
             roll = character.ability_check(ability_type=Skill.stealth)
             hide_success = True
             for char in enemies:
@@ -35,34 +35,37 @@ class Buff(Action):
                     break
             if hide_success:
                 print(f"{character} successfully hid.")
-                character.conditions.append(self.condition)
+                character.gain_condition(self.condition)
             else:
                 print(f"{character} tried to hide, but was spotted.")
         
         # Gives buff to self
         elif self.targetSelf: 
-            character.conditions.append(self.condition)
+            character.gain_condition(self.condition)
         
         # Give buff to others, up to number of multi_target
         else:
+            target_options = []
+            for char in team:
+                if self.condition in char.conditions:
+                    continue
+                target_options.append(char)
             for iter in range(self.multi_target):
-                target_options = []
-                for char in team:
-                    if self.condition in char.conditions:
-                        continue
-                    target_options.append(char)
 
                 target = character.choose_target(target_options, self)
                 if target == MenuOptions.nevermind:
                     nevermindSelected = True
                     return character, enemies, team, nevermindSelected
                 
-                target.conditions.append(self.condition)
+                if not target:
+                    break
                 
-                target_index = team.index(target)
-                team.pop(target_index)
-                team.insert(target_index, target)
-
+                target.gain_condition(self.condition)
+                target_options.remove(target)
+                
+                if None not in target_options:
+                    target_options.append(None)
+                
         return character, enemies, team, nevermindSelected
 
 BarbarianRage = Buff(

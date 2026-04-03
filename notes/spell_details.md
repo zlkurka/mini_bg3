@@ -101,6 +101,10 @@ Classes:
 
 #### Mold Earth
 
+
+
+___
+
 ## Level 1 Spells
 
 ### Attacks
@@ -205,5 +209,3 @@ Future changes:
 #### Sleep
 
 #### Tasha’s Hideous Laughter
-
-

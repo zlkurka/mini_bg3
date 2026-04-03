@@ -34,6 +34,7 @@ class Encounter(EnumWithValueRepr):
     goblins_4x = "four goblins"
     owlbear = "owlbear"
     training_dummy = "training dummy"
+    undead_group = "undead troupe"
 
 
 # Character attributes
@@ -61,7 +62,9 @@ class CharClass(EnumWithValueRepr):
     goblin = "goblin"
     bugbear = "bugbear"
     owlbear = "owlbear"
+    skeleton = "skeleton"
     training_dummy = "training dummy"
+    zombie = "zombie"
 
 class Race(EnumWithValueRepr):
 
@@ -235,6 +238,7 @@ class BuffCondition(EnumWithValueRepr):
     blessed = "blessed"
     hiding = "hiding"
     resistant = "resistant"
+    undead_fortitude = "undead fortitude"
 
 class RollAlteration(EnumWithValueRepr):
 

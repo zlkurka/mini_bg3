@@ -33,6 +33,7 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Open this project's root folder in your IDE. Navigate to `main.py`
 * Execute the code in `main.py`
 
+
 ___
 
 # To-do's
@@ -143,6 +144,8 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 * Add reviving dead characters (Withers, spend gold; revivify)
 * Add higher levels
   * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
+
+___
 
 # Copyright statement
 

@@ -1,4 +1,4 @@
-from tools.enums import BuffCondition, Dice, RollAlteration
+from tools.enums import BuffCondition, Dice, RollAlteration, AbilityScore
 from rich import print
 
 class Condition():
@@ -23,14 +23,22 @@ class Condition():
         return "[italic blue]" + str(self.name) + "[/italic blue]"
 
     def reduce_damage(self, damage: int, character) -> int:
+        
         if not self.reduces_damage:
             return damage
         
+        new_damage = 0
+
         # Checking conditions
-        if self.name == BuffCondition.resistant or BuffCondition.hiding:
+        if self.name in [BuffCondition.resistant, BuffCondition.hiding]:
             new_damage = damage // 2
         elif self.name == BuffCondition.barbarian_raging:
             new_damage = round((1 - barbarian_rage_damage_reduction[character.level]) * damage)
+        elif self.name == BuffCondition.undead_fortitude:
+            if damage >= character.current_hp and character.ability_check(ability_type=AbilityScore.CON, difficulty_class=damage + 5):
+                new_damage = character.current_hp - 1
+            else:
+                new_damage = damage
         else:
             print(f"Manner of damage reduction for condition {self} not found!")
         
@@ -52,6 +60,10 @@ Hiding = Condition(
 )
 Resistant = Condition(
     name=BuffCondition.resistant,
+    reduces_damage=True,
+)
+UndeadFortitude = Condition(
+    name=BuffCondition.undead_fortitude,
     reduces_damage=True,
 )
 

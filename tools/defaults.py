@@ -68,7 +68,7 @@ class_caster_types: dict = {
 
 
 # Bases
-base_max_hp: dict = {
+base_hp_charclass: dict = {
     
     # Companion classes
 
@@ -84,13 +84,6 @@ base_max_hp: dict = {
     CharClass.sorcerer: 6,
     CharClass.warlock: 8,
     CharClass.wizard: 6,
-
-
-    # Monster classes
-
-    CharClass.goblin: 9,
-    CharClass.owlbear: 90,
-    CharClass.training_dummy: 1000
 
 }
 

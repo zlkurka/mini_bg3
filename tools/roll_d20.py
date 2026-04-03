@@ -1,6 +1,7 @@
 from random import randint
 from rich import print
 from tools.menu import menu
+from tools.rich_capitalize import rich_capitalize
 from tools.enums import Dice, RollAlteration, BuffCondition
 
 def roll_d20(character = None, roll_bonus: int = 0):
@@ -69,7 +70,7 @@ def roll_d20(character = None, roll_bonus: int = 0):
     roll += dice_modification
     
     # Printing roll
-    print(f"{character} rolled {roll} ({original_roll}", end="")
+    print(f"{rich_capitalize(character)} rolled {roll} ({original_roll}", end="")
     
     if roll_bonus > 0:
         print(f" + {roll_bonus}", end="")

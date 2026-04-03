@@ -1,6 +1,6 @@
 from random import choice, randint
 from actions.action import PassAction
-from actions.attacks import RogueSneakAttack
+from actions.attacks import Attack, RogueSneakAttack
 from actions.buff_debuff import Buff, Hide
 from actions.heal import Heal
 from conditions.condition import Hiding, conditions_removed_on_action
@@ -8,7 +8,7 @@ from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
-from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions
+from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes
 from rich import print
 
 class Character():
@@ -30,11 +30,12 @@ class Character():
         }, 
         skills: list = [],
         spell_slots: dict = None,
-        base_hp: int = None,
+        base_max_hp: int = None,
         max_hp: int = None, 
         armor_class: int = None, 
         consumable_actions: dict = {},
         extra_actions: list = [],
+        conditions: list = [],
 
     ):
         
@@ -44,24 +45,21 @@ class Character():
         self.character_type: CharacterType = character_type
         self.charclass: CharClass = charclass
         self.race: Race = race
-        self.ability_scores: dict = ability_scores
-        self.skills: list = skills
+        self.ability_scores: dict = dict(ability_scores)
+        self.skills: list = list(skills)
         self.proficiency_bonus: int = 2
         self.level: int = level
         
         # hp
         if max_hp:
             self.max_hp: int = max_hp
-        elif base_hp:
-            self.max_hp: int = base_hp + round(base_max_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
-        else: 
-            if character_type == CharacterType.companion:
-                self.max_hp: int = int(base_max_hp[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_max_hp[charclass] / 2 + 1)))
-            elif character_type == CharacterType.monster:
-                self.max_hp: int = base_max_hp[charclass] + round(base_max_hp[charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_max_hp
-            else:
-                print("Invalid character type!")
-                self.max_hp: int = 1
+        elif base_max_hp:
+            self.max_hp: int = base_max_hp + round(base_max_hp * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_max_hp
+        elif charclass in base_hp_charclass:
+            self.max_hp: int = int(base_hp_charclass[charclass] + (level * self.ability_scores[AbilityScore.CON]) + ((level - 1) * (base_hp_charclass[charclass] / 2 + 1)))
+        else:
+            print("Invalid character type!")
+            self.max_hp: int = 1
         self.current_hp: int = self.max_hp
         
         # AC
@@ -98,11 +96,14 @@ class Character():
 
         # self.equipment = base_equipment[self.charclass]
 
-        self.conditions: list = []
+        self.conditions: list = list(conditions)
         self.lastAttack_isMelee: bool = False
 
-        # Saving other input for resets
-        self.base_hp = base_hp
+        # For reset
+        if base_max_hp:
+            self.original_base_max_hp = base_max_hp
+        else:
+            self.original_base_max_hp = self.max_hp
 
     def __repr__(self) -> str:
         if self.character_type == CharacterType.companion:
@@ -112,10 +113,10 @@ class Character():
         return "[bold]" + str(self.name) + "[/bold]"
     
     def reset(self):
-        if self.character_type == CharacterType.companion:
-                self.max_hp: int = int(base_max_hp[self.charclass] + (self.level * self.ability_scores[AbilityScore.CON]) + ((self.level - 1) * (base_max_hp[self.charclass] / 2 + 1)))
-        elif self.character_type == CharacterType.monster:
-            self.max_hp: int = base_max_hp[self.charclass] + round(base_max_hp[self.charclass] * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
+        if self.character_type in base_hp_charclass:
+                self.max_hp: int = int(base_hp_charclass[self.charclass] + (self.level * self.ability_scores[AbilityScore.CON]) + ((self.level - 1) * (base_hp_charclass[self.charclass] / 2 + 1)))
+        elif self.original_base_max_hp:
+            self.max_hp: int = self.original_base_max_hp + round(self.original_base_max_hp * ((randint(0,15)) / 100) * choice([-1, 1])) # +/- 15% of base_hp
         else:
             print("Invalid character type!")
             self.max_hp: int = 1
@@ -137,11 +138,11 @@ class Character():
             for cond in self.conditions:
                 if cond in conditions_removed_on_action:
                     try: 
-                        if cond != action_choice.condition:
-                            self.conditions.remove(cond)
+                        if cond == action_choice.condition:
+                            continue
                     except AttributeError:
-                        self.conditions.remove(cond)
-                    
+                        pass
+                    self.conditions.remove(cond)
 
         # Removing dead characters
         for char in enemies:
@@ -213,31 +214,33 @@ class Character():
     
     def choose_target(self, targets, action):
         
-        possible_targets = list(targets)
-        if len(possible_targets) == 0:
+        target_options = list(targets)
+        if len(target_options) == 0:
             print(f"{str(self)} was unable to target anyone.")
             return None
 
-        for char in possible_targets:
-            if Hiding in char.conditions:
-                possible_targets.remove(char)
+        for char in target_options:
+            if char and Hiding in char.conditions:
+                target_options.remove(char)
         
-        if len(possible_targets) == 0:
+        if len(target_options) == 0:
             print(f"{str(self)} was unable to target anyone.")
             return None
-        if len(possible_targets) == 1:
-            return possible_targets[0]
+        if len(target_options) == 1:
+            return target_options[0]
 
         if self.character_type == CharacterType.monster:
-            aggro_raffle = []
+            if type(action) == Attack:
+                aggro_raffle = []
 
-            for char in possible_targets:
-                for tix in range(char.get_aggro()):
-                    aggro_raffle.append(char)
+                for char in target_options:
+                    for tix in range(char.get_aggro()):
+                        aggro_raffle.append(char)
 
-            return choice(aggro_raffle)
+                return choice(aggro_raffle)
+            return choice(targets)
 
-        options = possible_targets + [MenuOptions.nevermind]
+        options = target_options + [MenuOptions.nevermind]
         return menu(options, f"Who would {str(self)} like to target with {action}?", show_hp=True)
 
     def take_damage(self, damage: int = 0):
@@ -271,6 +274,11 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
     
+    def gain_condition(self, condition):
+        if condition not in self.conditions:
+            print(f"{self} gained condition {condition}")
+            self.conditions.append(condition)
+
     def ability_check(self, ability_type, difficulty_class: int = None):
         
         # Get ability bonus
@@ -292,7 +300,7 @@ class Character():
         
         # Check successful
         checkSuccessful = roll >= difficulty_class
-        print(f"{self} rolled a {roll} and ", end="")
+        print(f"{rich_capitalize(self)} rolled a {roll} and ", end="")
         if checkSuccessful:
             print("succeeded!")
         else:

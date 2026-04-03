@@ -14,12 +14,12 @@ from tools.rich_capitalize import rich_capitalize
 def main():
 
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
-    encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.training_dummy]
+    encounters = [Encounter.goblins_4x, Encounter.owlbear, Encounter.undead_group, Encounter.training_dummy]
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':
-        party = [Bard, Karlach, Gale, Shadowheart]
-        encounter = Encounter.goblins_4x
+        party = [Astarion, Karlach, Gale, Shadowheart]
+        encounter = Encounter.undead_group
         party = combat(party, encounter)
     
     while True:
@@ -123,6 +123,7 @@ def combat(party=list, encounter=Encounter):
             continue
         
         print()
+
         for condition in fighter.conditions:
             if condition in conditions_removed_at_turn_start:
                 fighter.conditions.remove(condition)
