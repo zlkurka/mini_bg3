@@ -35,7 +35,7 @@ def create_custom_character():
     custom_character_skills = []
     skill_options = deepcopy(base_skill_options[custom_character_charclass])
     for skill in range(base_skill_choice_number[custom_character_charclass]):
-        skill_choice = menu(menu_text=f"What skill should {custom_character_name} have? ({skill} remaining.)", options=skill_options)
+        skill_choice = menu(menu_text=f"What skills should {custom_character_name} have? ({base_skill_choice_number[custom_character_charclass] - skill} remaining.)", options=skill_options)
         custom_character_skills.append(skill_choice)
         skill_options.remove(skill_choice)
     

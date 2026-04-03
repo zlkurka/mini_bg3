@@ -18,7 +18,7 @@ def main():
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':
-        party = [Bard, Karlach, Laezel, Shadowheart]
+        party = [Bard, Karlach, Gale, Shadowheart]
         encounter = Encounter.goblins_4x
         party = combat(party, encounter)
     

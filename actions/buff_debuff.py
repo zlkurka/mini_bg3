@@ -16,8 +16,14 @@ class Buff(Action):
         
         nevermindSelected = False
         
+        # Expend spell slot
+        if self.spell_slot_level > 0:
+            if not character.cast_leveled_spell(self.spell_slot_level):
+                nevermindSelected = True 
+                return character, enemies, team, nevermindSelected
+
         # Hide action is contested by max passive perception of enemies
-        if self.name == SpecialAction.hide:
+        elif self.name == SpecialAction.hide:
             roll = character.ability_check(ability_type=Skill.stealth)
             hide_success = True
             for char in enemies:
@@ -45,7 +51,7 @@ class Buff(Action):
                     if self.condition in char.conditions:
                         continue
                     target_options.append(char)
-                
+
                 target = character.choose_target(target_options, self)
                 if target == MenuOptions.nevermind:
                     nevermindSelected = True

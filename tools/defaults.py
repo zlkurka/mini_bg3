@@ -124,8 +124,8 @@ base_actions: dict = {
     
     # Companion classes
 
-    CharClass.barbarian: [Greataxe, BarbarianRage],
-    CharClass.bard: [Shortsword, Crossbow, BardicInspire, CureWounds],
+    CharClass.barbarian: [Greataxe],
+    CharClass.bard: [Shortsword, Crossbow, CureWounds],
     CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds, Bless],
     CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
     CharClass.fighter: [Longsword, Shortbow],
@@ -143,6 +143,25 @@ base_actions: dict = {
     CharClass.goblin: [Shortsword, Shortsword],
     CharClass.owlbear: [OwlbearClaw],
     CharClass.training_dummy: [PassAction],
+
+}
+
+base_consumable_actions: dict = {
+    
+    # Companion classes
+
+    CharClass.barbarian: {BarbarianRage: 2,},
+    CharClass.bard: {BardicInspire: AbilityScore.CHA,},
+    CharClass.cleric: {},
+    CharClass.druid: {},
+    CharClass.fighter: {},
+    CharClass.monk: {},
+    CharClass.paladin: {},
+    CharClass.ranger: {},
+    CharClass.rogue: {},
+    CharClass.sorcerer: {},
+    CharClass.warlock: {},
+    CharClass.wizard: {},
 
 }
 

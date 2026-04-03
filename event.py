@@ -90,6 +90,19 @@ SwordInStone = Event(
         ),
     ],
 )
+# Mimic event:
+# - Open the chest or whatever it is
+# - Take something small and ignore the chest
+# Other idea
+# - Look into a chest, pick one of several items, but a random one of them is a mimic and leads to a fight
+#   - Could also have an item that is a mimic and hurts you
+
+# Gelatinous cube event
+
+# Talk with a beholder?
+
+# Door puzzle
+
 
 if __name__ == "__main__":
     from characters.companions import Brains, Brawn

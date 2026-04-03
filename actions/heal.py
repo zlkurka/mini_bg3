@@ -17,9 +17,10 @@ class Heal(Action):
         
         nevermindSelected = False
 
+        # Expend spell slot
         if self.spell_slot_level > 0:
             if not character.cast_leveled_spell(self.spell_slot_level):
-                nevermindSelected = True
+                nevermindSelected = True 
                 return character, enemies, team, nevermindSelected
 
         if self.can_choose_target:

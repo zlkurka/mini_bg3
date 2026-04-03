@@ -4,6 +4,9 @@ I only began learning Python a few months ago, and with it the ins and outs of c
 
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
+
+___
+
 # How to play
 
 Make sure you have Python 3.14 installed, along with Rich (use `pip install rich` or `python -m pip install rich`)
@@ -30,19 +33,23 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Open this project's root folder in your IDE. Navigate to `main.py`
 * Execute the code in `main.py`
 
+___
+
 # To-do's
 
 ## Priority
 
-* Rogue sneak attack
 * New monsters
 * Consumable abilities
+* Druid spells
 
 ## Class-specific features
 
-* Druid: wildshape
-* Bard: inspo
-  * Inspo should be accessible in events. I want bards to be super useful for events
+* Paladin: lay on hands
+  * Can expend any amount from pool of 5 \* level
+  * Removes poisoned condition
+  * Bonus action
+* Druid: wildshape (level 2?)
 
 ## 1st lvl spells
 
@@ -51,6 +58,7 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Magic missile
 * Mage armor
 * Guiding bolt
+* Guidance
 * Find familiar
   * Can be played automatically at the start of combat at the cost of a spell slot (or ability use for ranger)
 
@@ -66,16 +74,29 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 
 ## Monsters
 
-### New monsters
+### New encounters
 
 * Hobgoblin (with improved tactical targeting)
 * Bugbear
-* Giant spider
 * Goblin variants (warrior, archer, mage, healer); randomly sampled in goblin fight
+* Giant spider
+* Mimics
+* Necromancer
+  * Uses saves of two dead companion (or Tav/custom?) characters
 
 ### New combat styles
 
 * Tactical levels: some enemies are smarter than others and will try to target squishier party members and healers
+
+## Events
+
+### Mimics
+
+Either go for the big tantelizing chest and fight mimics for a cool item, or take something small
+
+This feels kind of boring to experienced D&D players, who I think are my intended audience. It feels much more fun (and more like the silly events of STS2) to have, like, a whole room made of mimics. But that would probably be a higher-level encounter.
+
+### Gelatinous Cube
 
 ## Magic items
 
@@ -111,6 +132,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
+* Change language for different action types to match up with each other (
 * Add consumable abilities (rage, bardic inspo)
   * Maybe I’ll have a dict like {BarbarianRage: 2}
 * Add other options for setting ability scores (point buy, rolling scores)

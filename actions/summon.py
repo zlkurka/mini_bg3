@@ -15,6 +15,12 @@ class Summon(Action):
         
         nevermindSelected = False
 
+        # Expend spell slot
+        if self.spell_slot_level > 0:
+            if not character.cast_leveled_spell(self.spell_slot_level):
+                nevermindSelected = True 
+                return character, enemies, team, nevermindSelected
+
         selected_creature = deepcopy(menu([], "What creature would you like to summon?"))
 
         team.append(selected_creature)

@@ -8,7 +8,7 @@ from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
-from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores
+from tools.defaults import base_max_hp, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions
 from rich import print
 
 class Character():
@@ -33,6 +33,7 @@ class Character():
         base_hp: int = None,
         max_hp: int = None, 
         armor_class: int = None, 
+        consumable_actions: dict = {},
         extra_actions: list = [],
 
     ):
@@ -77,7 +78,15 @@ class Character():
         if self.charclass in base_actions:
             self.actions: list = base_actions[self.charclass]
         self.actions += extra_actions
-             
+        
+        self.consumable_actions: dict = dict(consumable_actions)
+        if charclass in base_consumable_actions:
+            self.consumable_actions.update(base_consumable_actions[charclass])
+        for act in self.consumable_actions:
+            val = self.consumable_actions[act]
+            if type(val) == AbilityScore:
+                self.consumable_actions.update({act: self.ability_scores[val]})
+
         # Spell slots
         if spell_slots:
             self.spell_slots: dict = spell_slots
@@ -115,10 +124,14 @@ class Character():
     def action(self, enemies: list, team: list, fighters: list) -> tuple:
 
         while True:
-            action_choice = self.choose_action(enemies=enemies, team=team)
+            action_choice, action_is_consumable = self.choose_action(enemies=enemies, team=team)
             self, enemies, team, nevermindSelected = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters)
             if not nevermindSelected:
                 break
+        if action_is_consumable:
+            if self.consumable_actions[action_choice] <=0:
+                print("All out of uses for this action!")
+            self.consumable_actions[action_choice] -= 1
         
         if action_choice != PassAction:
             for cond in self.conditions:
@@ -143,43 +156,68 @@ class Character():
     def choose_action(self, enemies: list, team: list):
         
         action_options = []
+        consumable_action_set = False
+        action_is_consumable = False
+        for action_set in (self.actions, self.consumable_actions):
+            for act in action_set:
+                
+                if consumable_action_set:
+                    if self.consumable_actions[act] <= 0:
+                        continue
 
-        for act in self.actions:
-            
-            # If no spell slots for leveled spell
-            if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
-                continue
-            
-            # If char already has self buff condition
-            if type(act) == Buff:
-                if act.targetSelf and act.condition in self.conditions:
+                # If no spell slots for leveled spell
+                if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
                     continue
-            
-            # If sneak attack but not hiding
-            if (act == RogueSneakAttack) and (Hiding not in self.conditions):
-                continue
-            
-            # If heal but all allies have max hp
-            if type(act) == Heal:
-                team_missing_hp = 0
-                for char in team:
-                    team_missing_hp += char.max_hp - char.current_hp
-                if team_missing_hp <= 0:
+                
+                # If char already has self buff condition
+                if type(act) == Buff:
+                    if act.targetSelf and act.condition in self.conditions:
+                        continue
+                
+                # If sneak attack but not hiding
+                if (act == RogueSneakAttack) and (Hiding not in self.conditions):
                     continue
+                
+                # If heal but all allies have max hp
+                if type(act) == Heal:
+                    team_missing_hp = 0
+                    for char in team:
+                        team_missing_hp += char.max_hp - char.current_hp
+                    if team_missing_hp <= 0:
+                        continue
             
-            action_options.append(act)
-        
+                action_options.append(act)
+            consumable_action_set = True
+
         if self.character_type == CharacterType.companion:
             action_options.extend([Hide, PassAction])
 
         if self.character_type == CharacterType.monster:
-            return choice(action_options)
+            chosen_action = choice(action_options)
+            return chosen_action, chosen_action in self.consumable_actions
         
-        return menu(action_options, f"What would {str(self)} like to do?", show_spell_level=True)
+        action_choice = menu(options=action_options, menu_text=f"What would {str(self)} like to do?", show_spell_level=True, show_uses_left=True, character=self)
+        
+        if action_choice in self.actions and action_choice in self.consumable_actions:
+            match menu(options=["Regular version","Consumable version"], menu_text="You have two versions of this spell. Which would you like to use?"):
+                case "Regular version":
+                    pass
+                case "Consumable version":
+                    action_is_consumable = True
+                case _:
+                    print("Invalid option!")
+        elif action_choice in self.consumable_actions:
+            action_is_consumable = True
+
+        return action_choice, action_is_consumable
     
     def choose_target(self, targets, action):
         
         possible_targets = list(targets)
+        if len(possible_targets) == 0:
+            print(f"{str(self)} was unable to target anyone.")
+            return None
+
         for char in possible_targets:
             if Hiding in char.conditions:
                 possible_targets.remove(char)
@@ -310,3 +348,23 @@ class Character():
     def long_rest(self):
         self.current_hp: int = self.max_hp
         self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[self.charclass]][self.level])
+
+if __name__ == "__main__":
+    Aris = Character(
+        name="Aris",
+        character_type=CharacterType.companion, 
+        charclass=CharClass.warlock , 
+        race=Race.half_elf,
+        level=1, 
+        ability_scores={
+            AbilityScore.STR: -1,
+            AbilityScore.DEX: 0,
+            AbilityScore.CON: 2,
+            AbilityScore.INT: 1,
+            AbilityScore.WIS: 0,
+            AbilityScore.CHA: 3,
+        }, 
+        skills=[Skill.deception, Skill.arcana],
+    )
+    print(Aris)
+    # Aris.action(enemies=[],team=[Aris],fighters=[Aris])
