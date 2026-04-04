@@ -3,7 +3,7 @@ from pickle import dump, load, HIGHEST_PROTOCOL
 from tools.menu import menu
 from rich import print
 
-character_save_path = 'saved_characters/'
+character_save_path = 'characters/saved_characters/'
 
 
 def save_character(character):
@@ -24,6 +24,8 @@ def save_character(character):
 def load_character():
     
     # Get save files
+    if not path.exists(character_save_path):
+        makedirs(character_save_path)
     save_files = scandir(character_save_path)
     saved_characters = {}
 
