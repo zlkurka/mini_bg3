@@ -7,6 +7,7 @@ from characters.create_custom_character import create_custom_character
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.rich_capitalize import rich_capitalize
+from tools.enums import MenuOptions
 
 
 def main():
@@ -14,7 +15,7 @@ def main():
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone]
-    
+
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':
@@ -25,7 +26,7 @@ def main():
         party = encounter.begin(party)
     
     while True:
-        match menu(options=["Begin campaign", "Fight some monsters", "Choose party", "Add custom character", "Romance"], menu_text="What would you like to do?"):
+        match menu(options=["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"], menu_text="What would you like to do?"):
             
             case "Begin campaign":
 
@@ -45,25 +46,26 @@ def main():
                     party = item.begin(party)
                     party = group_long_rest(party)
 
-            case "Fight some monsters":
+            case "Choose party":
+                if party:
+                    companions.extend(party)
+                party = pick_party(companions)
+
+            case "Face an encounter":
                 
                 if not party:
                     party = pick_party(companions)
                 if not party:
                     continue
-                for char in party:
-                    companions.remove(char)
 
-                party = menu(options=combats, menu_text="Who would you like to fight?").begin(party)
+                match menu(options=["Combat", "Event"], menu_text="What kind of encounter would you like to face?"):
+                    case "Combat":
+                        party = menu(options=combats, menu_text="Who would you like to fight?").begin(party)
+                    case "Event":
+                        party = menu(options=events, menu_text="What event would you like to experience?").begin(party)
 
-                companions.extend(party)
                 party = []
-            
-            case "Choose party":
-                if party:
-                    companions.extend(party)
-                party = pick_party(companions)
-            
+
             case "Add custom character":
                 companions.append(create_custom_character())
 
@@ -82,7 +84,7 @@ def pick_party(companions_originalList=list):
     
     companions = list(companions_originalList)
 
-    companions.extend(["Custom character", None, "Nevermind"])
+    companions.extend(["Custom character", None, MenuOptions.nevermind])
     party = []
 
     for x in range(4):
@@ -95,7 +97,7 @@ def pick_party(companions_originalList=list):
             print("You must have at least one character in your party!")
         
         # Selection: Nevermind
-        if selection == "Nevermind":
+        if selection == MenuOptions.nevermind:
             return []
         
         # Selection: None
