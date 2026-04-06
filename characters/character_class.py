@@ -1,8 +1,8 @@
 from random import choice, randint
-from actions.action import PassAction
-from actions.attacks import Attack, RogueSneakAttack
-from actions.buff_debuff import Buff, Hide
-from actions.heal import Heal
+from actions.action_class import PassAction
+from actions.attacks.attacks import Attack, RogueSneakAttack
+from actions.buff_debuff.buffs import Buff, Hide
+from actions.heal.heal import Heal
 from conditions.conditions import Hiding
 from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu

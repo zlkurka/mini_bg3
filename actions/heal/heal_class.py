@@ -1,5 +1,5 @@
-from tools.enums import Spell, Dice, MenuOptions
-from actions.action import Action
+from tools.enums import MenuOptions
+from actions.action_class import Action
 from rich import print
 
 class Heal(Action):
@@ -47,20 +47,3 @@ class Heal(Action):
             print(f"{character.name} healed self for {heal_amount} HP.")
 
         return character, enemies, team, nevermindSelected
-
-CureWounds = Heal(
-    name = Spell.cure_wounds,
-    heal_dice = {Dice.d8: 1},
-    heal_const = 1,
-    can_choose_target = True,
-    target_count = 1,
-    spell_slot_level=1
-)
-HealingWord = Heal(
-    name = Spell.healing_word,
-    heal_dice = {Dice.d4: 1},
-    heal_const = 1,
-    can_choose_target = True,
-    target_count = 1,
-    spell_slot_level=0
-)

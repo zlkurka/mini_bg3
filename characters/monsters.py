@@ -1,7 +1,7 @@
 from characters.character_class import Character
 from conditions.conditions import UndeadFortitude
-from actions.attacks import CatScratch, Shortsword, Shortbow, ZombieSlam
-from actions.buff_debuff import BajesusFreakOut
+from actions.attacks.attacks import CatScratch, Shortsword, Shortbow, ZombieSlam
+from actions.buff_debuff.buffs import BajesusFreakOut
 from tools.enums import CharClass, AbilityScore, CharacterType, SummonType
 
 Cat = Character(

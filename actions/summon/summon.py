@@ -1,4 +1,4 @@
-from actions.action import Action
+from actions.action_class import Action
 from tools.menu import menu
 from tools.enums import SummonType, MenuOptions
 from copy import deepcopy

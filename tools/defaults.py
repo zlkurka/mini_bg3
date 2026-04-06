@@ -1,9 +1,9 @@
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
-from actions.attacks import *
-from actions.heal import *
-from actions.summon import *
-from actions.buff_debuff import *
-from actions.action import PassAction
+from actions.attacks.attacks import *
+from actions.heal.heal import *
+from actions.summon.summon import *
+from actions.buff_debuff.buffs import *
+from actions.action_class import PassAction
 
 # Character building blocks
 char_classes: list = [

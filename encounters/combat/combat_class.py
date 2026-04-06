@@ -1,6 +1,6 @@
 from characters.monsters import *
 from conditions.condition_lists import conditions_removed_at_turn_end, conditions_removed_at_turn_start, conditions_removed_at_combat_end
-from tools.enums import Encounter, Skill, CharacterType
+from tools.enums import Skill, CharacterType
 from tools.rich_capitalize import rich_capitalize
 from random import shuffle, choice, sample, randint
 from copy import deepcopy
@@ -138,31 +138,3 @@ class Combat():
             print("- " + rich_capitalize(fighter))
 
         return fighters
-
-Goblins_4x = Combat(
-    name=Encounter.goblins_4x, 
-    monsters=[Goblin], 
-    rewards=[], 
-    monster_names=goblin_names, 
-    monster_sample_count=4,
-    rare_monster=Bajesus,
-    rare_monster_chance=100,
-)
-OwlbearMother = Combat(
-    name=Encounter.owlbear, 
-    monsters=[Owlbear], 
-    rewards=[],
-)
-UndeadGroup = Combat(
-    name=Encounter.undead_group, 
-    monsters=[Skeleton, Zombie], 
-    rewards=[],
-    monster_sample_count=4,
-    rare_monster=Bajesus,
-    rare_monster_chance=100,
-)
-Training = Combat(
-    name=Encounter.training_dummy, 
-    monsters=[TrainingDummy], 
-    rewards=[],
-)
