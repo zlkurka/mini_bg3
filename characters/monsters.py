@@ -1,58 +1,15 @@
-from tools.enums import CharClass, Encounter, AbilityScore, CharacterType, SummonType, Dice
-from characters.character import Character
-from conditions.condition import UndeadFortitude
-from actions.attacks import Attack, CatScratch, Shortsword, Shortbow
-from random import sample, choice
-from copy import deepcopy
-
-def get_monsters(encounter: Encounter) -> list:
-    
-    if encounter == Encounter.goblins_4x:
-        
-        names = sample(goblin_names,4)
-        enemies = []
-
-        for iter in range(4):
-            new_enemy = deepcopy(Goblin)
-            new_enemy.name = names[iter]
-            new_enemy.reset()
-            enemies.append(new_enemy)
-
-    elif encounter == Encounter.owlbear:
-        enemies = [deepcopy(Owlbear)]
-    
-    elif encounter == Encounter.training_dummy:
-        enemies = [deepcopy(TrainingDummy)]
-    
-    elif encounter == Encounter.undead_group:
-        enemies = []
-        for iter in range(4):
-            new_enemy = deepcopy(choice([Skeleton, Zombie]))
-            new_enemy.reset()
-            enemies.append(new_enemy)
-
-    # Numbering enemies with duplicate names
-    used_names = []
-    for char in enemies: 
-        if char.name in used_names:
-            name_added_num = 2
-            while True:
-                alt_name = str(char.name) + " " + str(name_added_num)
-                if alt_name in used_names:
-                    name_added_num += 1
-                    continue
-                char.name = alt_name
-                break
-        used_names.append(char.name)
-    
-    return enemies
+from characters.character_class import Character
+from conditions.conditions import UndeadFortitude
+from actions.attacks import CatScratch, Shortsword, Shortbow, ZombieSlam
+from actions.buff_debuff import BajesusFreakOut
+from tools.enums import CharClass, AbilityScore, CharacterType, SummonType
 
 Cat = Character(
     name = "cat",
     character_type = CharacterType.monster,
     charclass = CharClass.cat, 
     max_hp=2,
-    extra_actions=[CatScratch],
+    actions=[CatScratch],
     ability_scores={
         AbilityScore.STR: -4,
         AbilityScore.DEX: 2,
@@ -61,6 +18,20 @@ Cat = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },)
+Bajesus = Character(
+    name = "Bajesus", 
+    character_type = CharacterType.monster,
+    max_hp=12,
+    ability_scores={
+        AbilityScore.STR: 2,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: -2,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: -1,
+    },
+    actions = [Shortsword, Shortbow, BajesusFreakOut],
+)
 Goblin = Character(
     name = "goblin", 
     character_type = CharacterType.monster,
@@ -73,7 +44,9 @@ Goblin = Character(
         AbilityScore.INT: -1,
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
-    },)
+    },
+    actions=[Shortsword, Shortbow],
+    )
 Skeleton = Character(
     name = "skeleton", 
     character_type = CharacterType.monster,
@@ -88,7 +61,7 @@ Skeleton = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: -3,
     },
-    extra_actions=[Shortsword, Shortbow]
+    actions=[Shortsword, Shortbow],
 )
 Owlbear = Character(
     name = "owlbear",
@@ -131,11 +104,7 @@ Zombie = Character(
         AbilityScore.CHA: -3,
     },
     conditions=[UndeadFortitude],
-    extra_actions=[Attack(
-        name="slam",
-        damage_dice={Dice.d6: 1} ,
-        ability_score_modifier=AbilityScore.STR,  
-    )]
+    actions=[ZombieSlam]
 )
 
 goblin_names = [
@@ -148,7 +117,11 @@ goblin_names = [
     "Cauldron",
     "Bingus Gringus",
     "Schlerb",
-    "Bajesus"
+    "Schug",
+    "Brick",
+    "Bronk",
+    "Kronn",
+    "Leg",
 ]
 
 summon_types = {

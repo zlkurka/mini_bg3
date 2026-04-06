@@ -1,5 +1,5 @@
 from rich import print
-from characters.character import Character
+from characters.character_class import Character
 from actions.attacks import Attack, Longsword_plus1
 from actions.action import Action, PassAction
 from tools.enums import AbilityScore, Skill

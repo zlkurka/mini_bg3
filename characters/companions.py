@@ -1,4 +1,4 @@
-from characters.character import Character
+from characters.character_class import Character
 from copy import deepcopy
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
 

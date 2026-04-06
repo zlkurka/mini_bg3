@@ -187,6 +187,9 @@ class SpecialAction(EnumWithValueRepr):
     barbarian_rage = "rage"
     bardic_inspire = "bardic inspire"
 
+    # Enemy-specific
+    bajesus_freak_out = "freak out"
+
 
 # Equipment
 class Armor(EnumWithValueRepr):
@@ -239,6 +242,7 @@ class BuffCondition(EnumWithValueRepr):
     hiding = "hiding"
     resistant = "resistant"
     undead_fortitude = "undead fortitude"
+    bajesus_freaking_out = "freaking out"
 
 class RollAlteration(EnumWithValueRepr):
 

@@ -1,4 +1,4 @@
-from tools.enums import BuffCondition, Dice, RollAlteration, AbilityScore
+from tools.enums import BuffCondition, RollAlteration, AbilityScore
 from rich import print
 
 class Condition():
@@ -8,23 +8,25 @@ class Condition():
         name, 
         dice: dict = {},
         modifier: int = 0,
-        reduces_damage: bool = False, 
+        alters_incoming_damage: bool = False, 
+        alters_outgoing_damage: bool = False,
         roll_alteration: RollAlteration = None, 
         gives_advantage_on_self: bool = False,
     ):
         self.name = name
         self.dice: dict = dice
         self.modifier: int = modifier
-        self.reduces_damage: bool = reduces_damage
+        self.alters_incoming_damage: bool = alters_incoming_damage
+        self.alters_outgoing_damage: bool = alters_outgoing_damage
         self.roll_alteration: bool = roll_alteration
         self.gives_advantage_on_self: bool = gives_advantage_on_self
     
     def __repr__(self) -> str:
         return "[italic blue]" + str(self.name) + "[/italic blue]"
 
-    def reduce_damage(self, damage: int, character) -> int:
+    def alter_incoming_damage(self, damage: int, character) -> int:
         
-        if not self.reduces_damage:
+        if not self.alters_incoming_damage:
             return damage
         
         new_damage = 0
@@ -47,43 +49,23 @@ class Condition():
             print(f"Damage reduced from {damage} to {new_damage} due to {self} condition.")
         if new_damage > damage:
             print(f"Damage increased from {damage} to {new_damage} due to {self} condition.")
+        
         return new_damage
+    
+    def alter_outgoing_damage(self, damage: int, character) -> int:
+        
+        if not self.alters_outgoing_damage:
+            return damage
+        
+        new_damage = damage + self.modifier
 
-# Damage reduction
-BarbarianRaging = Condition(
-    name=BuffCondition.barbarian_raging,
-    reduces_damage=True,
-)
-Hiding = Condition(
-    name=BuffCondition.hiding, 
-    roll_alteration=RollAlteration.advantage,
-)
-Resistant = Condition(
-    name=BuffCondition.resistant,
-    reduces_damage=True,
-)
-UndeadFortitude = Condition(
-    name=BuffCondition.undead_fortitude,
-    reduces_damage=True,
-)
-
-# Improving rolls
-BardicInspiration = Condition(
-    name=BuffCondition.bardic_inspiration,
-    roll_alteration=RollAlteration.dice_modifier,
-    dice={Dice.d6: 1,},
-)
-Blessed = Condition(
-    name=BuffCondition.blessed,
-    roll_alteration=RollAlteration.dice_modifier,
-    dice={Dice.d4: 1,},
-)
+        if new_damage < damage:
+            print(f"Damage reduced from {damage} to {new_damage} due to {self} condition.")
+        if new_damage > damage:
+            print(f"Damage increased from {damage} to {new_damage} due to {self} condition.")
+        
+        return new_damage
 
 barbarian_rage_damage_reduction = {
     1: .3
 }
-
-conditions_removed_at_turn_start = []
-conditions_removed_at_turn_end = []
-conditions_removed_at_combat_end = [BarbarianRaging, BardicInspiration, Hiding, Blessed]
-conditions_removed_on_action = [Hiding]

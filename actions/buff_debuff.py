@@ -1,5 +1,6 @@
 from actions.action import Action
-from conditions.condition import Condition, BarbarianRaging, BardicInspiration, Blessed, Hiding
+from conditions.condition_class import Condition
+from conditions.conditions import *
 from tools.enums import SpecialAction, MenuOptions, AbilityScore, Skill, Spell
 from rich import print
 
@@ -87,4 +88,9 @@ Hide = Buff(
     name=SpecialAction.hide, 
     condition=Hiding, 
     targetSelf=True
+)
+BajesusFreakOut = Buff(
+    name=SpecialAction.bajesus_freak_out,
+    condition=BajesusFreakingOut,
+    targetSelf=True,
 )

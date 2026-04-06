@@ -1,6 +1,6 @@
 from tools.enums import Weapon, AbilityScore, Dice, Spell, MenuOptions
 from actions.action import Action
-from conditions.condition import Hiding
+from conditions.conditions import Hiding
 from random import randint
 from rich import print
 from tools.rich_capitalize import rich_capitalize
@@ -108,6 +108,10 @@ class Attack(Action):
     
     def deal_damage(self, character, target, enemies, halved_damage: bool):
         damage = self.roll_dice(self.damage_dice)
+
+        for cond in character.conditions:
+            damage = cond.alter_outgoing_damage(damage, character)
+
         if self.use_damage_modifier:
             damage += character.get_modifier(self.ability_score_modifier) + self.weapon_bonus
         
@@ -327,4 +331,10 @@ OwlbearClaw = Attack(
     multi_attack = 2,
     ranged = False,
     use_damage_modifier = True,
+)
+ZombieSlam =Attack(
+    name="slam",
+    damage_dice={Dice.d6: 1} ,
+    ability_score_modifier=AbilityScore.STR,
+    use_damage_modifier=True,
 )

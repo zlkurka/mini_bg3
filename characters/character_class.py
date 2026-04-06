@@ -3,7 +3,8 @@ from actions.action import PassAction
 from actions.attacks import Attack, RogueSneakAttack
 from actions.buff_debuff import Buff, Hide
 from actions.heal import Heal
-from conditions.condition import Hiding, conditions_removed_on_action
+from conditions.conditions import Hiding
+from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
@@ -34,6 +35,7 @@ class Character():
         max_hp: int = None, 
         armor_class: int = None, 
         consumable_actions: dict = {},
+        actions: list = [],
         extra_actions: list = [],
         conditions: list = [],
 
@@ -72,10 +74,13 @@ class Character():
                 self.armor_class: int = 10 + self.ability_scores[AbilityScore.DEX]
         
         # Actions
-        self.actions: list = []
-        if self.charclass in base_actions:
-            self.actions: list = base_actions[self.charclass]
-        self.actions += extra_actions
+        if actions:
+            self.actions: list = list(actions)
+        else:
+            self.actions: list = []
+            if self.charclass in base_actions:
+                self.actions: list = base_actions[self.charclass]
+            self.actions += list(extra_actions)
         
         self.consumable_actions: dict = dict(consumable_actions)
         if charclass in base_consumable_actions:
@@ -121,6 +126,8 @@ class Character():
             print("Invalid character type!")
             self.max_hp: int = 1
         self.current_hp: int = self.max_hp
+
+        return self
     
     def action(self, enemies: list, team: list, fighters: list) -> tuple:
 
@@ -248,13 +255,13 @@ class Character():
         if damage:
             
             for cond in self.conditions:
-                damage = cond.reduce_damage(damage, self)
+                damage = cond.alter_incoming_damage(damage, self)
 
             self.current_hp -= damage
 
             if self.current_hp <= 0:
                 self.current_hp = 0
-                print(f"{self.name} has died!")
+                print(f"{rich_capitalize(self)} has died!")
 
             else:
                 print(f"{rich_capitalize(self)} has {self.current_hp} health remaining.")
@@ -276,7 +283,7 @@ class Character():
     
     def gain_condition(self, condition):
         if condition not in self.conditions:
-            print(f"{self} gained condition {condition}")
+            print(f"{self} gained condition {condition}.")
             self.conditions.append(condition)
 
     def ability_check(self, ability_type, difficulty_class: int = None):
