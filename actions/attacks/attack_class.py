@@ -3,6 +3,7 @@ from conditions.conditions import Hiding
 from tools.enums import AbilityScore, Weapon, MenuOptions
 from tools.rich_capitalize import rich_capitalize
 from tools.roll_d20 import roll_d20
+from rich import print
 
 class Attack(Action):
     
@@ -11,7 +12,7 @@ class Attack(Action):
         name, 
         damage_dice: dict, 
         ability_score_modifier: AbilityScore, 
-        multi_attack: int = 1, 
+        multi_target: int = 1, 
         ranged: bool = False, 
         area_of_effect: bool = False, 
         savingThrow_abilityScore: AbilityScore = None, 
@@ -32,11 +33,11 @@ class Attack(Action):
 
         if area_of_effect == True:
             self.area_of_effect: bool = True
-            self.multi_attack: int = 0
+            self.multi_target: int = 0
             self.halfDamage_onSave: bool = halfDamage_onSave
         else: 
             self.area_of_effect: bool = False
-            self.multi_attack: int = multi_attack
+            self.multi_target: int = multi_target
             self.halfDamage_onSave: bool = False
 
     def action(self, character, enemies: list, team: list, fighters: list):
@@ -64,7 +65,7 @@ class Attack(Action):
                         target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=True)
 
         # Single-target
-        for iter in range(self.multi_attack):
+        for iter in range(self.multi_target):
             if not enemies:
                 break
             while True:

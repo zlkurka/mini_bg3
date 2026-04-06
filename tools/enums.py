@@ -192,6 +192,9 @@ class SpecialAction(EnumWithValueRepr):
 
 
 # Equipment
+class Potion(EnumWithValueRepr):
+    minor_health = "health potion"
+
 class Armor(EnumWithValueRepr):
     
     # Light

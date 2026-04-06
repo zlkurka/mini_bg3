@@ -14,6 +14,7 @@ def main():
     companions = [Astarion, Gale, Karlach, Laezel, Shadowheart, Wyll, Minthara, Halsin, Jaheira, Minsc] 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone]
+    
     party = []
 
     if input('Press [ENTER] to start.') == 'dev':
