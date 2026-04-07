@@ -52,7 +52,7 @@ class Combat():
         return "[bold]" + str(self.name) + "[/bold]"
 
     def begin(self, party: list):
-        
+
         original_party = list(party)
         monsters = list(self.monsters)
 
@@ -109,14 +109,15 @@ class Combat():
                             print(f"{char.name}: died in combat.")
             
                 print()
-                return party
+                self.add_monsters_items_to_rewards()
+                return self.rewards
 
     def roll_initiative(self, party: list, monsters: list):
         
         # Roll initiative
         initiative_rolls = {}
         for char in party + monsters:
-            roll = char.ability_check(ability_type = Skill.initiative)
+            roll = char.ability_check(ability_type=Skill.initiative, print_feedback=False)
             if roll not in initiative_rolls:
                 initiative_rolls.update({roll: [char]})
             else: 
@@ -144,3 +145,7 @@ class Combat():
             print("- " + rich_capitalize(fighter))
 
         return fighters
+    
+    def add_monsters_items_to_rewards(self):
+        for char in self.monsters:
+            self.rewards.extend(char.unequip_all(print_feedback=False))

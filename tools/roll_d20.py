@@ -4,7 +4,7 @@ from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import Dice, RollAlteration, BuffCondition
 
-def roll_d20(character = None, roll_bonus: int = 0):
+def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True):
 
     roll = randint(1, Dice.d20.value)
     original_roll = int(roll)
@@ -69,6 +69,9 @@ def roll_d20(character = None, roll_bonus: int = 0):
         dice_modification += randint(1, die.value)
     roll += dice_modification
     
+    if not print_feedback:
+        return roll
+
     # Printing roll
     print(f"{rich_capitalize(character)} rolled {roll} ({original_roll}", end="")
     

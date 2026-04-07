@@ -1,5 +1,6 @@
 from copy import deepcopy
 from characters.character_class import Character
+from actions.attacks.attacks import DevKillAll, DevKillOne
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
 
 # Original characters
@@ -260,6 +261,28 @@ Minsc = Character(
 )
 
 # Test characters
+TheDev = Character(
+    name="The Developer",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.bard, 
+    race=Race.human, 
+    level=1,
+    max_hp=9999,
+    ability_scores={
+        AbilityScore.STR: 99,
+        AbilityScore.DEX: 99,
+        AbilityScore.CON: 99,
+        AbilityScore.INT: 99,
+        AbilityScore.WIS: 99,
+        AbilityScore.CHA: 99,
+    },
+    skills=[
+        Skill.arcana,
+        Skill.perception,
+        Skill.stealth,
+    ],
+    extra_actions=[DevKillAll, DevKillOne]
+)
 DexGod = Character(
     name="The DEX God",  
     character_type=CharacterType.companion,

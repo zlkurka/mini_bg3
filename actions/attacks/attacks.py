@@ -209,3 +209,19 @@ ZombieSlam =Attack(
     ability_score_modifier=AbilityScore.STR,
     use_damage_modifier=True,
 )
+
+DevKillOne =Attack(
+    name="kill one",
+    damage_dice={Dice.d1: 999},
+    ability_score_modifier=AbilityScore.spellcasting,
+    use_damage_modifier=False,
+)
+DevKillAll =Attack(
+    name="kill all",
+    damage_dice={Dice.d1: 999},
+    ability_score_modifier=AbilityScore.spellcasting,
+    use_damage_modifier=True,
+    area_of_effect=True,
+    savingThrow_abilityScore=AbilityScore.WIS,
+    halfDamage_onSave=True,
+)

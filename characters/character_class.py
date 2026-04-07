@@ -3,6 +3,7 @@ from actions.action_class import PassAction
 from actions.attacks.attacks import Attack, RogueSneakAttack
 from actions.buff_debuff.buffs import Buff, Hide
 from actions.heal.heal import Heal
+from items.item_class import Item
 from conditions.conditions import Hiding
 from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
@@ -85,6 +86,7 @@ class Character():
                 self.actions: list = base_actions[self.charclass]
             self.actions += list(extra_actions)
         
+        # Set consumable actions
         self.consumable_actions: dict = dict(consumable_actions)
         if charclass in base_consumable_actions:
             self.consumable_actions.update(base_consumable_actions[charclass])
@@ -102,11 +104,12 @@ class Character():
             else:
                 self.spell_slots = dict(empty_spell_slots)
 
+        # Equipment
         self.equipment: dict = dict(equipment)
         if not equipped_items and charclass in base_equipped_items:
             equipped_items = base_equipped_items[charclass]
         for item in equipped_items:
-            self.equip_item(item, skip_if_slot_filled=True)
+            self.equip_item(item, skip_if_slot_filled=True, print_feedback=False)
 
         self.conditions: list = list(conditions)
         self.lastAttack_isMelee: bool = False
@@ -293,7 +296,7 @@ class Character():
             print(f"{self} gained condition {condition}.")
             self.conditions.append(condition)
 
-    def ability_check(self, ability_type, difficulty_class: int = None):
+    def ability_check(self, ability_type, difficulty_class: int = None, print_feedback: bool = True) -> int | bool:
         
         # Get ability bonus
         ability_bonus = 0
@@ -307,13 +310,15 @@ class Character():
             print("Unacceptable ability type!")
 
         # Roll
-        roll = roll_d20(character=self, roll_bonus=ability_bonus)
+        roll = roll_d20(character=self, roll_bonus=ability_bonus, print_feedback=print_feedback)
         if difficulty_class == None:
             return roll
         # If no difficulty class set, returns roll (int)
         
         # Check successful
         checkSuccessful = roll >= difficulty_class
+        if not print_feedback:
+            return checkSuccessful
         print(f"{rich_capitalize(self)} rolled a {roll} and ", end="")
         if checkSuccessful:
             print("succeeded!")
@@ -360,16 +365,22 @@ class Character():
         self.spell_slots[spell_level] -= 1
         return True
     
-    def equip_item(self, item, skip_if_slot_filled: bool = False):
-        if not item.is_equippable:
+    def equip_item(self, item: Item = None, skip_if_slot_filled: bool = False, print_feedback: bool = True) -> Item:
+        if not item or not item.is_equippable:
             return item
         
         for itm in self.equipment:
-            if itm == item.item_type:
-                if self.equipment[itm] and skip_if_slot_filled:
-                    return item
-                removed_item = self.unequip_item(self.equipment[itm])
-                self.equipment.update({item.item_type: item})
+            if itm != item.item_type:
+                continue
+            if self.equipment[itm] and skip_if_slot_filled:
+                if print_feedback:
+                    print(f"Slot already filled by {self.equipment[itm]}.")
+                return item
+            removed_item = self.unequip_item(item=self.equipment[itm], print_feedback=print_feedback)
+            self.equipment.update({item.item_type: item})
+            if print_feedback:
+                print(f"{self} equipped {item}.")
+            break
         
         for act in item.associated_actions:
             if act not in self.actions:
@@ -377,24 +388,34 @@ class Character():
         
         return removed_item
     
-    def unequip_item(self, item):
+    def unequip_item(self, item: Item = None, print_feedback: bool = True) -> Item:
         if not item:
             return item
         
         if not item.is_equippable:
             print("Item is not equippable, but will still be removed.")
         
-        for itm in self.equipment:
+        for itm in list(self.equipment):
             if item == self.equipment[itm]:
                 removed_item = self.equipment.pop(itm)
                 self.equipment.update({item.item_type: None})
+                if print_feedback:
+                    print(f"{self} unequipped {item}.")
         
         if removed_item:
             for act in removed_item.associated_actions:
                 self.actions.remove(act)
+                if print_feedback:
+                    print(f"{self} lost action {act}.")
         
         return removed_item
 
+    def unequip_all(self, print_feedback: bool = True) -> list:
+        removed_items = []
+        for item_type in self.equipment:
+            if self.equipment[item_type]:
+                removed_items.append(self.unequip_item(item=self.equipment[item_type], print_feedback=print_feedback))
+        return removed_items
 
     def get_aggro(self) -> int:
 

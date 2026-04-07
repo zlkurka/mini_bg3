@@ -15,26 +15,15 @@ def main():
     events = [SwordInStone]
 
     if input('Press [ENTER] to start.') == 'dev':
-        
-        Party.active_party = [Nightkill, Karlach, BingusGringus, Shadowheart]
+        Party.active_party = [Nightkill, Karlach, TheDev, Shadowheart]
         Party.do_encounter(Goblins_4x)
     
     while True:
         match menu(options=["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"], menu_text="What would you like to do?"):
             
             case "Begin campaign":
-
-                campaign = [
-                    Goblins_4x, 
-                    SwordInStone,
-                    OwlbearMother,
-                    UndeadGroup, 
-                ]
-
-                for encounter in campaign:
-                    Party.do_encounter(encounter)
-                    Party.group_long_rest()
-
+                campaign(Party)
+                
             case "Choose party":
                 Party.pick_party()
 
@@ -43,20 +32,60 @@ def main():
                     case "Combat":
                         Party.do_encounter(menu(options=combats, menu_text="Who would you like to fight?"))
                     case "Event":
-                        Party.do_encounter(menu(options=events, menu_text="Who would you like to fight?"))
+                        Party.do_encounter(menu(options=events, menu_text="What event would you like to experience?"))
 
             case "Add custom character":
                 Party.add_custom_character()
 
             case "Romance":
-                while True:
-                    sex_havers = sample(Party.companions, 2)
-                    if Nightkill not in sex_havers:
-                        break
-                print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
+                romance(Party.companions)
         
             case _:
                 print("Invalid option!")
+
+def campaign(Party: PartyInfo):
+    
+    campaign_encounters = [
+        Goblins_4x, 
+        SwordInStone,
+        OwlbearMother,
+        UndeadGroup, 
+    ]
+    
+    while True:
+        match menu(options=["Go to next encounter", "Change active party", "Manage equipment", "Long rest", "Romance"], menu_text="What would you like to do?"):
+            case "Go to next encounter":
+                Party.do_encounter(campaign_encounters[0])
+                campaign_encounters.pop(0)
+
+            case "Change active party":
+                Party.pick_party()
+
+            case "Manage equipment":
+                pass
+
+            case "Long rest":
+                Party.group_long_rest()
+
+            case "Romance":
+                romance(Party.companions)
+
+            case _:
+                print("Invalid option!")
+
+
+def romance(companions):
+    romanceable_companions = list(companions)
+    for char in [Nightkill]:
+        if char in romanceable_companions:
+            romanceable_companions.remove(char)
+    if len(romanceable_companions) == 0:
+        print("There are no romanceable companions!")
+    if len(romanceable_companions) == 1:
+        print(f"{romanceable_companions[0]} goes to town on that thang.")
+    if len(romanceable_companions) ==2:
+        sex_havers = sample(romanceable_companions, 2)
+        print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
 
 if __name__ == "__main__":
     main()

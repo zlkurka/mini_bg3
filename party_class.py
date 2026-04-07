@@ -65,6 +65,9 @@ class PartyInfo():
         print_list(self.active_party, "You embark with")
     
     def attain_loot(self, loot):
+        if not loot:
+            return
+        
         for item in loot:
 
             if type(item) == Character:
@@ -79,7 +82,7 @@ class PartyInfo():
             
             if type(item) == Action or Attack:
                 
-                if item.spell_slot_level > 0:
+                if item and item.spell_slot_level > 0:
                     print(f"Spell attained: {item}")
                     recipient_options = []
                     for char in self.companions:
