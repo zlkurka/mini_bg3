@@ -2,7 +2,7 @@ from actions.attacks.attack_class import Attack
 from tools.enums import Weapon, AbilityScore, Dice, Spell
             
 # Melee weapons
-Dagger = Attack(
+DaggerStrike = Attack(
     name = Weapon.dagger, 
     damage_dice = {Dice.d4: 1},
     ability_score_modifier = AbilityScore.finesse,
@@ -10,7 +10,7 @@ Dagger = Attack(
     ranged = True,
     use_damage_modifier = True,
 )
-Greataxe = Attack(
+GreataxeStrike = Attack(
     name = Weapon.greataxe, 
     damage_dice = {Dice.d12: 1},
     ability_score_modifier = AbilityScore.STR,
@@ -18,7 +18,7 @@ Greataxe = Attack(
     ranged = True,
     use_damage_modifier = True,
 )
-Longsword = Attack(
+LongswordStrike = Attack(
     name = Weapon.longsword, 
     damage_dice = {Dice.d10: 1},
     ability_score_modifier = AbilityScore.STR,
@@ -26,7 +26,7 @@ Longsword = Attack(
     ranged = False,
     use_damage_modifier = True,
 )
-Mace = Attack(
+MaceStrike = Attack(
     name = Weapon.mace, 
     damage_dice = {Dice.d8: 1},
     ability_score_modifier = AbilityScore.STR,
@@ -34,7 +34,7 @@ Mace = Attack(
     ranged = False,
     use_damage_modifier = True,
 )
-Shortsword = Attack(
+ShortswordStrike = Attack(
     name = Weapon.shortsword, 
     damage_dice = {Dice.d6: 1},
     ability_score_modifier = AbilityScore.finesse,
@@ -53,7 +53,7 @@ MonkUnarmed = Attack(
 
 
 # Ranged weapons
-Crossbow = Attack(
+CrossbowStrike = Attack(
     name = Weapon.crossbow, 
     damage_dice = {Dice.d8: 1},
     ability_score_modifier = AbilityScore.DEX,
@@ -61,7 +61,7 @@ Crossbow = Attack(
     ranged = True,
     use_damage_modifier = True,
 )
-Shortbow = Attack(
+ShortbowStrike = Attack(
     name = Weapon.shortbow, 
     damage_dice = {Dice.d6: 1},
     ability_score_modifier = AbilityScore.DEX,
@@ -131,7 +131,7 @@ Shillelagh = Attack(
 
 
 # Magic weapons
-Longsword_plus1 = Attack(
+Longsword_plus1Strike = Attack(
     name = str(Weapon.longsword) + ", +1", 
     damage_dice = {Dice.d10: 1},
     ability_score_modifier = AbilityScore.STR,

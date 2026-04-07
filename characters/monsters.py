@@ -1,9 +1,23 @@
 from characters.character_class import Character
 from conditions.conditions import UndeadFortitude
-from actions.attacks.attacks import CatScratch, Shortsword, Shortbow, ZombieSlam
+from actions.attacks.attacks import CatScratch, ShortswordStrike, ShortbowStrike, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut
 from tools.enums import CharClass, AbilityScore, CharacterType, SummonType
 
+Bajesus = Character(
+    name = "Bajesus", 
+    character_type = CharacterType.monster,
+    max_hp=12,
+    ability_scores={
+        AbilityScore.STR: 2,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: -2,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: -1,
+    },
+    actions = [ShortswordStrike, ShortbowStrike, BajesusFreakOut],
+)
 Cat = Character(
     name = "cat",
     character_type = CharacterType.monster,
@@ -18,20 +32,6 @@ Cat = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },)
-Bajesus = Character(
-    name = "Bajesus", 
-    character_type = CharacterType.monster,
-    max_hp=12,
-    ability_scores={
-        AbilityScore.STR: 2,
-        AbilityScore.DEX: 0,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: -2,
-        AbilityScore.WIS: -1,
-        AbilityScore.CHA: -1,
-    },
-    actions = [Shortsword, Shortbow, BajesusFreakOut],
-)
 Goblin = Character(
     name = "goblin", 
     character_type = CharacterType.monster,
@@ -45,7 +45,7 @@ Goblin = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },
-    actions=[Shortsword, Shortbow],
+    actions=[ShortswordStrike, ShortbowStrike],
     )
 Skeleton = Character(
     name = "skeleton", 
@@ -61,7 +61,7 @@ Skeleton = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: -3,
     },
-    actions=[Shortsword, Shortbow],
+    actions=[ShortswordStrike, ShortbowStrike],
 )
 Owlbear = Character(
     name = "owlbear",

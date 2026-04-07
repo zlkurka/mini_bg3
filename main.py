@@ -16,7 +16,7 @@ def main():
 
     if input('Press [ENTER] to start.') == 'dev':
         
-        Party.active_party = [Astarion, Karlach, Gale, Shadowheart]
+        Party.active_party = [Nightkill, Karlach, BingusGringus, Shadowheart]
         Party.embark(Goblins_4x)
     
     while True:

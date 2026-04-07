@@ -9,8 +9,9 @@ from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType
-from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes
+from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items
 from rich import print
+from copy import copy
 
 class Character():
 
@@ -38,11 +39,8 @@ class Character():
         consumable_actions: dict = {},
         extra_actions: list = [],
         conditions: list = [],
-        equipment: dict = {
-            ItemType.weapon: None,
-            ItemType.armor: None,
-            ItemType.shield: None,
-        },
+        equipment: dict = empty_equipment,
+        equipped_items: list = [],
 
     ):
         
@@ -104,7 +102,11 @@ class Character():
             else:
                 self.spell_slots = dict(empty_spell_slots)
 
-        # self.equipment = base_equipment[self.charclass]
+        self.equipment: dict = dict(equipment)
+        if not equipped_items and charclass in base_equipped_items:
+            equipped_items = base_equipped_items[charclass]
+        for item in equipped_items:
+            self.equip_item(item, skip_if_slot_filled=True)
 
         self.conditions: list = list(conditions)
         self.lastAttack_isMelee: bool = False
@@ -320,30 +322,34 @@ class Character():
         
         return checkSuccessful
     
-    def get_modifier(self, ability_type) -> int:
+    def get_modifier(self, ability_type, exclude_proficiency_bonus: bool = False) -> int:
         
+        ability_bonus: int = 0
+
         if type(ability_type) == Skill:
             ability_bonus: int = self.ability_scores[skill_ability_scores[ability_type]]
-            if ability_type in self.skills:
+            if ability_type in self.skills and not exclude_proficiency_bonus:
                 ability_bonus += self.proficiency_bonus
-            return ability_bonus
         
         elif type(ability_type) == AbilityScore:
             
             if ability_type == AbilityScore.finesse:
-                return max(self.ability_scores[AbilityScore.STR], self.ability_scores[AbilityScore.DEX]) + self.proficiency_bonus
-            
-            if ability_type == AbilityScore.spellcasting:
+                ability_bonus: int = max(self.ability_scores[AbilityScore.STR], self.ability_scores[AbilityScore.DEX])
+            elif ability_type == AbilityScore.spellcasting:
                 for ability in class_spellcasting_ability_scores:
                     if self.charclass in class_spellcasting_ability_scores[ability]:
-                        return self.ability_scores[ability] + self.proficiency_bonus
-                return self.ability_scores[AbilityScore.INT]
-
-            return self.proficiency_bonus + self.ability_scores[ability_type]
+                        ability_bonus: int = self.ability_scores[ability]
+                        break
+            else:
+                ability_bonus: int = self.ability_scores[ability_type]
+            
+            if not exclude_proficiency_bonus:
+                ability_bonus += self.proficiency_bonus
         
         else:
             print("Unacceptable ability type!")
-            return 0
+        
+        return ability_bonus
         
    
     def cast_leveled_spell(self, spell_level: int) -> bool:
@@ -354,6 +360,42 @@ class Character():
         self.spell_slots[spell_level] -= 1
         return True
     
+    def equip_item(self, item, skip_if_slot_filled: bool = False):
+        if not item.is_equippable:
+            return item
+        
+        for itm in self.equipment:
+            if itm == item.item_type:
+                if self.equipment[itm] and skip_if_slot_filled:
+                    return item
+                removed_item = self.unequip_item(self.equipment[itm])
+                self.equipment.update({item.item_type: item})
+        
+        for act in item.associated_actions:
+            if act not in self.actions:
+                self.actions.append(act)
+        
+        return removed_item
+    
+    def unequip_item(self, item):
+        if not item:
+            return item
+        
+        if not item.is_equippable:
+            print("Item is not equippable, but will still be removed.")
+        
+        for itm in self.equipment:
+            if item == self.equipment[itm]:
+                removed_item = self.equipment.pop(itm)
+                self.equipment.update({item.item_type: None})
+        
+        if removed_item:
+            for act in removed_item.associated_actions:
+                self.actions.remove(act)
+        
+        return removed_item
+
+
     def get_aggro(self) -> int:
 
         aggro = 1

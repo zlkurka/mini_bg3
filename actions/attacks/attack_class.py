@@ -112,7 +112,7 @@ class Attack(Action):
             damage = cond.alter_outgoing_damage(damage, character)
 
         if self.use_damage_modifier:
-            damage += character.get_modifier(self.ability_score_modifier) + self.weapon_bonus
+            damage += character.get_modifier(self.ability_score_modifier, exclude_proficiency_bonus=True) + self.weapon_bonus
         
         if halved_damage:
             damage = damage // 2

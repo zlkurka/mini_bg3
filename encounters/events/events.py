@@ -1,5 +1,5 @@
 from encounters.events.event_class import Event, EventOption
-from actions.attacks.attacks import Longsword_plus1
+from items.weapons import Longsword_plus1
 from tools.enums import AbilityScore, Skill
 
 SwordInStone = Event(

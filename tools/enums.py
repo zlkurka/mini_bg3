@@ -252,8 +252,9 @@ class RollAlteration(EnumWithValueRepr):
 
 class ItemType(EnumWithValueRepr):
     
+    melee_weapon = "melee weapon"
+    ranged_weapon = "ranged weapon"
     armor = "armor"
-    weapon = "weapon"
     shield = "shield"
     consumable = "consumable"
 

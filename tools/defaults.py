@@ -1,9 +1,11 @@
-from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
 from actions.attacks.attacks import *
 from actions.heal.heal import *
 from actions.summon.summon import *
 from actions.buff_debuff.buffs import *
 from actions.action_class import PassAction
+from items.weapons import *
+from items.armor import *
+from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
 
 # Character building blocks
 char_classes: list = [
@@ -117,15 +119,15 @@ base_actions: dict = {
     
     # Companion classes
 
-    CharClass.barbarian: [Greataxe],
-    CharClass.bard: [Shortsword, Crossbow, CureWounds],
-    CharClass.cleric: [Mace, SacredFlame, HealingWord, CureWounds, Bless],
-    CharClass.druid: [Shillelagh, PoisonSpray, Shortbow, CureWounds],
-    CharClass.fighter: [Longsword, Shortbow],
+    CharClass.barbarian: [],
+    CharClass.bard: [CureWounds],
+    CharClass.cleric: [SacredFlame, HealingWord, CureWounds, Bless],
+    CharClass.druid: [Shillelagh, PoisonSpray, CureWounds],
+    CharClass.fighter: [],
     CharClass.monk: [MonkUnarmed],
-    CharClass.paladin: [Longsword, Crossbow],
-    CharClass.ranger: [Shortsword, Shortbow],
-    CharClass.rogue: [Dagger, Shortbow, RogueSneakAttack],
+    CharClass.paladin: [],
+    CharClass.ranger: [],
+    CharClass.rogue: [RogueSneakAttack],
     CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
     CharClass.warlock: [EldritchBlast, PoisonSpray, ArmsOfHadar],
     CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
@@ -133,7 +135,7 @@ base_actions: dict = {
 
     # Monster classes
 
-    CharClass.goblin: [Shortsword, Shortsword],
+    CharClass.goblin: [ShortswordStrike, ShortswordStrike],
     CharClass.owlbear: [OwlbearClaw],
     CharClass.training_dummy: [PassAction],
 
@@ -336,19 +338,19 @@ spell_slot_counts: dict = {
 }
 empty_spell_slots: dict = spell_slot_counts[CasterType.nonCaster][1]
 
-base_equipment: dict = {
+base_equipped_items: dict = {
 
-    CharClass.barbarian: [Weapon.longsword],
-    CharClass.bard: [Weapon.shortbow, Armor.leather, Consumable.arrow],
-    CharClass.cleric: [Weapon.mace, Armor.chain_shirt, Shield.basic],
-    CharClass.druid: [Armor.hide],
-    CharClass.fighter: [Weapon.longsword, Armor.scale_mail],
+    CharClass.barbarian: [Greataxe],
+    CharClass.bard: [Shortsword, Crossbow], # Leather armor
+    CharClass.cleric: [Mace], # Chain shirt, shield
+    CharClass.druid: [Shortbow], # Hide armor
+    CharClass.fighter: [Longsword, Shortbow], # Scale mail
     CharClass.monk: [],
-    CharClass.paladin: [Weapon.longsword, Armor.scale_mail, Shield.basic],
-    CharClass.ranger: [Weapon.shortbow, Armor.leather, Consumable.arrow],
-    CharClass.rogue: [Weapon.shortsword, Armor.leather],
+    CharClass.paladin: [Longsword, Crossbow], # Scale mail, shield
+    CharClass.ranger: [Shortsword, Shortbow], # Leather armor
+    CharClass.rogue: [Dagger, Shortbow], # Leather armor
     CharClass.sorcerer: [],
-    CharClass.warlock: [Weapon.shortsword, Armor.leather],
+    CharClass.warlock: [Shortsword], # Leather armor
     CharClass.wizard: [],
 
 }
@@ -429,4 +431,11 @@ armor_values: dict = {
     Armor.chain_shirt: 13,
     Armor.scale_mail: 14,
 
+}
+
+empty_equipment = {
+    ItemType.melee_weapon: None,
+    ItemType.ranged_weapon: None,
+    ItemType.armor: None,
+    ItemType.shield: None,
 }

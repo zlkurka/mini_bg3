@@ -1,3 +1,4 @@
+from rich import print
 from characters.create_custom_character import create_custom_character
 from tools.menu import menu
 from tools.print_list import print_list
