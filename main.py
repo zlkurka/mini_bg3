@@ -17,7 +17,7 @@ def main():
     if input('Press [ENTER] to start.') == 'dev':
         
         Party.active_party = [Nightkill, Karlach, BingusGringus, Shadowheart]
-        Party.embark(Goblins_4x)
+        Party.do_encounter(Goblins_4x)
     
     while True:
         match menu(options=["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"], menu_text="What would you like to do?"):
@@ -32,7 +32,7 @@ def main():
                 ]
 
                 for encounter in campaign:
-                    Party.embark(encounter)
+                    Party.do_encounter(encounter)
                     Party.group_long_rest()
 
             case "Choose party":
@@ -41,9 +41,9 @@ def main():
             case "Face an encounter":
                 match menu(options=["Combat", "Event"], menu_text="What kind of encounter would you like to face?"):
                     case "Combat":
-                        Party.embark(menu(options=combats, menu_text="Who would you like to fight?"))
+                        Party.do_encounter(menu(options=combats, menu_text="Who would you like to fight?"))
                     case "Event":
-                        Party.embark(menu(options=events, menu_text="Who would you like to fight?"))
+                        Party.do_encounter(menu(options=events, menu_text="Who would you like to fight?"))
 
             case "Add custom character":
                 Party.add_custom_character()

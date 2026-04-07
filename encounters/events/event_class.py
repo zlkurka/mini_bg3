@@ -2,6 +2,7 @@ from rich import print
 from characters.character_class import Character
 from actions.attacks.attacks import Attack
 from actions.action_class import Action
+from items.item_class import Item
 from tools.menu import menu
 from tools.defaults import empty_spell_slots
 from tools.rich_capitalize import rich_capitalize
@@ -28,28 +29,12 @@ class Event():
         checkSuccessful = character_making_check.ability_check(ability_type=choice.ability_check, difficulty_class=choice.difficulty_class)
         if not checkSuccessful:
             print(choice.failure_text.format(character_making_check))
+            loot = []
         else:
             print(choice.success_text.format(character_making_check))
+            loot = choice.rewards
 
-            for item in choice.rewards:
-                if type(item) == Action or Attack:
-                    
-                    if item.spell_slot_level > 0:
-                        recipient_options = []
-                        for char in party:
-                            if char.spell_slots != empty_spell_slots:
-                                recipient_options.append(char)
-                    else:
-                        recipient_options = party
-                    choice = menu(menu_text="Who should recieve this?", options=recipient_options)
-                    choice.actions.append(item)
-                    print(f"{rich_capitalize(item)} added to {choice}'s actions.")
-                    continue
-                if type(item) == Character:
-                    party.append(Character)
-                    continue
-
-        return party
+        return loot
 
 
 class EventOption():

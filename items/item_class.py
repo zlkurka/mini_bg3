@@ -12,3 +12,6 @@ class Item():
         self.value: int = value
         self.bonus_modifier: int = bonus_modifier
         self.armor_type: ArmorType = armor_type
+
+    def __repr__(self):
+        return "[underline]" + str(self.name) + "[/underline]"

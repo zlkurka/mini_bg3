@@ -1,5 +1,11 @@
 from rich import print
 from characters.create_custom_character import create_custom_character
+from characters.character_class import Character
+from actions.attacks.attacks import Attack
+from actions.action_class import Action
+from items.item_class import Item
+from tools.defaults import empty_spell_slots
+from tools.rich_capitalize import rich_capitalize
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.enums import MenuOptions
@@ -12,11 +18,12 @@ class PartyInfo():
         self.items: list = list(items)
         self.active_party: list = list(active_party)
     
-    def embark(self, encounter):
+    def do_encounter(self, encounter):
         if not self.active_party:
             self.pick_party()
         
-        encounter.begin(self.active_party)
+        loot = encounter.begin(self.active_party)
+        self.attain_loot(loot)
 
     def pick_party(self):
     
@@ -57,6 +64,36 @@ class PartyInfo():
         
         print_list(self.active_party, "You embark with")
     
+    def attain_loot(self, loot):
+        for item in loot:
+
+            if type(item) == Character:
+                print(f"Companion found: {item}")
+                self.companions.append(Character)
+                continue
+            
+            if type(item) == Item:
+                print(f"Item attained: {item}")
+                self.items.append(item)
+                continue
+            
+            if type(item) == Action or Attack:
+                
+                if item.spell_slot_level > 0:
+                    print(f"Spell attained: {item}")
+                    recipient_options = []
+                    for char in self.companions:
+                        if char.spell_slots != empty_spell_slots:
+                            recipient_options.append(char)
+                else:
+                    print(f"Special action attained: {item}")
+                    recipient_options = self.companions
+
+                character_choice = menu(menu_text="Who should recieve this?", options=recipient_options)
+                character_choice.actions.append(item)
+                print(f"{rich_capitalize(item)} added to {character_choice}'s actions.")
+                continue
+            
     def group_long_rest(self):
         for char in self.companions:
             char.long_rest()

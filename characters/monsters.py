@@ -1,4 +1,5 @@
 from characters.character_class import Character
+from items.weapons import *
 from conditions.conditions import UndeadFortitude
 from actions.attacks.attacks import CatScratch, ShortswordStrike, ShortbowStrike, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut
@@ -16,7 +17,8 @@ Bajesus = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: -1,
     },
-    actions = [ShortswordStrike, ShortbowStrike, BajesusFreakOut],
+    equipped_items = [Shortsword, Shortbow],
+    extra_actions = [BajesusFreakOut],
 )
 Cat = Character(
     name = "cat",
@@ -45,7 +47,7 @@ Goblin = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },
-    actions=[ShortswordStrike, ShortbowStrike],
+    equipped_items = [Shortsword, Shortbow],
     )
 Skeleton = Character(
     name = "skeleton", 
@@ -61,7 +63,7 @@ Skeleton = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: -3,
     },
-    actions=[ShortswordStrike, ShortbowStrike],
+    equipped_items = [Shortsword, Shortbow],
 )
 Owlbear = Character(
     name = "owlbear",
