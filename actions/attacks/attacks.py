@@ -73,7 +73,7 @@ Shortbow = Attack(
 
 # Cantrips
 EldritchBlast = Attack(
-    name = Weapon.eldritch_blast, 
+    name = Spell.eldritch_blast, 
     damage_dice = {Dice.d10: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,
@@ -82,7 +82,7 @@ EldritchBlast = Attack(
     spell_slot_level = 0,
 )
 Firebolt = Attack(
-    name = Weapon.firebolt, 
+    name = Spell.firebolt, 
     damage_dice = {Dice.d10: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,
@@ -91,7 +91,7 @@ Firebolt = Attack(
     spell_slot_level = 0,
 )
 PoisonSpray = Attack(
-    name = Weapon.poison_spray, 
+    name = Spell.poison_spray, 
     damage_dice = {Dice.d12: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,
@@ -101,7 +101,7 @@ PoisonSpray = Attack(
     spell_slot_level = 0,
 )
 RayOfFrost = Attack(
-    name = Weapon.ray_of_frost, 
+    name = Spell.ray_of_frost, 
     damage_dice = {Dice.d8: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,
@@ -110,7 +110,7 @@ RayOfFrost = Attack(
     spell_slot_level = 0,
 )
 SacredFlame = Attack(
-    name = Weapon.sacred_flame, 
+    name = Spell.sacred_flame, 
     damage_dice = {Dice.d8: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,
@@ -120,7 +120,7 @@ SacredFlame = Attack(
     spell_slot_level = 0,
 )
 Shillelagh = Attack(
-    name = Weapon.shillelagh, 
+    name = Spell.shillelagh, 
     damage_dice = {Dice.d8: 1},
     ability_score_modifier = AbilityScore.spellcasting,
     multi_target = 1,

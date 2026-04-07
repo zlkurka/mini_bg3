@@ -115,7 +115,6 @@ goblin_names = [
     "Bucket",
     "Haldron",
     "Cauldron",
-    "Bingus Gringus",
     "Schlerb",
     "Schug",
     "Brick",

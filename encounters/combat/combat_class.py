@@ -89,18 +89,24 @@ class Combat():
                 if condition in conditions_removed_at_turn_end:
                     fighter.conditions.remove(condition)
 
-            if not party:
-                print("\nYou lose!\n")
-                return party
+            if not party or not monsters:
                 
-            if not monsters:
-                print("\nYou win!\n")
+                for char in party:
+                    for condition in char.conditions:
+                        if condition in conditions_removed_at_combat_end:
+                            char.conditions.remove(condition)
+                
+                if not party:
+                    print("\nYou lose!")
+                
+                if not monsters:
+                    print("\nYou win!\n")
 
-                for char in original_party:
-                    if char in party:
-                        print(f"{char.name}: {char.current_hp} HP remaining.")
-                    else:
-                        print(f"{char.name}: died in combat.")
+                    for char in original_party:
+                        if char in party:
+                            print(f"{char.name}: {char.current_hp} HP remaining.")
+                        else:
+                            print(f"{char.name}: died in combat.")
             
                 print()
                 return party

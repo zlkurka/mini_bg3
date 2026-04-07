@@ -341,7 +341,7 @@ base_equipment: dict = {
     CharClass.barbarian: [Weapon.longsword],
     CharClass.bard: [Weapon.shortbow, Armor.leather, Consumable.arrow],
     CharClass.cleric: [Weapon.mace, Armor.chain_shirt, Shield.basic],
-    CharClass.druid: [Weapon.shillelagh, Armor.hide],
+    CharClass.druid: [Armor.hide],
     CharClass.fighter: [Weapon.longsword, Armor.scale_mail],
     CharClass.monk: [],
     CharClass.paladin: [Weapon.longsword, Armor.scale_mail, Shield.basic],

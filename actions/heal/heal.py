@@ -13,7 +13,7 @@ HealingWord = Heal(
     heal_const = 1,
     spell_slot_level=0
 )
-HealingPotion = Heal(
+Drink_MinorHealthPotion = Heal(
     name = Potion.minor_health,
     heal_dice = {Dice.d4: 2},
     heal_const = 2,

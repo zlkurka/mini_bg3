@@ -5,6 +5,8 @@ I only began learning Python a few months ago, and with it the ins and outs of c
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
 
+
+
 ___
 
 # How to play
@@ -34,14 +36,17 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Execute the code in `main.py`
 
 
+
 ___
 
 # To-do's
 
 ## Priority
 
+* Add equipment; auto-equip during `__init__`
+* Add action economy (action, bonus action, reaction, movement?)
+* Add buffs to events
 * New monsters
-* Consumable abilities
 * Druid spells
 
 ## Class-specific features
@@ -133,17 +138,16 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
-* Change language for different action types to match up with each other (
-* Add consumable abilities (rage, bardic inspo)
-  * Maybe I’ll have a dict like {BarbarianRage: 2}
-* Add other options for setting ability scores (point buy, rolling scores)
 * Add equipment; auto-equip during `__init__`
-* Add combat UI in Textual
-* Add race features
 * Add action economy (action, bonus action, reaction, movement?)
+* Add combat UI in Textual
+* Add other options for setting ability scores (point buy, rolling scores)
+* Add race features
 * Add reviving dead characters (Withers, spend gold; revivify)
 * Add higher levels
   * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
+
+
 
 ___
 

@@ -1,9 +1,70 @@
-from characters.character_class import Character
 from copy import deepcopy
+from characters.character_class import Character
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
 
-# BG3 companions
+# Original characters
+Nightkill = Character(
+    name="Nightkill",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.rogue, 
+    race=Race.halfling, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -1,
+        AbilityScore.DEX: 3,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 1,
+        AbilityScore.WIS: 2,
+        AbilityScore.CHA: 0,
+    },
+    skills=[
+        Skill.acrobatics,
+        Skill.investigation,
+        Skill.sleight_of_hand,
+        Skill.stealth,
+    ],
+)
+Faylen = Character(
+    name="Faylen",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.druid, 
+    race=Race.half_elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -1,
+        AbilityScore.DEX: 1,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 0,
+    },
+    skills=[
+        Skill.religion,
+        Skill.insight,
+    ]
+)
+BingusGringus = Character(
+    name="Bingus Gringus",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.sorcerer, 
+    race=Race.goblin, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 1,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: 3,
+    },
+    skills=[
+        Skill.deception,
+        Skill.persuasion,
+    ]
+)
 
+
+# BG3 companions
 Astarion = Character(
     name=CharacterName.astarion, 
     character_type=CharacterType.companion,
@@ -196,49 +257,6 @@ Minsc = Character(
         Skill.athletics,
         Skill.survival,
     ],
-)
-
-# Original characters
-
-Nightkill = Character(
-    name="Nightkill",  
-    character_type=CharacterType.companion,
-    charclass=CharClass.rogue, 
-    race=Race.halfling, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: -1,
-        AbilityScore.DEX: 3,
-        AbilityScore.CON: 0,
-        AbilityScore.INT: 1,
-        AbilityScore.WIS: 2,
-        AbilityScore.CHA: 0,
-    },
-    skills=[
-        Skill.acrobatics,
-        Skill.investigation,
-        Skill.sleight_of_hand,
-        Skill.stealth,
-    ],
-)
-Faylen = Character(
-    name="Faylen",  
-    character_type=CharacterType.companion,
-    charclass=CharClass.druid, 
-    race=Race.half_elf, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 0,
-        AbilityScore.DEX: 1,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: 0,
-        AbilityScore.WIS: 3,
-        AbilityScore.CHA: 0,
-    },
-    skills=[
-        Skill.religion,
-        Skill.insight,
-    ]
 )
 
 # Test characters

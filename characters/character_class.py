@@ -8,7 +8,7 @@ from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Weapon, BuffCondition, Skill
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType
 from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes
 from rich import print
 
@@ -34,10 +34,15 @@ class Character():
         base_max_hp: int = None,
         max_hp: int = None, 
         armor_class: int = None, 
-        consumable_actions: dict = {},
         actions: list = [],
+        consumable_actions: dict = {},
         extra_actions: list = [],
         conditions: list = [],
+        equipment: dict = {
+            ItemType.weapon: None,
+            ItemType.armor: None,
+            ItemType.shield: None,
+        },
 
     ):
         

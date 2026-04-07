@@ -74,6 +74,7 @@ class Race(EnumWithValueRepr):
     elf = "elf"
     githyanki = "githyanki"
     gnome = "gnome"
+    goblin = "goblin"
     half_elf = "half-elf"
     half_orc = "half-orc"
     halfling = "halfling"
@@ -152,14 +153,6 @@ class Weapon(EnumWithValueRepr):
     shortsword = "shortsword"
     unarmed = "unarmed strike"
 
-    # Cantrips
-    eldritch_blast = "eldritch blast"
-    firebolt = "firebolt"
-    poison_spray = "poison spray"
-    ray_of_frost = "ray of frost"
-    sacred_flame = "sacred flame"
-    shillelagh = "shillelagh"
-
     # Special attacks
     rogue_sneak_attack = "sneak attack"
     
@@ -169,7 +162,13 @@ class Weapon(EnumWithValueRepr):
 class Spell(EnumWithValueRepr):
     
     # Cantrips
+    eldritch_blast = "eldritch blast"
+    firebolt = "firebolt"
     healing_word = "healing word"
+    poison_spray = "poison spray"
+    ray_of_frost = "ray of frost"
+    sacred_flame = "sacred flame"
+    shillelagh = "shillelagh"
 
     # 1st level
     arms_of_hadar = "arms of hadar"
@@ -214,9 +213,6 @@ class Consumable(EnumWithValueRepr):
     # Ammunition
     arrow = "arrow"
 
-    # Potions
-    healing_potion = "healing potion"
-
 
 # Other
 class Dice(Enum):
@@ -253,3 +249,15 @@ class RollAlteration(EnumWithValueRepr):
     disadvantage = "disadvantage"
     dice_modifier = "dice modifier"
     flat_modifer = "flat modifier"
+
+class ItemType(EnumWithValueRepr):
+    
+    armor = "armor"
+    weapon = "weapon"
+    shield = "shield"
+    consumable = "consumable"
+
+class ArmorType(EnumWithValueRepr):
+    light = "light"
+    medium = "medium"
+    heavy = "heavy"
