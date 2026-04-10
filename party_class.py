@@ -98,16 +98,41 @@ class PartyInfo():
                 continue
 
     def manage_equipment(self):
+        
+        equippable_items = []
+        for itm in self.items:
+            if itm.is_equippable:
+                equippable_items.append(itm)
+        
         while True:
-            match menu(options=["View equipped items", "Unequip all items"], menu_text="What would you like to do?"):
+            match menu(options=["View equipped items", "Unequip all items", "Go back"], menu_text="What would you like to do?"):
                 case "View equipped items":
-                    choice = menu(menu_text="Whose items would you like to see?", options=list(self.companions) + ["All"])
-                    if choice == "All":
-                        pass
+                    character_choice = menu(menu_text="Whose items would you like to see?", options=list(self.companions) + ["All"])
+                    if character_choice == "All":
+                        for char in self.companions:
+                            char.print_equipment()
                     else:
-                        print(choice)
-                        for item_type in choice.equipment:
-                            print(f"{item_type}: {choice.equipment[item_type]}")
+                        while True:
+                            character_choice.print_equipment()
+                            match menu(options=["Equip an item", "Unequip an item", MenuOptions.nevermind], menu_text="What would you like to do?"):
+                                
+                                case "Equip an item":
+                                    if not equippable_items:
+                                        print("No items able to be equipped!")
+                                        continue
+                                    character_choice.equip_item(menu(options=list(equippable_items) + [MenuOptions.nevermind], menu_text="What item would you like to equip?", show_item_type=True))
+                                
+                                case "Unequip an item":
+                                    remove_item_options = []
+                                    for item_type in character_choice.equipment:
+                                        if character_choice.equipment[item_type]:
+                                            remove_item_options.append(character_choice.equipment[item_type])
+                                    if not remove_item_options:
+                                        print("No items able to be unequipped!")
+                                        continue
+                                    removed_item = character_choice.unequip_item(item=menu(options=list(remove_item_options) + [MenuOptions.nevermind], menu_text="What would you like to unequip?", show_item_type=True))
+                                    self.items.append(removed_item)
+                                    equippable_items.append(removed_item)
 
                 case "Unequip all items":
                     match menu(menu_text="Who would you like to unequip all items", options=["All companions", "Only active party members", MenuOptions.nevermind]):
@@ -117,6 +142,9 @@ class PartyInfo():
                             pass
                         case _:
                             pass
+                
+                case "Go back":
+                    return
                     
 
     def group_long_rest(self):

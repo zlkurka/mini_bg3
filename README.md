@@ -43,7 +43,8 @@ ___
 
 ## Priority
 
-* Add equipment; auto-equip during `__init__`
+* Add armor and shields
+* Add equipment management
 * Add action economy (action, bonus action, reaction, movement?)
 * Add buffs to events
 * New monsters

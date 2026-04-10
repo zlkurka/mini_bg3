@@ -112,7 +112,7 @@ class Attack(Action):
         damage = self.roll_dice(self.damage_dice)
 
         for cond in character.conditions:
-            damage = cond.alter_outgoing_damage(damage, character)
+            damage = cond.alter_outgoing_damage(damage=damage, roll_type=RollType.attack, character=character)
 
         if self.use_damage_modifier:
             damage += character.get_modifier(self.ability_score_modifier, exclude_proficiency_bonus=True) + self.weapon_bonus

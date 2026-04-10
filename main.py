@@ -63,7 +63,7 @@ def campaign(Party: PartyInfo):
                 Party.pick_party()
 
             case "Manage equipment":
-                pass
+                Party.manage_equipment()
 
             case "Long rest":
                 Party.group_long_rest()

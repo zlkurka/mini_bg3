@@ -2,7 +2,7 @@ from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
 
-def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, character = None):
+def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, show_item_type: bool = False, character = None):
 
     # Acceptable list item types:
         # str
@@ -64,7 +64,12 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
                     print(f", {character.spell_slots[list_item.spell_slot_level]} spell slots left", end='')
             except AttributeError:
                 pass
-
+        
+        if show_item_type:
+            try:
+                print(f", {list_item.item_type}", end='')
+            except AttributeError:
+                pass
 
         print()
         # Will print like "A) Squid"

@@ -397,11 +397,11 @@ class Character():
             return item
         
         if not item.is_equippable:
-            print("Item is not equippable, but will still be removed.")
+            print("Item is not equippable, but will still be unequipped.")
         
         for itm in list(self.equipment):
             if item == self.equipment[itm]:
-                removed_item = self.equipment.pop(itm)
+                removed_item = self.equipment[item.item_type]
                 self.equipment.update({item.item_type: None})
                 if print_feedback:
                     print(f"{self} unequipped {item}.")
@@ -435,3 +435,9 @@ class Character():
     def long_rest(self) -> None:
         self.current_hp: int = self.max_hp
         self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[self.charclass]][self.level])
+
+    def print_equipment(self) -> None:
+        print()
+        print(str(self))
+        for item_type in self.equipment:
+            print(f"{rich_capitalize(item_type)}: {self.equipment[item_type]}")
