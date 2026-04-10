@@ -6,10 +6,11 @@ from rich import print
 
 class Summon(Action):
 
-    def __init__(self, spell_slot_level: int = 0, summon_type: SummonType = SummonType.familiar, creatureCanAttack: bool = True):
+    def __init__(self, spell_slot_level: int = 0, summon_type: SummonType = SummonType.familiar, creatureCanAttack: bool = True, required_self_conditions: list = []):
         self.spell_slot_level: int = spell_slot_level
         self.summon_type: SummonType = summon_type
         self.creatureCanAttack: bool = creatureCanAttack
+        self.required_self_conditions: list = required_self_conditions
     
     def action(self, character, enemies: list, team: list, fighters: list):
         

@@ -4,7 +4,7 @@ from rich import print
 
 class Heal(Action):
     
-    def __init__(self, name: str, heal_dice: dict, heal_const: int, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0):
+    def __init__(self, name: str, heal_dice: dict, heal_const: int, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0, required_self_conditions: list = []):
         
         self.name = name
         self.heal_dice: dict = heal_dice
@@ -12,6 +12,7 @@ class Heal(Action):
         self.targetSelf: bool = targetSelf
         self.multi_target: int = multi_target
         self.spell_slot_level: int = spell_slot_level
+        self.required_self_conditions: list = required_self_conditions
     
     def action(self, character, enemies: list, team: list, fighters: list):
         

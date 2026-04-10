@@ -9,7 +9,7 @@ from tools.menu import menu
 
 def main():
 
-    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk])
+    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, TheDev])
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone]

@@ -263,7 +263,7 @@ Minsc = Character(
 TheDev = Character(
     name="The Developer",  
     character_type=CharacterType.companion,
-    charclass=CharClass.bard, 
+    charclass=CharClass.sorcerer, 
     race=Race.human, 
     level=1,
     max_hp=9999,
@@ -277,8 +277,7 @@ TheDev = Character(
     },
     skills=[
         Skill.arcana,
-        Skill.perception,
-        Skill.stealth,
+        Skill.persuasion,
     ],
     extra_actions=[DevKillAll, DevKillOne]
 )

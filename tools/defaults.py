@@ -1,6 +1,6 @@
 from actions.attacks.attacks import *
 from actions.heal.heal import *
-from actions.summon.summon import *
+from actions.summon.summon_class import *
 from actions.buff_debuff.buffs import *
 from actions.action_class import PassAction
 from items.weapons import *

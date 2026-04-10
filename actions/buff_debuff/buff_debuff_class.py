@@ -6,12 +6,13 @@ from rich import print
 
 class Buff(Action):
 
-    def __init__(self, name, condition: Condition, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0):
+    def __init__(self, name, condition: Condition, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0, required_self_conditions: list = []):
         self.name = name
         self.condition: Condition = condition
         self.targetSelf: bool = targetSelf
         self.spell_slot_level: int = spell_slot_level
         self.multi_target: int = multi_target
+        self.required_self_conditions: list = required_self_conditions
     
     def action(self, character, enemies: list, team: list, fighters: list) -> tuple:
         
