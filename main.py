@@ -9,13 +9,13 @@ from tools.menu import menu
 
 def main():
 
-    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Wyll])
+    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk])
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone]
 
     if input('Press [ENTER] to start.') == 'dev':
-        Party.active_party = [Nightkill, Karlach, TheDev, Shadowheart]
+        Party.active_party = [Nightkill, deepcopy(Nightkill), deepcopy(Nightkill), deepcopy(Nightkill)]
         Party.do_encounter(Goblins_4x)
     
     while True:
@@ -42,6 +42,7 @@ def main():
         
             case _:
                 print("Invalid option!")
+
 
 def campaign(Party: PartyInfo):
     

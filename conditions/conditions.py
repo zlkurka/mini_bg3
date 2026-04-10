@@ -1,5 +1,5 @@
 from conditions.condition_class import Condition
-from tools.enums import BuffCondition, RollAlteration, Dice
+from tools.enums import BuffCondition, RollAlteration, Dice, RollType
 
 # Incoming damage alteration
 BarbarianRaging = Condition(

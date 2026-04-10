@@ -9,7 +9,7 @@ from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType
 from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items
 from rich import print
 from copy import copy
@@ -171,7 +171,7 @@ class Character():
         
         return enemies, team, fighters
     
-    def choose_action(self, enemies: list, team: list):
+    def choose_action(self, enemies: list, team: list) -> tuple:
         
         action_options = []
         consumable_action_set = False
@@ -193,7 +193,12 @@ class Character():
                         continue
                 
                 # If sneak attack but not hiding
-                if (act == RogueSneakAttack) and (Hiding not in self.conditions):
+                action_condition_met = True
+                for cond in act.required_self_conditions:
+                    if cond not in self.conditions:
+                        action_condition_met = False
+                        break
+                if not action_condition_met:
                     continue
                 
                 # If heal but all allies have max hp
@@ -260,7 +265,7 @@ class Character():
         options = target_options + [MenuOptions.nevermind]
         return menu(options, f"Who would {str(self)} like to target with {action}?", show_hp=True)
 
-    def take_damage(self, damage: int = 0):
+    def take_damage(self, damage: int = 0) -> None:
         
         if damage:
             
@@ -279,7 +284,7 @@ class Character():
         else:
             print("No damage dealt.")
     
-    def heal(self, heal_amount: int = 0):
+    def heal(self, heal_amount: int = 0) -> None:
         
         if heal_amount > 0:
             
@@ -291,7 +296,7 @@ class Character():
 
             print(f"{str(self.name).capitalize()} was healed for {heal_amount} HP and now has {self.current_hp} HP.")
     
-    def gain_condition(self, condition):
+    def gain_condition(self, condition) -> None:
         if condition not in self.conditions:
             print(f"{self} gained condition {condition}.")
             self.conditions.append(condition)
@@ -310,7 +315,7 @@ class Character():
             print("Unacceptable ability type!")
 
         # Roll
-        roll = roll_d20(character=self, roll_bonus=ability_bonus, print_feedback=print_feedback)
+        roll = roll_d20(character=self, roll_bonus=ability_bonus, print_feedback=print_feedback, roll_type=RollType.ability_check)
         if difficulty_class == None:
             return roll
         # If no difficulty class set, returns roll (int)
@@ -356,7 +361,6 @@ class Character():
         
         return ability_bonus
         
-   
     def cast_leveled_spell(self, spell_level: int) -> bool:
         if not self.spell_slots[spell_level]:
            print("No spell slot available!")
@@ -428,26 +432,6 @@ class Character():
         
         return aggro
     
-    def long_rest(self):
+    def long_rest(self) -> None:
         self.current_hp: int = self.max_hp
         self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[self.charclass]][self.level])
-
-if __name__ == "__main__":
-    Aris = Character(
-        name="Aris",
-        character_type=CharacterType.companion, 
-        charclass=CharClass.warlock , 
-        race=Race.half_elf,
-        level=1, 
-        ability_scores={
-            AbilityScore.STR: -1,
-            AbilityScore.DEX: 0,
-            AbilityScore.CON: 2,
-            AbilityScore.INT: 1,
-            AbilityScore.WIS: 0,
-            AbilityScore.CHA: 3,
-        }, 
-        skills=[Skill.deception, Skill.arcana],
-    )
-    print(Aris)
-    # Aris.action(enemies=[],team=[Aris],fighters=[Aris])

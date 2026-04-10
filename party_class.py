@@ -96,7 +96,29 @@ class PartyInfo():
                 character_choice.actions.append(item)
                 print(f"{rich_capitalize(item)} added to {character_choice}'s actions.")
                 continue
-            
+
+    def manage_equipment(self):
+        while True:
+            match menu(options=["View equipped items", "Unequip all items"], menu_text="What would you like to do?"):
+                case "View equipped items":
+                    choice = menu(menu_text="Whose items would you like to see?", options=list(self.companions) + ["All"])
+                    if choice == "All":
+                        pass
+                    else:
+                        print(choice)
+                        for item_type in choice.equipment:
+                            print(f"{item_type}: {choice.equipment[item_type]}")
+
+                case "Unequip all items":
+                    match menu(menu_text="Who would you like to unequip all items", options=["All companions", "Only active party members", MenuOptions.nevermind]):
+                        case "All companions":
+                            pass
+                        case "Only active party members":
+                            pass
+                        case _:
+                            pass
+                    
+
     def group_long_rest(self):
         for char in self.companions:
             char.long_rest()

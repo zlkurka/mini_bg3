@@ -1,4 +1,4 @@
-from tools.enums import BuffCondition, RollAlteration, AbilityScore
+from tools.enums import BuffCondition, RollAlteration, AbilityScore, RollType
 from rich import print
 
 class Condition():
@@ -11,6 +11,7 @@ class Condition():
         alters_incoming_damage: bool = False, 
         alters_outgoing_damage: bool = False,
         roll_alteration: RollAlteration = None, 
+        applicable_roll_type: RollType = None, # Add shit for making hide only apply to attacks and stuff
         gives_advantage_on_self: bool = False,
     ):
         self.name = name
@@ -19,6 +20,7 @@ class Condition():
         self.alters_incoming_damage: bool = alters_incoming_damage
         self.alters_outgoing_damage: bool = alters_outgoing_damage
         self.roll_alteration: bool = roll_alteration
+        self.applicable_roll_type: RollType = applicable_roll_type
         self.gives_advantage_on_self: bool = gives_advantage_on_self
     
     def __repr__(self) -> str:
@@ -52,12 +54,13 @@ class Condition():
         
         return new_damage
     
-    def alter_outgoing_damage(self, damage: int, character) -> int:
+    def alter_outgoing_damage(self, damage: int = 0, roll_type: RollType = None, character = None) -> int:
         
         if not self.alters_outgoing_damage:
             return damage
         
-        new_damage = damage + self.modifier
+        if roll_type == self.applicable_roll_type:
+            new_damage = damage + self.modifier
 
         if new_damage < damage:
             print(f"Damage reduced from {damage} to {new_damage} due to {self} condition.")

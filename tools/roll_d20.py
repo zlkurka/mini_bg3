@@ -2,12 +2,11 @@ from random import randint
 from rich import print
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import Dice, RollAlteration, BuffCondition
+from tools.enums import Dice, RollAlteration, BuffCondition, RollType
 
-def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True):
+def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True, roll_type: RollType = None):
 
     roll = randint(1, Dice.d20.value)
-    original_roll = int(roll)
     
     if not character:
         return roll + roll_bonus
@@ -21,6 +20,9 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True)
     dice_total_bonus = 0
 
     for cond in list(character.conditions):
+        if cond.applicable_roll_type != roll_type:
+            continue
+        
         alteration = cond.roll_alteration
         
         if cond.name == BuffCondition.bardic_inspiration:
@@ -51,15 +53,16 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True)
     if advantage_given and disadvantage_given:
         advantage_given = False
         disadvantage_given = False
-    
-    roll += roll_bonus
 
     # Advantage and disadvantage
     if advantage_given:
         roll = max(roll, randint(1, Dice.d20.value))
     elif disadvantage_given:
         roll = min(roll, randint(1, Dice.d20.value))
+    original_roll = int(roll)
     
+    roll += roll_bonus
+
     # Flat modifier
     roll += flat_modifier
 
@@ -73,7 +76,14 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True)
         return roll
 
     # Printing roll
-    print(f"{rich_capitalize(character)} rolled {roll} ({original_roll}", end="")
+    if advantage_given:
+        print(f"With advantage, {character}", end="")
+    elif disadvantage_given:
+        print(f"With disadvantage, {character}", end="")
+    else:
+        print(rich_capitalize(character), end="")
+
+    print(f" rolled {roll} ({original_roll}", end="")
     
     if roll_bonus > 0:
         print(f" + {roll_bonus}", end="")

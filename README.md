@@ -129,7 +129,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 * **Nightkill**: A halfling teenager turned emo rogue. She ran off from her parents who don't understand her and wound up in a dungeon.
 * **Faylen**: A half-elf druid and cult escapee.
-* A runaway goblin (wizard?).
+* **Bingus Gringus**: A goblin who recently discovered a sorcerous magic within himself.
 
 #### Monsters
 

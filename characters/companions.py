@@ -64,7 +64,6 @@ BingusGringus = Character(
     ]
 )
 
-
 # BG3 companions
 Astarion = Character(
     name=CharacterName.astarion, 

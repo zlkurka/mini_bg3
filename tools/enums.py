@@ -262,3 +262,7 @@ class ArmorType(EnumWithValueRepr):
     light = "light"
     medium = "medium"
     heavy = "heavy"
+
+class RollType(EnumWithValueRepr):
+    attack = "attack"
+    ability_check = "ability_check"

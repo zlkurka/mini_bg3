@@ -53,7 +53,7 @@ Skeleton = Character(
     name = "skeleton", 
     character_type = CharacterType.monster,
     charclass = CharClass.skeleton, 
-    base_max_hp = 13,
+    base_max_hp = 10, # Decreased from 13 to 10 bc skeletons have crazy damage output
     armor_class = 14,
     ability_scores={
         AbilityScore.STR: 0,

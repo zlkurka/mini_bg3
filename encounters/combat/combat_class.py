@@ -98,6 +98,7 @@ class Combat():
                 
                 if not party:
                     print("\nYou lose!")
+                    self.rewards = []
                 
                 if not monsters:
                     print("\nYou win!\n")
@@ -107,9 +108,10 @@ class Combat():
                             print(f"{char.name}: {char.current_hp} HP remaining.")
                         else:
                             print(f"{char.name}: died in combat.")
+                    
+                    self.add_monsters_items_to_rewards()
             
                 print()
-                self.add_monsters_items_to_rewards()
                 return self.rewards
 
     def roll_initiative(self, party: list, monsters: list):

@@ -1,6 +1,6 @@
 from actions.action_class import Action
 from conditions.conditions import Hiding
-from tools.enums import AbilityScore, Weapon, MenuOptions
+from tools.enums import AbilityScore, Weapon, MenuOptions, RollType
 from tools.rich_capitalize import rich_capitalize
 from tools.roll_d20 import roll_d20
 from rich import print
@@ -20,6 +20,7 @@ class Attack(Action):
         use_damage_modifier: bool = True, 
         spell_slot_level: int = 0,
         weapon_bonus: int = 0,
+        required_self_conditions: list = []
     ):
         
         self.name = name
@@ -30,6 +31,7 @@ class Attack(Action):
         self.spell_slot_level: int = spell_slot_level
         self.savingThrow_abilityScore: AbilityScore = savingThrow_abilityScore
         self.weapon_bonus: int = weapon_bonus
+        self.required_self_conditions: list = required_self_conditions
 
         if area_of_effect == True:
             self.area_of_effect: bool = True
@@ -51,9 +53,10 @@ class Attack(Action):
                 return character, enemies, team, nevermindSelected
 
         # Sneak attack
-        if self.name == Weapon.rogue_sneak_attack and Hiding not in character.conditions:
-            nevermindSelected = True 
-            return character, enemies, team, nevermindSelected
+        for cond in self.required_self_conditions:
+            if cond not in character.conditions:
+                nevermindSelected = True 
+                return character, enemies, team, nevermindSelected
         
         # Area of effect
         if self.area_of_effect:
@@ -97,9 +100,9 @@ class Attack(Action):
         attack_modifier: int = character.get_modifier(ability_type=self.ability_score_modifier) + self.weapon_bonus
         
         if self.savingThrow_abilityScore:
-            hitSuccessful = roll_d20(character=target, roll_bonus=target.ability_scores[self.savingThrow_abilityScore]) <= attack_modifier + 8 # change if I add proficiency bonuses
+            hitSuccessful = roll_d20(character=target, roll_bonus=target.ability_scores[self.savingThrow_abilityScore], roll_type=RollType.attack) <= attack_modifier + 8 # change if I add proficiency bonuses
         else:
-            hitSuccessful =  roll_d20(character=character, roll_bonus=attack_modifier) >= target.armor_class
+            hitSuccessful =  roll_d20(character=character, roll_bonus=attack_modifier, roll_type=RollType.attack) >= target.armor_class
         
         if not hitSuccessful and not self.halfDamage_onSave:
             print(f"{rich_capitalize(character)} misses {target} with {self.name}.")

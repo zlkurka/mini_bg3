@@ -1,4 +1,5 @@
 from actions.attacks.attack_class import Attack
+from conditions.conditions import Hiding
 from tools.enums import Weapon, AbilityScore, Dice, Spell
             
 # Melee weapons
@@ -183,6 +184,7 @@ RogueSneakAttack = Attack(
     multi_target = 1,
     ranged = False,
     use_damage_modifier = True,
+    required_self_conditions = [Hiding]
 )
 
 
