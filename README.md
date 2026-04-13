@@ -44,9 +44,13 @@ ___
 ## Priority
 
 * Add armor and shields
-* Add equipment management
+* Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
+  * If proficient with weapon, give proficiency bonus
+  * If not proficient with armor, give a debuff
 * Add action economy (action, bonus action, reaction, movement?)
-* Add buffs to events
+* Balance encounters
+  * Come to think of it, I don’t think encounters are supposed to kill the party that often. The problem is this game is so RNG dependent. Maybe my goblins are too strong
+* Add ability to use buffs to events
 * New monsters
 * Druid spells
 

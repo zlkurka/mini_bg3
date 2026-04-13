@@ -5,19 +5,21 @@ from encounters.events.events import *
 from encounters.combat.combats import *
 from characters.companions import *
 from tools.menu import menu
+from actions.summon.summon_lists import summon_types
 
 
 def main():
 
-    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, TheDev])
+    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, Minsc, TheDev])
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone]
 
     if input('Press [ENTER] to start.') == 'dev':
-        Party.active_party = [Nightkill, deepcopy(Nightkill), deepcopy(Nightkill), deepcopy(Nightkill)]
+        Party.active_party = [Gale, Minsc, Karlach, Shadowheart]
         Party.do_encounter(Goblins_4x)
     
+
     while True:
         match menu(options=["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"], menu_text="What would you like to do?"):
             

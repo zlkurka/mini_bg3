@@ -3,13 +3,14 @@ from actions.action_class import PassAction
 from actions.attacks.attacks import Attack, RogueSneakAttack
 from actions.buff_debuff.buffs import Buff, Hide
 from actions.heal.heal import Heal
+from actions.summon.summon_lists import summon_types
 from items.item_class import Item
 from conditions.conditions import Hiding
 from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType
 from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items
 from rich import print
 from copy import copy
@@ -42,6 +43,7 @@ class Character():
         conditions: list = [],
         equipment: dict = empty_equipment,
         equipped_items: list = [],
+        summon_type: SummonType = None,
 
     ):
         
@@ -119,6 +121,10 @@ class Character():
             self.original_base_max_hp = base_max_hp
         else:
             self.original_base_max_hp = self.max_hp
+        
+        # Add self to summon type
+        if summon_type:
+            summon_types[summon_type].append(self)
 
     def __repr__(self) -> str:
         if self.character_type == CharacterType.companion:

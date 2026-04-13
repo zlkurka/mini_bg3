@@ -2,6 +2,7 @@ from actions.attacks.attacks import *
 from actions.heal.heal import *
 from actions.summon.summon_class import *
 from actions.buff_debuff.buffs import *
+from actions.summon.summon_actions import FindFamiliar
 from actions.action_class import PassAction
 from items.weapons import *
 from items.armor import *
@@ -130,7 +131,7 @@ base_actions: dict = {
     CharClass.rogue: [RogueSneakAttack],
     CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
     CharClass.warlock: [EldritchBlast, PoisonSpray, ArmsOfHadar],
-    CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
+    CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands, FindFamiliar],
 
 
     # Monster classes
@@ -152,7 +153,7 @@ base_consumable_actions: dict = {
     CharClass.fighter: {},
     CharClass.monk: {},
     CharClass.paladin: {},
-    CharClass.ranger: {},
+    CharClass.ranger: {FindFamiliar: 1,},
     CharClass.rogue: {},
     CharClass.sorcerer: {},
     CharClass.warlock: {},

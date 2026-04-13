@@ -5,3 +5,4 @@ __pycache__
 saved_characters
 circular.md
 create_pyinstaller_exe.bat
+initialize_mac.sh

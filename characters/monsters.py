@@ -33,7 +33,9 @@ Cat = Character(
         AbilityScore.INT: -4,
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
-    },)
+    },
+    summon_type=SummonType.familiar,
+)
 Goblin = Character(
     name = "goblin", 
     character_type = CharacterType.monster,
@@ -48,7 +50,7 @@ Goblin = Character(
         AbilityScore.CHA: 0,
     },
     equipped_items = [Shortsword, Shortbow],
-    )
+)
 Skeleton = Character(
     name = "skeleton", 
     character_type = CharacterType.monster,

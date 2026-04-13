@@ -176,6 +176,7 @@ class Spell(EnumWithValueRepr):
     burning_hands = "burning hands"
     cure_wounds = "cure wounds"
     chromatic_orb = "chromatic orb"
+    find_familiar = "find familiar"
 
 class SpecialAction(EnumWithValueRepr):
 
