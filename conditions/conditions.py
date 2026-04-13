@@ -1,5 +1,5 @@
 from conditions.condition_class import Condition
-from tools.enums import BuffCondition, RollAlteration, Dice, RollType, AbilityScore
+from tools.enums import BuffCondition, RollAlteration, Dice, RollType, AbilityScore, Skill
 
 # Incoming damage alteration
 BarbarianRaging = Condition(
@@ -26,7 +26,7 @@ BajesusFreakingOut = Condition(
     modifier=2,
 )
 
-# Improving rolls
+# Altering rolls
 BardicInspiration = Condition(
     name=BuffCondition.bardic_inspiration,
     roll_alteration=RollAlteration.dice_modifier,
@@ -36,6 +36,12 @@ Blessed = Condition(
     name=BuffCondition.blessed,
     roll_alteration=RollAlteration.dice_modifier,
     dice={Dice.d4: 1,},
+)
+ClunkyArmor = Condition(
+    name="clunky armor",
+    roll_alteration=RollAlteration.disadvantage,
+    applicable_roll_type=Skill.stealth,
+    # Idk how I want to make this work
 )
 
 # Armor class

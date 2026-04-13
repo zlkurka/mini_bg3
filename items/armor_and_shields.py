@@ -1,5 +1,5 @@
 from items.item_class import Item
-from tools.enums import ItemType, ArmorType, Armor
+from tools.enums import ItemType, ArmorType, Armor, Shield
 
 # Light
 LeatherArmor = Item(
@@ -16,7 +16,8 @@ ChainShirt = Item(
     item_type=ItemType.armor, 
     is_equippable=True,  
     value=13, 
-    armor_type=ArmorType.medium
+    armor_type=ArmorType.medium,
+    associated_conditions=[],
 )
 HideArmor = Item(
     name=Armor.hide,
@@ -40,4 +41,12 @@ ChainMail = Item(
     is_equippable=True,  
     value=16, 
     armor_type=ArmorType.heavy
+)
+
+# Shields
+BasicShield = Item(
+    name=Shield.basic,
+    item_type=ItemType.shield, 
+    is_equippable=True,  
+    value=2, 
 )

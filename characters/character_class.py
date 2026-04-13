@@ -410,8 +410,7 @@ class Character():
                 if print_feedback:
                     print(f"{self} gained condition {cond}.")
         
-        if item.item_type == ItemType.armor:
-            self.set_armor_class()
+        self.set_armor_class()
         
         return removed_item
     
@@ -431,11 +430,17 @@ class Character():
         
         if removed_item:
             for act in removed_item.associated_actions:
-                self.actions.remove(act)
+                if act in self.actions:
+                    self.actions.remove(act)
                 if print_feedback:
                     print(f"{self} lost action {act}.")
-            if removed_item.item_type == ItemType.armor:
-                self.set_armor_class()
+            for cond in removed_item.associated_conditions:
+                if cond in self.conditions:
+                    self.conditions.remove(cond)
+                if print_feedback:
+                    print(f"{self} lost condition {cond}.")
+            
+            self.set_armor_class()
         
         return removed_item
 
@@ -489,6 +494,8 @@ class Character():
             armor_class_contender_values.append(ac_from_condition)
         
         self.armor_class = max(armor_class_contender_values)
+        if self.equipment[ItemType.shield]:
+            self.armor_class += self.equipment[ItemType.shield].value
         # print(f"{self}, armor class = {self.armor_class}")
 
     def long_rest(self) -> None:

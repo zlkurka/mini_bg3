@@ -1,6 +1,6 @@
 from characters.character_class import Character
 from items.weapons import *
-from items.armor import *
+from items.armor_and_shields import *
 from conditions.conditions import UndeadFortitude
 from actions.attacks.attacks import CatScratch, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut

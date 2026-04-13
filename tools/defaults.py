@@ -5,7 +5,7 @@ from actions.buff_debuff.buffs import *
 from actions.summon.summon_actions import FindFamiliar
 from actions.action_class import PassAction
 from items.weapons import *
-from items.armor import *
+from items.armor_and_shields import *
 from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
 
 # Character building blocks
@@ -343,11 +343,11 @@ base_equipped_items: dict = {
 
     CharClass.barbarian: [Greataxe],
     CharClass.bard: [Shortsword, Crossbow, LeatherArmor],
-    CharClass.cleric: [Mace, ChainMail], # shield
+    CharClass.cleric: [Mace, ChainMail, BasicShield],
     CharClass.druid: [Shortbow, HideArmor],
     CharClass.fighter: [Longsword, Shortbow, ScaleMail],
     CharClass.monk: [],
-    CharClass.paladin: [Longsword, Crossbow, ChainMail], # shield
+    CharClass.paladin: [Longsword, Crossbow, ChainMail, BasicShield],
     CharClass.ranger: [Shortsword, Shortbow, LeatherArmor],
     CharClass.rogue: [Dagger, Shortbow, LeatherArmor],
     CharClass.sorcerer: [],

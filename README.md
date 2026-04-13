@@ -40,7 +40,8 @@ ___
 
 ## Priority
 
-* Add armor and shields
+* Add shields
+* Add disadvantage on stealth for medium and heavy armor
 * Add potions (used from Party items?)
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus
