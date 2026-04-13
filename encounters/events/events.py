@@ -10,7 +10,7 @@ SwordInStone = Event(
         EventOption(
             name = "Pull out the sword",
             ability_check = AbilityScore.STR,
-            difficulty_class = 15,
+            difficulty_class = 12,
             rewards = [Longsword_plus1],
             success_text = "{} wrenches the sword from the stone. It gleams in your faint torchlight.",
             failure_text = "{} pulls at the sword with all their might, but it won't budge.",
@@ -18,7 +18,7 @@ SwordInStone = Event(
         EventOption(
             name = "Examine the runes etched into the rock",
             ability_check = Skill.arcana,
-            difficulty_class = 15,
+            difficulty_class = 14,
             rewards = [],
                 # I think this should be a control spell, which would make this decision more meaningful- big damage or control?
             success_text = "{} studies the runes and recognizes them as the incantation for a powerful spell.",
