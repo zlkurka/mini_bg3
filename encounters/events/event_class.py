@@ -1,15 +1,11 @@
 from rich import print
-from characters.character_class import Character
-from actions.attacks.attacks import Attack
-from actions.action_class import Action
-from items.item_class import Item
 from tools.menu import menu
 from tools.defaults import empty_spell_slots
 from tools.rich_capitalize import rich_capitalize
 
 class Event():
 
-    def __init__(self, name, description: str, options: list):
+    def __init__(self, name, description: str = "", options: list = []):
         self.name = name
         self.description: str = description
         self.options: list = options
@@ -18,7 +14,10 @@ class Event():
         return "[bold]" + str(self.name) + "[/bold]"
 
     def begin(self, party: list):
-        print(str(self) + "\n\n" + self.description + "\n")
+        print(str(self))
+        if self.description:
+            print("\n\n" + self.description + "\n")
+
         choice = menu(menu_text="What will you do?", options=self.options)
         
         if len(party) > 1:

@@ -342,33 +342,80 @@ empty_spell_slots: dict = spell_slot_counts[CasterType.nonCaster][1]
 base_equipped_items: dict = {
 
     CharClass.barbarian: [Greataxe],
-    CharClass.bard: [Shortsword, Crossbow], # Leather armor
+    CharClass.bard: [Shortsword, Crossbow, LeatherArmor], # Leather armor
     CharClass.cleric: [Mace], # Chain shirt, shield
-    CharClass.druid: [Shortbow], # Hide armor
+    CharClass.druid: [Shortbow, LeatherArmor], # Hide armor
     CharClass.fighter: [Longsword, Shortbow], # Scale mail
     CharClass.monk: [],
     CharClass.paladin: [Longsword, Crossbow], # Scale mail, shield
-    CharClass.ranger: [Shortsword, Shortbow], # Leather armor
-    CharClass.rogue: [Dagger, Shortbow], # Leather armor
+    CharClass.ranger: [Shortsword, Shortbow, LeatherArmor], # Leather armor
+    CharClass.rogue: [Dagger, Shortbow, LeatherArmor], # Leather armor
     CharClass.sorcerer: [],
-    CharClass.warlock: [Shortsword], # Leather armor
+    CharClass.warlock: [Shortsword, LeatherArmor], # Leather armor
     CharClass.wizard: [],
 
 }
 
-base_spells: dict = {
-    CharClass.barbarian: [],
-    CharClass.bard: [CureWounds],
-    CharClass.cleric: [CureWounds],
-    CharClass.druid: [CureWounds],
-    CharClass.fighter: [],
-    CharClass.monk: [],
-    CharClass.paladin: [],
-    CharClass.ranger: [],
-    CharClass.rogue: [],
-    CharClass.sorcerer: [ChromaticOrb],
-    CharClass.warlock: [], # Add spell
-    CharClass.wizard: [ChromaticOrb],
+empty_spell_option_list: dict = {
+    # Spell level
+    0: [],
+    1: [],
+    2: [],
+}
+
+base_spell_options: dict = {
+    CharClass.barbarian: dict(empty_spell_option_list),
+    CharClass.bard: {
+        # Spell level
+        0: [],
+        1: [CureWounds],
+        2: [],
+    },
+    CharClass.cleric: {
+        # Spell level
+        0: [HealingWord, SacredFlame],
+        1: [Bless, CureWounds],
+        2: [],
+    },
+    CharClass.druid: {
+        # Spell level
+        0: [PoisonSpray, Shillelagh],
+        1: [CureWounds],
+        2: [],
+    },
+    CharClass.fighter: dict(empty_spell_option_list),
+    CharClass.monk: dict(empty_spell_option_list),
+    CharClass.paladin: {
+        # Spell level
+        0: [],
+        1: [],
+        2: [],
+    },
+    CharClass.ranger: {
+        # Spell level
+        0: [],
+        1: [],
+        2: [],
+    },
+    CharClass.rogue: dict(empty_spell_option_list),
+    CharClass.sorcerer: {
+        # Spell level
+        0: [Firebolt, PoisonSpray],
+        1: [ChromaticOrb, BurningHands, FindFamiliar],
+        2: [],
+    },
+    CharClass.warlock: {
+        # Spell level
+        0: [EldritchBlast, PoisonSpray],
+        1: [ArmsOfHadar],
+        2: [],
+    },
+    CharClass.wizard: {
+        # Spell level
+        0: [Firebolt, PoisonSpray],
+        1: [ChromaticOrb, BurningHands, FindFamiliar],
+        2: [],
+    },
 }
 
 # Values

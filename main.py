@@ -15,6 +15,7 @@ def main():
     events = [SwordInStone]
 
     if input('Press [ENTER] to start.') == 'dev':
+        Karlach.equip_item(Longsword_plus1)
         Party.active_party = [Gale, Minsc, Karlach, Shadowheart]
         Party.do_encounter(Goblins_4x)
 
@@ -87,6 +88,7 @@ def romance(companions):
     if len(romanceable_companions) ==2:
         sex_havers = sample(romanceable_companions, 2)
         print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
+
 
 if __name__ == "__main__":
     main()

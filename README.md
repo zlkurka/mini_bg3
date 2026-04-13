@@ -6,7 +6,6 @@ I plan on adding a dungeon-crawler component and potentially RPG elements. My en
 
 
 
-
 ___
 
 # How to play
@@ -36,7 +35,6 @@ I’m working on a better way of making an exectuable, but I’m a beginner to s
 * Execute the code in `main.py`
 
 
-
 ___
 
 # To-do's
@@ -47,31 +45,33 @@ ___
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus
   * If not proficient with armor, give a debuff
+* Add more spells, especially for druid and bard
 * Add action economy (action, bonus action, reaction, movement?)
 * Balance encounters
   * Come to think of it, I don’t think encounters are supposed to kill the party that often. The problem is this game is so RNG dependent. Maybe my goblins are too strong
 * Add ability to use buffs to events
+* Add Event options locked behind certain prereqs (e.g. an Action that deals a certain amount of damage, having an ability score of a certain threshold, having a particlar item, )
 * New monsters
-* Druid spells
 
 ## Class-specific features
 
 * Paladin: lay on hands
-  * Can expend any amount from pool of 5 \* level
+  * Ways I might implement it:
+    * Have a certain number of uses to give a rolled or flat amount of healing
+    * Can expend any amount from pool of 5 \* level
   * Removes poisoned condition
   * Bonus action
+* Barbarian and monk: unarmored defense
 * Druid: wildshape (level 2?)
 
 ## 1st lvl spells
 
 ### Priority
 
-* Magic missile
+* Guiding bolt (an attack that gives a debuff)
+* Magic missile (an attack with a guaranteed hit)
 * Mage armor
-* Guiding bolt
 * Guidance
-* Find familiar
-  * Can be played automatically at the start of combat at the cost of a spell slot (or ability use for ranger)
 
 ### Add later
 
@@ -143,15 +143,14 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 
 ## Other features
 
-* Add equipment; auto-equip during `__init__`
 * Add action economy (action, bonus action, reaction, movement?)
+* Add ability to cast spells at camp (e.g., FindFamiliar, MageArmor)
 * Add combat UI in Textual
 * Add other options for setting ability scores (point buy, rolling scores)
 * Add race features
 * Add reviving dead characters (Withers, spend gold; revivify)
 * Add higher levels
   * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
-
 
 
 ___

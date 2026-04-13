@@ -10,7 +10,7 @@ from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType, ArmorType
 from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items
 from rich import print
 from copy import copy
@@ -395,6 +395,22 @@ class Character():
         for act in item.associated_actions:
             if act not in self.actions:
                 self.actions.append(act)
+                if print_feedback:
+                    print(f"{self} gained action {act}.")
+        
+        if item.item_type == ItemType.armor:
+            if item.armor_type == ArmorType.light:
+                self.armor_class = item.value + self.ability_scores[AbilityScore.DEX]
+            elif item.armor_type == ArmorType.medium:                
+                self.armor_class = item.value
+                if self.ability_scores[AbilityScore.DEX] > 2:
+                    self.armor_class += 2
+                else:
+                    self.armor_class += self.ability_scores[AbilityScore.DEX]
+            elif item.armor_type == ArmorType.heavy:
+                self.armor_class = item.value
+            else:
+                print("Impossible armor type!")
         
         return removed_item
     

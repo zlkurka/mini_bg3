@@ -10,8 +10,10 @@ class Item():
         self.associated_actions: list = list(associated_actions)
         self.number_of_uses: int = number_of_uses
         self.value: int = value
-        self.bonus_modifier: int = bonus_modifier
         self.armor_type: ArmorType = armor_type
+        self.bonus_modifier: int = bonus_modifier
 
     def __repr__(self):
+        if self.bonus_modifier:
+            return "[underline]" + str(self.name) + f", +{self.bonus_modifier}" + "[/underline]"
         return "[underline]" + str(self.name) + "[/underline]"

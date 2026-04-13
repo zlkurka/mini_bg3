@@ -57,8 +57,9 @@ MinorHealthPotion = Item(
 
 # Magic weapons
 Longsword_plus1 = Item(
-    name=str(Weapon.longsword) + ", +1",
+    name=Weapon.longsword,
     item_type=ItemType.melee_weapon,
     is_equippable=True,
-    associated_actions=[Longsword_plus1Strike]
+    associated_actions=[Longsword_plus1Strike],
+    bonus_modifier=1,
 )

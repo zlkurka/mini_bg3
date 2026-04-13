@@ -42,6 +42,11 @@ class Attack(Action):
             self.multi_target: int = multi_target
             self.halfDamage_onSave: bool = False
 
+    def __repr__(self):
+        if self.weapon_bonus:
+            return "[italic purple]" + str(self.name) + f", +{self.weapon_bonus}" + "[/italic purple]"
+        return "[italic purple]" + str(self.name) + "[/italic purple]"
+
     def action(self, character, enemies: list, team: list, fighters: list, action_is_consumable: bool = False,):
         
         nevermindSelected = False 

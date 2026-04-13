@@ -8,9 +8,10 @@ from rich import print
 
 class Combat():
 
-    def __init__(self, name, monsters: list, rewards: list = [], monster_names: list = [], monster_sample_count: int = None, rare_monster: Character = None, rare_monster_chance: int = 0):
+    def __init__(self, name, description: str = "", monsters: list = [], rewards: list = [], monster_names: list = [], monster_sample_count: int = None, rare_monster: Character = None, rare_monster_chance: int = 0):
         
         self.name = name
+        self.description: str = description
         self.rewards: list = list(rewards)
 
         # Getting monsters
@@ -52,6 +53,9 @@ class Combat():
         return "[bold]" + str(self.name) + "[/bold]"
 
     def begin(self, party: list):
+        print(str(self))
+        if self.description:
+            print("\n\n" + self.description + "\n")
 
         original_party = list(party)
         monsters = list(self.monsters)
