@@ -5,7 +5,6 @@ I only began learning Python a few months ago, and with it the ins and outs of c
 I plan on adding a dungeon-crawler component and potentially RPG elements. My end vision is a procedurally generated dungeon crawler (layout inspired by *The Binding of Isaac*) that gets more difficult the further you move from the starting room, and  *Slay the Spire*-inspired rooms (combat and events).
 
 
-
 ___
 
 # How to play
@@ -42,6 +41,7 @@ ___
 ## Priority
 
 * Add armor and shields
+* Add potions (used from Party items?)
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus
   * If not proficient with armor, give a debuff
@@ -52,6 +52,9 @@ ___
 * Add ability to use buffs to events
 * Add Event options locked behind certain prereqs (e.g. an Action that deals a certain amount of damage, having an ability score of a certain threshold, having a particlar item, )
 * New monsters
+* Work out FindFamiliar
+  * Add more familiars
+  * Figure out what I want familiars to do (attack? Extend spell range? Probably the latter. Might need reactions for this)
 
 ## Class-specific features
 
@@ -151,6 +154,7 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 * Add reviving dead characters (Withers, spend gold; revivify)
 * Add higher levels
   * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
+
 
 
 ___

@@ -11,7 +11,7 @@ from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
 from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType, ArmorType
-from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items
+from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items, base_conditions
 from rich import print
 from copy import copy
 
@@ -70,15 +70,6 @@ class Character():
             self.max_hp: int = 1
         self.current_hp: int = self.max_hp
         
-        # AC
-        if armor_class:
-            self.armor_class: int = armor_class
-        else: 
-            if self.charclass in base_armor_class:
-                self.armor_class: int = base_armor_class[self.charclass]
-            else:
-                self.armor_class: int = 10 + self.ability_scores[AbilityScore.DEX]
-        
         # Actions
         if actions:
             self.actions: list = list(actions)
@@ -106,6 +97,18 @@ class Character():
             else:
                 self.spell_slots = dict(empty_spell_slots)
 
+        # AC
+        if armor_class:
+            self.armor_class: int = armor_class
+        else: 
+            # Placeholder before equipment
+            self.armor_class: int = 10 + self.ability_scores[AbilityScore.DEX]
+
+        # Conditions
+        self.conditions: list = list(conditions)
+        if self.charclass in base_conditions:
+            self.conditions.extend(base_conditions[self.charclass])
+
         # Equipment
         self.equipment: dict = dict(equipment)
         if not equipped_items and charclass in base_equipped_items:
@@ -113,8 +116,11 @@ class Character():
         for item in equipped_items:
             self.equip_item(item, skip_if_slot_filled=True, print_feedback=False)
 
-        self.conditions: list = list(conditions)
         self.lastAttack_isMelee: bool = False
+
+        # AC
+        if not armor_class:
+            self.set_armor_class()
 
         # For reset
         if base_max_hp:
@@ -392,25 +398,20 @@ class Character():
                 print(f"{self} equipped {item}.")
             break
         
+        # Adding associated actions and conditions
         for act in item.associated_actions:
             if act not in self.actions:
                 self.actions.append(act)
                 if print_feedback:
                     print(f"{self} gained action {act}.")
+        for cond in item.associated_conditions:
+            if cond not in self.conditions:
+                self.conditions.append(cond)
+                if print_feedback:
+                    print(f"{self} gained condition {cond}.")
         
         if item.item_type == ItemType.armor:
-            if item.armor_type == ArmorType.light:
-                self.armor_class = item.value + self.ability_scores[AbilityScore.DEX]
-            elif item.armor_type == ArmorType.medium:                
-                self.armor_class = item.value
-                if self.ability_scores[AbilityScore.DEX] > 2:
-                    self.armor_class += 2
-                else:
-                    self.armor_class += self.ability_scores[AbilityScore.DEX]
-            elif item.armor_type == ArmorType.heavy:
-                self.armor_class = item.value
-            else:
-                print("Impossible armor type!")
+            self.set_armor_class()
         
         return removed_item
     
@@ -433,6 +434,8 @@ class Character():
                 self.actions.remove(act)
                 if print_feedback:
                     print(f"{self} lost action {act}.")
+            if removed_item.item_type == ItemType.armor:
+                self.set_armor_class()
         
         return removed_item
 
@@ -454,6 +457,40 @@ class Character():
         
         return aggro
     
+    def set_armor_class(self):
+        armor_class_contender_values = [10 + self.ability_scores[AbilityScore.DEX]]
+        
+        if self.equipment[ItemType.armor]:
+            
+            equipped_armor = self.equipment[ItemType.armor]
+            ac_from_armor = equipped_armor.value
+            
+            if equipped_armor.armor_type == ArmorType.light:
+                ac_from_armor += self.ability_scores[AbilityScore.DEX]
+            elif equipped_armor.armor_type == ArmorType.medium:                
+                if self.ability_scores[AbilityScore.DEX] > 2:
+                    self.armor_class += 2
+                else:
+                    self.armor_class += self.ability_scores[AbilityScore.DEX]
+            elif equipped_armor.armor_type == ArmorType.heavy:
+                pass
+            else:
+                print("Impossible armor type!")
+
+            armor_class_contender_values.append(ac_from_armor)
+        
+        for cond in self.conditions:
+            if cond.base_armor_class:
+                ac_from_condition = int(cond.base_armor_class)
+                if cond.maximum_dexterity_modifier_for_armor_class != None:
+                    ac_from_condition += cond.maximum_dexterity_modifier_for_armor_class
+                for ability in cond.ability_scores_added_to_armor_class:
+                    ac_from_condition += self.ability_scores[ability]
+            armor_class_contender_values.append(ac_from_condition)
+        
+        self.armor_class = max(armor_class_contender_values)
+        # print(f"{self}, armor class = {self.armor_class}")
+
     def long_rest(self) -> None:
         self.current_hp: int = self.max_hp
         self.spell_slots: dict = dict(spell_slot_counts[class_caster_types[self.charclass]][self.level])

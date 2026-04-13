@@ -1,5 +1,5 @@
 from conditions.condition_class import Condition
-from tools.enums import BuffCondition, RollAlteration, Dice, RollType
+from tools.enums import BuffCondition, RollAlteration, Dice, RollType, AbilityScore
 
 # Incoming damage alteration
 BarbarianRaging = Condition(
@@ -36,4 +36,23 @@ Blessed = Condition(
     name=BuffCondition.blessed,
     roll_alteration=RollAlteration.dice_modifier,
     dice={Dice.d4: 1,},
+)
+
+# Armor class
+BarbarianUnarmoredDefense = Condition(
+    name=BuffCondition.barbarian_unarmored_defense,
+    base_armor_class=10,
+    ability_scores_added_to_armor_class=[AbilityScore.CON, AbilityScore.DEX],
+    maximum_dexterity_modifier_for_armor_class=None,
+)
+MageArmor = Condition(
+    name=BuffCondition.mage_armor,
+    base_armor_class=13,
+    maximum_dexterity_modifier_for_armor_class=None,
+)
+MonkUnarmoredDefense = Condition(
+    name=BuffCondition.monk_unarmored_defense,
+    base_armor_class=10,
+    ability_scores_added_to_armor_class=[AbilityScore.DEX, AbilityScore.WIS],
+    maximum_dexterity_modifier_for_armor_class=None,
 )

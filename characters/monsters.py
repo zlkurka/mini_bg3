@@ -1,7 +1,8 @@
 from characters.character_class import Character
 from items.weapons import *
+from items.armor import *
 from conditions.conditions import UndeadFortitude
-from actions.attacks.attacks import CatScratch, ShortswordStrike, ShortbowStrike, ZombieSlam
+from actions.attacks.attacks import CatScratch, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut
 from tools.enums import CharClass, AbilityScore, CharacterType, SummonType
 
@@ -49,7 +50,7 @@ Goblin = Character(
         AbilityScore.WIS: 1,
         AbilityScore.CHA: 0,
     },
-    equipped_items = [Shortsword, Shortbow],
+    equipped_items = [Shortsword, Shortbow, HideArmor],
 )
 Skeleton = Character(
     name = "skeleton", 

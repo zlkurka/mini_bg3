@@ -205,6 +205,9 @@ class Armor(EnumWithValueRepr):
     hide = "hide armor"
     scale_mail = "scale mail"
 
+    # Heavy
+    chain_mail = "chain mail"
+
 class Shield(EnumWithValueRepr):
 
     basic = "shield"
@@ -235,14 +238,17 @@ class MenuOptions(EnumWithValueRepr):
     nevermind = "nevermind"
 
 class BuffCondition(EnumWithValueRepr):
-
+    
+    bajesus_freaking_out = "freaking out"
+    barbarian_unarmored_defense = "unarmored defense"
     barbarian_raging = "raging"
     bardic_inspiration = "bardic inspiration"
     blessed = "blessed"
     hiding = "hiding"
+    mage_armor = "mage armor"
+    monk_unarmored_defense = "unarmored defense"
     resistant = "resistant"
     undead_fortitude = "undead fortitude"
-    bajesus_freaking_out = "freaking out"
 
 class RollAlteration(EnumWithValueRepr):
 

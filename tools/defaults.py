@@ -342,16 +342,16 @@ empty_spell_slots: dict = spell_slot_counts[CasterType.nonCaster][1]
 base_equipped_items: dict = {
 
     CharClass.barbarian: [Greataxe],
-    CharClass.bard: [Shortsword, Crossbow, LeatherArmor], # Leather armor
-    CharClass.cleric: [Mace], # Chain shirt, shield
-    CharClass.druid: [Shortbow, LeatherArmor], # Hide armor
-    CharClass.fighter: [Longsword, Shortbow], # Scale mail
+    CharClass.bard: [Shortsword, Crossbow, LeatherArmor],
+    CharClass.cleric: [Mace, ChainMail], # shield
+    CharClass.druid: [Shortbow, HideArmor],
+    CharClass.fighter: [Longsword, Shortbow, ScaleMail],
     CharClass.monk: [],
-    CharClass.paladin: [Longsword, Crossbow], # Scale mail, shield
-    CharClass.ranger: [Shortsword, Shortbow, LeatherArmor], # Leather armor
-    CharClass.rogue: [Dagger, Shortbow, LeatherArmor], # Leather armor
+    CharClass.paladin: [Longsword, Crossbow, ChainMail], # shield
+    CharClass.ranger: [Shortsword, Shortbow, LeatherArmor],
+    CharClass.rogue: [Dagger, Shortbow, LeatherArmor],
     CharClass.sorcerer: [],
-    CharClass.warlock: [Shortsword, LeatherArmor], # Leather armor
+    CharClass.warlock: [Shortsword, LeatherArmor],
     CharClass.wizard: [],
 
 }
@@ -416,6 +416,21 @@ base_spell_options: dict = {
         1: [ChromaticOrb, BurningHands, FindFamiliar],
         2: [],
     },
+}
+
+base_conditions = {
+    CharClass.barbarian: [BarbarianUnarmoredDefense],
+    CharClass.bard: [],
+    CharClass.cleric: [],
+    CharClass.druid: [],
+    CharClass.fighter: [],
+    CharClass.monk: [MonkUnarmoredDefense],
+    CharClass.paladin: [], 
+    CharClass.ranger: [],
+    CharClass.rogue: [],
+    CharClass.sorcerer: [],
+    CharClass.warlock: [],
+    CharClass.wizard: [],
 }
 
 # Values

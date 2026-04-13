@@ -13,6 +13,9 @@ class Condition():
         roll_alteration: RollAlteration = None, 
         applicable_roll_type: RollType = None, # Add shit for making hide only apply to attacks and stuff
         gives_advantage_on_self: bool = False,
+        base_armor_class: int = None,
+        maximum_dexterity_modifier_for_armor_class: int = None,
+        ability_scores_added_to_armor_class: list[AbilityScore] = [],
     ):
         self.name = name
         self.dice: dict = dice
@@ -22,6 +25,9 @@ class Condition():
         self.roll_alteration: bool = roll_alteration
         self.applicable_roll_type: RollType = applicable_roll_type
         self.gives_advantage_on_self: bool = gives_advantage_on_self
+        self.base_armor_class: int = base_armor_class
+        self.maximum_dexterity_modifier_for_armor_class: int = maximum_dexterity_modifier_for_armor_class
+        self.ability_scores_added_to_armor_class: list[AbilityScore] = ability_scores_added_to_armor_class
     
     def __repr__(self) -> str:
         return "[italic blue]" + str(self.name) + "[/italic blue]"
