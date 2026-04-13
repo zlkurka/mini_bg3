@@ -76,7 +76,7 @@ class Character():
         else:
             self.actions: list = []
             if self.charclass in base_actions:
-                self.actions: list = base_actions[self.charclass]
+                self.actions: list = list(base_actions[self.charclass])
             self.actions += list(extra_actions)
         
         # Set consumable actions

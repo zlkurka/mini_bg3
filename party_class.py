@@ -25,6 +25,11 @@ class PartyInfo():
         loot = encounter.begin(self.active_party)
         self.attain_loot(loot)
 
+        for char in self.active_party:
+            if char.current_hp <= 0:
+                self.active_party.remove(char)
+                self.companions.remove(char)
+
     def pick_party(self):
     
         character_options = list(self.companions)

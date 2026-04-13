@@ -156,6 +156,9 @@ I currently use all the companions from *Baldur's Gate 3*, but if this becomes l
 * Add higher levels
   * Spell casters are reassigned spell slots with base_spell_slots\[casterType\]\[level\]
 
+## Notes on changes
+
+* I think events might be too easy to fail. Since it’s an ability check, there’s a chance you can fail and get nothing out of the event. So maybe I need to lower DCs or have different levels of difficulty for different options
 
 
 ___
