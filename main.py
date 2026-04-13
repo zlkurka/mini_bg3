@@ -5,7 +5,6 @@ from encounters.events.events import *
 from encounters.combat.combats import *
 from characters.companions import *
 from tools.menu import menu
-from actions.summon.summon_lists import summon_types
 
 
 def main():
@@ -18,7 +17,6 @@ def main():
     if input('Press [ENTER] to start.') == 'dev':
         Party.active_party = [Gale, Minsc, Karlach, Shadowheart]
         Party.do_encounter(Goblins_4x)
-    
 
     while True:
         match menu(options=["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"], menu_text="What would you like to do?"):

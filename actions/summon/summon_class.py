@@ -14,12 +14,12 @@ class Summon(Action):
         self.creatureCanAttack: bool = creatureCanAttack
         self.required_self_conditions: list = required_self_conditions
     
-    def action(self, character, enemies: list, team: list, fighters: list):
+    def action(self, character, enemies: list, team: list, fighters: list, action_is_consumable: bool = False,):
         
         nevermindSelected = False
 
         # Expend spell slot
-        if self.spell_slot_level > 0:
+        if self.spell_slot_level > 0 and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
                 return character, enemies, team, nevermindSelected

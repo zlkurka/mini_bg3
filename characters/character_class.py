@@ -149,7 +149,7 @@ class Character():
 
         while True:
             action_choice, action_is_consumable = self.choose_action(enemies=enemies, team=team)
-            self, enemies, team, nevermindSelected = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters)
+            self, enemies, team, nevermindSelected = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters, action_is_consumable=action_is_consumable)
             if not nevermindSelected:
                 break
         if action_is_consumable:
@@ -190,7 +190,7 @@ class Character():
                         continue
 
                 # If no spell slots for leveled spell
-                if act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
+                elif act.spell_slot_level > 0 and self.spell_slots == empty_spell_slots:
                     continue
                 
                 # If char already has self buff condition

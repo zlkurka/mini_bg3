@@ -42,12 +42,12 @@ class Attack(Action):
             self.multi_target: int = multi_target
             self.halfDamage_onSave: bool = False
 
-    def action(self, character, enemies: list, team: list, fighters: list):
+    def action(self, character, enemies: list, team: list, fighters: list, action_is_consumable: bool = False,):
         
         nevermindSelected = False 
 
         # Expend spell slot
-        if self.spell_slot_level > 0:
+        if self.spell_slot_level > 0 and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
                 return character, enemies, team, nevermindSelected
