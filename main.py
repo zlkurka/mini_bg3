@@ -85,7 +85,7 @@ def romance(companions):
         print("There are no romanceable companions!")
     if len(romanceable_companions) == 1:
         print(f"{romanceable_companions[0]} goes to town on that thang.")
-    if len(romanceable_companions) ==2:
+    if len(romanceable_companions) >=2:
         sex_havers = sample(romanceable_companions, 2)
         print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
 
