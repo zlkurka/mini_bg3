@@ -43,13 +43,9 @@ def main():
                 Party.add_custom_character()
 
             case "Romance":
-                if not romance_availability_confirmed:
-                    romance_availability_confirmed = True
-                    if menu(menu_text='This feature is only available to players aged 18 years and older. By entering "Yes", you confirm that you are old enough to access this feature', options=["Yes", "No"]) == "No":
-                        main_menu_options.remove("Romance")
-                        romance_blocked = True
-                        continue
-                romance(Party.companions)
+                romance_availability_confirmed, romance_blocked = romance(companions=Party.companions, romance_availability_confirmed=romance_availability_confirmed)
+                if romance_blocked and "Romance" in main_menu_options:
+                    main_menu_options.remove("Romance")
         
             case _:
                 print("Invalid option!")
@@ -84,18 +80,23 @@ def campaign(Party: PartyInfo, romance_availability_confirmed: bool = False, rom
                 Party.group_long_rest()
 
             case "Romance":
-                if not romance_availability_confirmed:
-                    romance_availability_confirmed = True
-                    if menu(menu_text='This feature is only available to players aged 18 years and older. By entering "Yes", you confirm that you are old enough to access this feature.', options=["Yes", "No"]) == "No":
-                        camp_menu_options.remove("Romance")
-                        continue
-                romance(Party.companions)
+                romance_availability_confirmed, romance_blocked = romance(companions=Party.companions, romance_availability_confirmed=romance_availability_confirmed)
+                if romance_blocked and "Romance" in camp_menu_options:
+                    camp_menu_options.remove("Romance")
 
             case _:
                 print("Invalid option!")
 
 
-def romance(companions):
+def romance(companions, romance_availability_confirmed):
+    romance_blocked = False
+    if not romance_availability_confirmed:
+        romance_availability_confirmed = True
+        romance_blocked = menu(menu_text='This feature is only available to players aged 18 years and older. By entering "Yes", you confirm that you are old enough to access this feature.', options=["Yes", "No"]) == "No"
+    
+    if romance_blocked: 
+        return romance_availability_confirmed, True
+            
     romanceable_companions = list(companions)
     for char in [Nightkill]:
         if char in romanceable_companions:
@@ -107,6 +108,8 @@ def romance(companions):
     if len(romanceable_companions) >=2:
         sex_havers = sample(romanceable_companions, 2)
         print(f"{sex_havers[0]} fucks the shit out of {sex_havers[1]}.")
+    
+    return romance_availability_confirmed, False
 
 
 if __name__ == "__main__":
