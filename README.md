@@ -13,21 +13,20 @@ Make sure you have Python 3.14 installed, along with Rich (use `pip install rich
 
 ## Using executable
 
-The game is executed from `main.exe` in the root project folder of the latest release. The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can execute the code using your device's terminal or an installed IDE.
+The game is executed from `main.exe` in the root project folder of the latest release. The executable was created using Pyinstaller, meaning that computers running different a operating system architectures from my own (Windows 11, 64 bit) may have trouble running it. If the .exe doesn't work, you can use one of the other methods to run the game.
 
 I’m working on a better way of making an exectuable, but I’m a beginner to software development and Python is a wacky language, so it’s taking some time.
 
 ## From your computer's terminal
 
 * Download this repository. I will have releases soon where you can download it.
-* Make sure you have Python installed on your computer.
-* Copy the path to `main.py` in your file navigation system
-* Enter `python` into your terminal (`python3` on Mac I believe), and paste the path to the file before hitting enter
-  * Example: `python users/name/Downloads/mini_bg3/main.py`
+* Copy the path to `main.py` from your file navigation system
+* Enter `python` into your terminal (`python3` on Mac), and paste the path to the file before hitting enter
+  * Example: `python ~/Downloads/mini_bg3/main.py`
 
 ## Using an IDE
 
-* Download this repository. I will have releases soon where you can download it.
+* Download this repository’s source code.
 * If you already have an IDE like VS Code installed, this will be your easiest choice.
 * Make sure you have Python installed on your computer and have an extension to execute Python code in your IDE
 * Open this project's root folder in your IDE. Navigate to `main.py`
@@ -40,8 +39,8 @@ ___
 
 ## Priority
 
-* Add shields
 * Add disadvantage on stealth for medium and heavy armor
+* Buff Murder Hobo. The choice to fight them should be a ricky one, granding a great reward
 * Add potions (used from Party items?)
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus

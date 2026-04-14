@@ -41,8 +41,6 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True,
         if alteration == RollAlteration.flat_modifer:
             flat_modifier = cond.modifier
         if alteration == RollAlteration.dice_modifier:
-            
-            print("blessed")
 
             proposed_bonus = 0
             for die in cond.dice:

@@ -26,6 +26,10 @@ BajesusFreakingOut = Condition(
     alters_outgoing_damage=True,
     modifier=2,
 )
+MurderHoboBloodRage = Condition(
+    name=BuffCondition.murder_hobo_blood_rage,
+    alters_outgoing_damage=True,
+)
 
 # Altering rolls
 BardicInspiration = Condition(

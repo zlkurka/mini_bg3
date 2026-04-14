@@ -249,6 +249,7 @@ class BuffCondition(EnumWithValueRepr):
     hiding = "hiding"
     mage_armor = "mage armor"
     monk_unarmored_defense = "unarmored defense"
+    murder_hobo_blood_rage = "blood rage"
     resistant = "resistant"
     undead_fortitude = "undead fortitude"
 

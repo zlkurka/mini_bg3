@@ -65,8 +65,10 @@ class Condition():
         if not self.alters_outgoing_damage:
             return damage
         
-        if roll_type == self.applicable_roll_type:
-            new_damage = damage + self.modifier
+        if self.name == BuffCondition.murder_hobo_blood_rage:
+            self.modifier = round((character.max_hp - character.current_hp) / 2)
+
+        new_damage = damage + self.modifier
 
         if new_damage < damage:
             print(f"Damage reduced from {damage} to {new_damage} due to {self} condition.")

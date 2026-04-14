@@ -56,6 +56,7 @@ def campaign(Party: PartyInfo, romance_availability_confirmed: bool = False, rom
         Goblins_4x, 
         SwordInStone,
         OwlbearMother,
+        TheMurderHobo,
         UndeadGroup, 
     ]
 
