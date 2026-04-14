@@ -1,4 +1,5 @@
 from items.item_class import Item
+from conditions.conditions import UndeadFortitude
 from tools.enums import ItemType, ArmorType, Armor, Shield
 
 # Light
@@ -49,4 +50,17 @@ BasicShield = Item(
     item_type=ItemType.shield, 
     is_equippable=True,  
     value=2, 
+)
+
+
+# Magic armor
+
+# Medium
+MurderHoboBoneArmor = Item(
+    name="bone armor",
+    item_type=ItemType.armor, 
+    is_equippable=True,  
+    value=13, 
+    armor_type=ArmorType.medium,
+    associated_conditions=[UndeadFortitude],
 )

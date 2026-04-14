@@ -8,7 +8,7 @@ DaggerStrike = Attack(
     damage_dice = {Dice.d4: 1},
     ability_score_modifier = AbilityScore.finesse,
     multi_target = 1,
-    ranged = True,
+    ranged = False,
     use_damage_modifier = True,
 )
 GreataxeStrike = Attack(
@@ -16,7 +16,15 @@ GreataxeStrike = Attack(
     damage_dice = {Dice.d12: 1},
     ability_score_modifier = AbilityScore.STR,
     multi_target = 1,
-    ranged = True,
+    ranged = False,
+    use_damage_modifier = True,
+)
+GreatswordStrike = Attack(
+    name = Weapon.greatsword, 
+    damage_dice = {Dice.d6: 2},
+    ability_score_modifier = AbilityScore.STR,
+    multi_target = 1,
+    ranged = False,
     use_damage_modifier = True,
 )
 LongswordStrike = Attack(

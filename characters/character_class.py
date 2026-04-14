@@ -491,7 +491,7 @@ class Character():
                     ac_from_condition += cond.maximum_dexterity_modifier_for_armor_class
                 for ability in cond.ability_scores_added_to_armor_class:
                     ac_from_condition += self.ability_scores[ability]
-            armor_class_contender_values.append(ac_from_condition)
+                armor_class_contender_values.append(ac_from_condition)
         
         self.armor_class = max(armor_class_contender_values)
         if self.equipment[ItemType.shield]:

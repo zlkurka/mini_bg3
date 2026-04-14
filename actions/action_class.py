@@ -14,7 +14,7 @@ class Action():
     def __repr__(self):
         return "[italic purple]" + str(self.name) + "[/italic purple]"
 
-    def action(self, character, enemies: list, team: list, fighters: list):
+    def action(self, character, enemies: list, team: list, fighters: list, action_is_consumable: bool = False):
         nevermindSelected = False
         return character, enemies, team, nevermindSelected
     

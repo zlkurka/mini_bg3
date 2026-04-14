@@ -21,6 +21,12 @@ Greataxe = Item(
     is_equippable=True,
     associated_actions=[GreataxeStrike]
 )
+Greatsword = Item(
+    name=Weapon.greatsword,
+    item_type=ItemType.melee_weapon,
+    is_equippable=True,
+    associated_actions=[GreatswordStrike]
+)
 Longsword = Item(
     name=Weapon.longsword,
     item_type=ItemType.melee_weapon,

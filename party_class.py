@@ -22,13 +22,18 @@ class PartyInfo():
         if not self.active_party:
             self.pick_party()
         
+        original_party = list(self.active_party)
         loot = encounter.begin(self.active_party)
         self.attain_loot(loot)
 
-        for char in self.active_party:
-            if char.current_hp <= 0:
-                self.active_party.remove(char)
+        for char in original_party:
+            if char not in self.active_party:
                 self.companions.remove(char)
+                print(f"{rich_capitalize(char)} has left your party.")
+
+        if not self.active_party:
+            self.lose_screen()
+            return
 
     def pick_party(self):
     
@@ -175,3 +180,6 @@ class PartyInfo():
         custom_character = create_custom_character()
         if custom_character:
             self.companions.append(custom_character)
+
+    def lose_screen(self):
+        print("\nYour party perished in the dungeon. You lose!\n")

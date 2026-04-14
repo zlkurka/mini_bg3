@@ -101,7 +101,6 @@ class Combat():
                             char.conditions.remove(condition)
                 
                 if not party:
-                    print("\nYou lose!")
                     self.rewards = []
                 
                 if not monsters:

@@ -11,15 +11,14 @@ def main():
     Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, Minsc, TheDev])
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
-    events = [SwordInStone]
+    events = [SwordInStone, TheMurderHobo]
 
     romance_availability_confirmed = False
     romance_blocked=False
 
     if input('Press [ENTER] to start.') == 'dev':
-        Karlach.equip_item(Longsword_plus1)
-        Party.active_party = [BingusGringus, Nightkill, Karlach, Shadowheart]
-        Party.do_encounter(Goblins_4x)
+        Party.active_party = [Gale, Shadowheart, Karlach, Nightkill]
+        Party.do_encounter(TheMurderHobo)
 
     main_menu_options = ["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"]
 

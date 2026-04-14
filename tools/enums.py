@@ -147,6 +147,7 @@ class Weapon(EnumWithValueRepr):
     crossbow = "crossbow"
     dagger = "dagger"
     greataxe = "greataxe"
+    greatsword = "greatsword"
     longsword = "longsword"
     mace = "mace"
     shortbow = "shortbow"

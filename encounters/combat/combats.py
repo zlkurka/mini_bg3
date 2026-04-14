@@ -11,6 +11,11 @@ Goblins_4x = Combat(
     rare_monster=Bajesus,
     rare_monster_chance=10,
 )
+MurderHoboFight = Combat(
+    name="Fight the Murder Hobo", 
+    monsters=[MurderHobo], 
+    rewards=[],
+)
 OwlbearMother = Combat(
     name=Encounter.owlbear, 
     monsters=[Owlbear], 

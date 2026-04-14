@@ -4,7 +4,7 @@ from items.armor_and_shields import *
 from conditions.conditions import UndeadFortitude
 from actions.attacks.attacks import CatScratch, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut
-from tools.enums import CharClass, AbilityScore, CharacterType, SummonType
+from tools.enums import CharClass, AbilityScore, CharacterType, SummonType, Skill
 
 Bajesus = Character(
     name = "Bajesus", 
@@ -51,6 +51,25 @@ Goblin = Character(
         AbilityScore.CHA: 0,
     },
     equipped_items = [Shortsword, Shortbow, HideArmor],
+)
+MurderHobo = Character(
+    name = "Murder Hobo", 
+    character_type = CharacterType.monster,
+    charclass = CharClass,
+    base_max_hp=40,
+    ability_scores={
+        AbilityScore.STR: 4,
+        AbilityScore.DEX: -1,
+        AbilityScore.CON: 3,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: 2,
+    },
+    equipped_items = [Greatsword, MurderHoboBoneArmor],
+    skills=[
+        Skill.intimidation,
+        Skill.survival
+    ]
 )
 Skeleton = Character(
     name = "skeleton", 
