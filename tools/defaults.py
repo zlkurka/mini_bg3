@@ -129,9 +129,9 @@ base_actions: dict = {
     CharClass.paladin: [],
     CharClass.ranger: [],
     CharClass.rogue: [RogueSneakAttack],
-    CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands],
+    CharClass.sorcerer: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands, FindFamiliar, MageArmor],
     CharClass.warlock: [EldritchBlast, PoisonSpray, ArmsOfHadar],
-    CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands, FindFamiliar],
+    CharClass.wizard: [Firebolt, PoisonSpray, ChromaticOrb, BurningHands, FindFamiliar, MageArmor],
 
 
     # Monster classes
@@ -401,7 +401,7 @@ base_spell_options: dict = {
     CharClass.sorcerer: {
         # Spell level
         0: [Firebolt, PoisonSpray],
-        1: [ChromaticOrb, BurningHands, FindFamiliar],
+        1: [ChromaticOrb, BurningHands, FindFamiliar, MageArmor],
         2: [],
     },
     CharClass.warlock: {
@@ -413,7 +413,7 @@ base_spell_options: dict = {
     CharClass.wizard: {
         # Spell level
         0: [Firebolt, PoisonSpray],
-        1: [ChromaticOrb, BurningHands, FindFamiliar],
+        1: [ChromaticOrb, BurningHands, FindFamiliar, MageArmor],
         2: [],
     },
 }

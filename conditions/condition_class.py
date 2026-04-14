@@ -11,7 +11,7 @@ class Condition():
         alters_incoming_damage: bool = False, 
         alters_outgoing_damage: bool = False,
         roll_alteration: RollAlteration = None, 
-        applicable_roll_type: RollType = None, # Add shit for making hide only apply to attacks and stuff
+        applicable_roll_types: list[RollType] = [], # Add shit for making hide only apply to attacks and stuff
         gives_advantage_on_self: bool = False,
         base_armor_class: int = None,
         maximum_dexterity_modifier_for_armor_class: int = None,
@@ -22,8 +22,8 @@ class Condition():
         self.modifier: int = modifier
         self.alters_incoming_damage: bool = alters_incoming_damage
         self.alters_outgoing_damage: bool = alters_outgoing_damage
-        self.roll_alteration: bool = roll_alteration
-        self.applicable_roll_type: RollType = applicable_roll_type
+        self.roll_alteration: RollAlteration = roll_alteration
+        self.applicable_roll_types: list[RollType] = applicable_roll_types
         self.gives_advantage_on_self: bool = gives_advantage_on_self
         self.base_armor_class: int = base_armor_class
         self.maximum_dexterity_modifier_for_armor_class: int = maximum_dexterity_modifier_for_armor_class

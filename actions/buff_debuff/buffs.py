@@ -16,6 +16,11 @@ Bless = Buff(
     spell_slot_level=1,
     multi_target=3
 )
+MageArmor = Buff(
+    name=Spell.mage_armor,
+    condition=MageArmored,
+    spell_slot_level=1,
+)
 
 # Class-specific
 BarbarianRage = Buff(

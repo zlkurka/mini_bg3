@@ -20,7 +20,7 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True,
     dice_total_bonus = 0
 
     for cond in list(character.conditions):
-        if cond.applicable_roll_type != roll_type:
+        if roll_type not in cond.applicable_roll_types:
             continue
         
         alteration = cond.roll_alteration
@@ -42,6 +42,8 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True,
             flat_modifier = cond.modifier
         if alteration == RollAlteration.dice_modifier:
             
+            print("blessed")
+
             proposed_bonus = 0
             for die in cond.dice:
                 proposed_bonus += (die.value // 2) + 1

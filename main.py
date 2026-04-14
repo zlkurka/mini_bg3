@@ -16,7 +16,7 @@ def main():
 
     if input('Press [ENTER] to start.') == 'dev':
         Karlach.equip_item(Longsword_plus1)
-        Party.active_party = [Gale, Minsc, Karlach, Shadowheart]
+        Party.active_party = [BingusGringus, Nightkill, Karlach, Shadowheart]
         Party.do_encounter(Goblins_4x)
 
     while True:

@@ -9,6 +9,7 @@ BarbarianRaging = Condition(
 Hiding = Condition(
     name=BuffCondition.hiding, 
     roll_alteration=RollAlteration.advantage,
+    applicable_roll_types=[RollType.attack],
 )
 Resistant = Condition(
     name=BuffCondition.resistant,
@@ -30,18 +31,20 @@ BajesusFreakingOut = Condition(
 BardicInspiration = Condition(
     name=BuffCondition.bardic_inspiration,
     roll_alteration=RollAlteration.dice_modifier,
+    applicable_roll_types=[RollType.ability_check, RollType.attack],
     dice={Dice.d6: 1,},
 )
 Blessed = Condition(
     name=BuffCondition.blessed,
     roll_alteration=RollAlteration.dice_modifier,
+    applicable_roll_types=[RollType.attack],
     dice={Dice.d4: 1,},
 )
 ClunkyArmor = Condition(
     name="clunky armor",
     roll_alteration=RollAlteration.disadvantage,
-    applicable_roll_type=Skill.stealth,
-    # Idk how I want to make this work
+    applicable_roll_types=Skill.stealth,
+    # TODO Idk how I want to make this work
 )
 
 # Armor class
@@ -51,7 +54,7 @@ BarbarianUnarmoredDefense = Condition(
     ability_scores_added_to_armor_class=[AbilityScore.CON, AbilityScore.DEX],
     maximum_dexterity_modifier_for_armor_class=None,
 )
-MageArmor = Condition(
+MageArmored = Condition(
     name=BuffCondition.mage_armor,
     base_armor_class=13,
     maximum_dexterity_modifier_for_armor_class=None,
