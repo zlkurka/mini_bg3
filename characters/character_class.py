@@ -312,6 +312,8 @@ class Character():
         if condition not in self.conditions:
             print(f"{self} gained condition {condition}.")
             self.conditions.append(condition)
+            if condition.base_armor_class:
+                self.set_armor_class()
 
     def ability_check(self, ability_type, difficulty_class: int = None, print_feedback: bool = True) -> int | bool:
         

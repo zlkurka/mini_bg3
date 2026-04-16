@@ -1,5 +1,7 @@
 from tools.enums import BuffCondition, RollAlteration, AbilityScore, RollType
+from tools.rich_capitalize import rich_capitalize
 from rich import print
+from random import randint
 
 class Condition():
 
@@ -16,6 +18,9 @@ class Condition():
         base_armor_class: int = None,
         maximum_dexterity_modifier_for_armor_class: int = None,
         ability_scores_added_to_armor_class: list[AbilityScore] = [],
+        ticking_health_alteration_is_damage: bool = True,
+        ticking_health_alteration_flat: int = 0,
+        ticking_health_alteration_dice: dict = {},
     ):
         self.name = name
         self.dice: dict = dice
@@ -28,10 +33,33 @@ class Condition():
         self.base_armor_class: int = base_armor_class
         self.maximum_dexterity_modifier_for_armor_class: int = maximum_dexterity_modifier_for_armor_class
         self.ability_scores_added_to_armor_class: list[AbilityScore] = ability_scores_added_to_armor_class
+        self.ticking_health_alteration_is_damage: bool = ticking_health_alteration_is_damage
+        self.ticking_health_alteration_flat: int = ticking_health_alteration_flat
+        self.ticking_health_alteration_dice: dict = ticking_health_alteration_dice
     
     def __repr__(self) -> str:
         return "[italic blue]" + str(self.name) + "[/italic blue]"
 
+    def ticking_health_alteration(self, character) -> int:
+        health_alteration = 0
+        
+        health_alteration += self.ticking_health_alteration_flat
+
+        for die_type in self.ticking_health_alteration_dice:
+            for roll in range(self.ticking_health_alteration_dice[die_type]):
+                health_alteration += randint(1, die_type.value)
+
+        if health_alteration:
+            if self.ticking_health_alteration_is_damage:
+                print(f"{rich_capitalize(self)} damages {character} for {health_alteration}.")
+                character.take_damage(health_alteration)
+            else:
+                print(f"{rich_capitalize(self)} heals {character} for {health_alteration}.")
+                character.heal(health_alteration)
+
+        return health_alteration
+        
+    
     def alter_incoming_damage(self, damage: int, character) -> int:
         
         if not self.alters_incoming_damage:

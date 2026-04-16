@@ -60,6 +60,7 @@ BarbarianUnarmoredDefense = Condition(
 MageArmored = Condition(
     name=BuffCondition.mage_armor,
     base_armor_class=13,
+    ability_scores_added_to_armor_class=[AbilityScore.DEX],
     maximum_dexterity_modifier_for_armor_class=None,
 )
 MonkUnarmoredDefense = Condition(

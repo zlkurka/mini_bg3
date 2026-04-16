@@ -73,7 +73,7 @@ def campaign(romance_availability_confirmed: bool = False, romance_blocked: bool
     Party.companions.append(starting_character)
     Party.active_party.append(starting_character)
 
-    camp_menu_options = ["Go to next encounter", "Change active party", "Manage equipment", "Long rest", "Romance"]
+    camp_menu_options = ["Go to next encounter", "Change active party", "Manage equipment", "Long rest", "Cast spells", "Romance"]
     if romance_blocked: 
         camp_menu_options.remove("Romance")
 
@@ -92,6 +92,9 @@ def campaign(romance_availability_confirmed: bool = False, romance_blocked: bool
 
             case "Long rest":
                 Party.group_long_rest()
+
+            case "Cast spells":
+                menu(menu_text="Who should cast some spells?", options=Party.active_party).action(enemies=[], team=Party.active_party, fighters=Party.active_party)
 
             case "Romance":
                 romance_availability_confirmed, romance_blocked = romance(companions=Party.companions, romance_availability_confirmed=romance_availability_confirmed)

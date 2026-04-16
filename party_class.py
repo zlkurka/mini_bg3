@@ -39,7 +39,7 @@ class PartyInfo():
     
         character_options = list(self.companions)
 
-        character_options.extend(["Custom character", MenuOptions.nevermind])
+        character_options.extend([MenuOptions.nevermind])
         self.active_party = []
 
         for x in range(4):

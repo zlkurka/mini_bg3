@@ -12,6 +12,6 @@ ClunkyArmor = Condition(
 # Ticking damage
 Bleeding = Condition(
     name="bleeding",
-    applicable_roll_types=[Skill.stealth],
-    # TODO Idk how I want to make this work
+    ticking_health_alteration_dice={Dice.d4: 1},
+    ticking_health_alteration_is_damage=True,
 )

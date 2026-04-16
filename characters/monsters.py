@@ -2,6 +2,7 @@ from characters.character_class import Character
 from items.weapons import *
 from items.armor_and_shields import *
 from conditions.positive_conditions import UndeadFortitude, MurderHoboBloodRage
+from conditions.negative_conditions import Bleeding
 from actions.attacks.attacks import CatScratch, ZombieSlam
 from actions.buff_debuff.buffs import BajesusFreakOut
 from tools.enums import CharClass, AbilityScore, CharacterType, SummonType, Skill, Race
@@ -57,7 +58,6 @@ InjuredAdventurer = Character(
     character_type=CharacterType.monster,
     charclass=CharClass.rogue, 
     race=Race.elf, 
-    max_hp=5,
     level=1,
     ability_scores={
         AbilityScore.STR: -1,
@@ -73,7 +73,8 @@ InjuredAdventurer = Character(
         Skill.sleight_of_hand,
         Skill.stealth,
     ],
-    equipped_items=[Dagger, LeatherArmor]
+    equipped_items=[Dagger, LeatherArmor],
+    conditions=[Bleeding]
 )
 MurderHobo = Character(
     name = "Murder Hobo", 

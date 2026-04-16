@@ -70,15 +70,16 @@ class Combat():
             initiative += 1
             if initiative >= len(fighters):
                 initiative = 0
-
-            if fighter.current_hp <= 0:
-                continue
             
             print()
 
             for condition in fighter.conditions:
+                condition.ticking_health_alteration(fighter)
                 if condition in conditions_removed_at_turn_start:
                     fighter.conditions.remove(condition)
+            
+            if fighter.current_hp <= 0:
+                continue
 
             # Do action
             if fighter.character_type == CharacterType.companion:
