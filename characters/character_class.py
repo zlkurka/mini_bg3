@@ -5,7 +5,7 @@ from actions.buff_debuff.buffs import Buff, Hide
 from actions.heal.heal import Heal
 from actions.summon.summon_lists import summon_types
 from items.item_class import Item
-from conditions.conditions import Hiding
+from conditions.positive_conditions import Hiding
 from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
@@ -327,7 +327,7 @@ class Character():
             print("Unacceptable ability type!")
 
         # Roll
-        roll = roll_d20(character=self, roll_bonus=ability_bonus, print_feedback=print_feedback, roll_type=RollType.ability_check)
+        roll = roll_d20(character=self, roll_bonus=ability_bonus, print_feedback=print_feedback, roll_type=ability_type)
         if difficulty_class == None:
             return roll
         # If no difficulty class set, returns roll (int)

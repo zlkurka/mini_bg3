@@ -1,5 +1,6 @@
 from items.item_class import Item
-from conditions.conditions import UndeadFortitude
+from conditions.positive_conditions import UndeadFortitude
+from conditions.negative_conditions import ClunkyArmor
 from tools.enums import ItemType, ArmorType, Armor, Shield
 
 # Light
@@ -18,7 +19,7 @@ ChainShirt = Item(
     is_equippable=True,  
     value=13, 
     armor_type=ArmorType.medium,
-    associated_conditions=[],
+    associated_conditions=[ClunkyArmor],
 )
 HideArmor = Item(
     name=Armor.hide,
@@ -32,7 +33,8 @@ ScaleMail = Item(
     item_type=ItemType.armor, 
     is_equippable=True,  
     value=14, 
-    armor_type=ArmorType.medium
+    armor_type=ArmorType.medium,
+    associated_conditions=[ClunkyArmor],
 )
 
 # Heavy
@@ -41,7 +43,8 @@ ChainMail = Item(
     item_type=ItemType.armor, 
     is_equippable=True,  
     value=16, 
-    armor_type=ArmorType.heavy
+    armor_type=ArmorType.heavy,
+    associated_conditions=[ClunkyArmor],
 )
 
 # Shields

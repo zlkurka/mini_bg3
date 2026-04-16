@@ -1,6 +1,6 @@
 from actions.action_class import Action
 from conditions.condition_class import Condition
-from conditions.conditions import *
+from conditions.positive_conditions import *
 from tools.enums import SpecialAction, MenuOptions, AbilityScore, Skill, Spell
 from rich import print
 

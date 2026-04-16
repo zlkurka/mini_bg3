@@ -49,12 +49,6 @@ Blessed = Condition(
     applicable_roll_types=[RollType.attack],
     dice={Dice.d4: 1,},
 )
-ClunkyArmor = Condition(
-    name="clunky armor",
-    roll_alteration=RollAlteration.disadvantage,
-    applicable_roll_types=Skill.stealth,
-    # TODO Idk how I want to make this work
-)
 
 # Armor class
 BarbarianUnarmoredDefense = Condition(

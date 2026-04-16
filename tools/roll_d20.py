@@ -2,7 +2,7 @@ from random import randint
 from rich import print
 from tools.menu import menu
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import Dice, RollAlteration, BuffCondition, RollType
+from tools.enums import Dice, RollAlteration, BuffCondition, RollType, Skill, AbilityScore
 
 def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True, roll_type: RollType = None):
 
@@ -20,7 +20,9 @@ def roll_d20(character = None, roll_bonus: int = 0, print_feedback: bool = True,
     dice_total_bonus = 0
 
     for cond in list(character.conditions):
-        if roll_type not in cond.applicable_roll_types:
+        if RollType.ability_check in cond.applicable_roll_types and type(roll_type) == Skill or type(roll_type) == AbilityScore:
+            pass
+        elif roll_type not in cond.applicable_roll_types:
             continue
         
         alteration = cond.roll_alteration

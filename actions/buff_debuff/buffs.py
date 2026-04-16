@@ -1,5 +1,5 @@
 from actions.buff_debuff.buff_debuff_class import Buff
-from conditions.conditions import *
+from conditions.positive_conditions import *
 from tools.enums import SpecialAction, Spell
 
 # General

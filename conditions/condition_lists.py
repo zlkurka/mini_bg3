@@ -1,4 +1,4 @@
-from conditions.conditions import *
+from conditions.positive_conditions import *
 
 conditions_removed_at_turn_start = []
 conditions_removed_at_turn_end = []

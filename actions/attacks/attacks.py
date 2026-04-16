@@ -1,5 +1,5 @@
 from actions.attacks.attack_class import Attack
-from conditions.conditions import Hiding
+from conditions.positive_conditions import Hiding
 from tools.enums import Weapon, AbilityScore, Dice, Spell
             
 # Melee weapons

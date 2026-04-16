@@ -1,5 +1,5 @@
 from actions.action_class import Action
-from conditions.conditions import Hiding
+from conditions.positive_conditions import Hiding
 from tools.enums import AbilityScore, Weapon, MenuOptions, RollType
 from tools.rich_capitalize import rich_capitalize
 from tools.roll_d20 import roll_d20
