@@ -76,8 +76,12 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
             if show_ability_check_and_difficulty_class:
                 try:
                     if list_item.ability_check and list_item.difficulty_class:
-                        print(f" [{rich_capitalize(list_item.ability_check)} ({skill_ability_scores[list_item.ability_check]}), DC {list_item.difficulty_class}]", end='')
-                        break
+                        if list_item.ability_check in skill_ability_scores:
+                            print(f" [{rich_capitalize(list_item.ability_check)} ({skill_ability_scores[list_item.ability_check]}), DC {list_item.difficulty_class}]", end='')
+                            break
+                        else:
+                            print(f" [{rich_capitalize(list_item.ability_check)}, DC {list_item.difficulty_class}]", end='')
+                            break
                 except AttributeError:
                     pass
                 try:
