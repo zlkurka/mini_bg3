@@ -8,7 +8,8 @@ from tools.menu import menu
 
 def main():
 
-    Party = PartyInfo(companions=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, Minsc, TheDev])
+    companions = [Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, Minsc, TheDev]
+    Party = PartyInfo(companions=companions)
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
     events = [SwordInStone, TheMurderHobo]
@@ -23,10 +24,14 @@ def main():
     main_menu_options = ["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"]
 
     while True:
+        
+        for char in companions:
+            char.long_rest()
+        
         match menu(options=main_menu_options, menu_text="[bold]Main Menu[/bold]"):
             
             case "Begin campaign":
-                campaign(Party=Party, romance_availability_confirmed=romance_availability_confirmed, romance_blocked=romance_blocked)
+                campaign(romance_availability_confirmed=romance_availability_confirmed, romance_blocked=romance_blocked)
                 
             case "Choose party":
                 Party.pick_party()
@@ -50,15 +55,23 @@ def main():
                 print("Invalid option!")
 
 
-def campaign(Party: PartyInfo, romance_availability_confirmed: bool = False, romance_blocked: bool = False):
+def campaign(romance_availability_confirmed: bool = False, romance_blocked: bool = False):
     
     campaign_encounters = [
-        Goblins_4x, 
+        TheInjuredAdventurer,
         SwordInStone,
+        Goblins_4x, 
         OwlbearMother,
         TheMurderHobo,
         UndeadGroup, 
     ]
+
+    Party = PartyInfo()
+    starting_character = menu(menu_text="Who would you like to start the game as?", options=[Nightkill, Faylen, BingusGringus, Gale, Karlach, Laezel, Shadowheart, Bard, Monk, Minsc, TheDev, "Custom character"])
+    if starting_character == "Custom character":
+        starting_character = Party.add_custom_character()
+    Party.companions.append(starting_character)
+    Party.active_party.append(starting_character)
 
     camp_menu_options = ["Go to next encounter", "Change active party", "Manage equipment", "Long rest", "Romance"]
     if romance_blocked: 

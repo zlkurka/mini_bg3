@@ -1,6 +1,7 @@
 from encounters.events.event_class import Event, EventOption
-from encounters.combat.combats import MurderHoboFight
+from encounters.combat.combats import MurderHoboFight, InjuredAdventurerFight
 from items.weapons import Longsword_plus1
+from characters.companions import Bard
 from tools.enums import AbilityScore, Skill
 
 SwordInStone = Event(
@@ -26,6 +27,57 @@ SwordInStone = Event(
             failure_text = "{} examines the runes, but is unable to decipher them.",
         ),
     ],
+)
+TheInjuredAdventurer = Event(
+    name = "The Injured Adventurer",
+    description = "You come across a rogue who appears to have just come off worse in a fight. " \
+    "On the ground beside him is a backpack and an unconscious bard with a large bruise on his forehead. " \
+    "The rogue clutches a bloody wound at his side and scowls at you. ",
+    options = [
+        EventOption(
+            name = "Fight him.",
+            success_text = "You squash the last vestiges of life from the bloodied rogue.",
+            failure_text = "In spite of the rogue's wounds, you are no match for him.",
+            rewards = [], # Nothing
+            combat = InjuredAdventurerFight,
+        ),
+        EventOption(
+            name = "Scare him off.",
+            success_text = "{} stares down the bloodied rogue, who realizes you mean business and dashes off into the the darkness. " \
+            "Left behind, you see the rogue's backpack and the unconscious bard. ",
+            failure_text = "The rogue isn't scared of {} and readies his dagger.",
+            ability_check = Skill.intimidation,
+            difficulty_class = 12,
+            combat = InjuredAdventurerFight,
+            combat_on_failure = True,
+            combat_success_text="You squash the last vestiges of life from the bloodied rogue.",
+            combat_failure_text="In spite of the rogue's wounds, you are no match for him.",
+            rewards = [], # He leaves behind some rations.
+        ),
+        EventOption(
+            name = "Offer to heal his wounds.",
+            success_text = "You see a flicker in the rogue's eye before he lets his guard down. " \
+            "\n\n" \
+            "You sit together for an hour as {} tends to his wounds. " \
+            "The rogue reveals his name is ____, and all he wants is to escape this dungeon. " \
+            "He leaves you with |ITEM| before slipping away into the shadows.",
+            failure_text = "The rogue isn't intersted in {}'s help and readies his dagger.",
+            ability_check = Skill.medicine,
+            difficulty_class = 12,
+            combat = InjuredAdventurerFight,
+            combat_on_failure = True,
+            combat_success_text="You squash the last vestiges of life from the bloodied rogue.",
+            combat_failure_text="In spite of the rogue's wounds, you are no match for him.",
+            rewards = [], # He gives you maybe a wondrous item? I'd have to raise the DC. Maybe he gives you a map that would be too blood-soaked if you killed him
+        ),
+        # Depending on what you do, I think it would be cool to see the rogue again. 
+        # If they die in combat, they could be resurrected by the necromancer. 
+        # If they run away, they could get killed anyway or get captured by the goblins. 
+        # If they get healed, maybe they just escape or maybe they show up later to help you.
+
+        # I think this project is way too ambitious
+    ],
+    rewards = [Bard,]
 )
 TheMurderHobo = Event(
     name = "The Murder Hobo",

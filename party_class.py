@@ -12,11 +12,11 @@ from tools.enums import MenuOptions
 
 class PartyInfo():
     
-    def __init__(self, companions: list = [], gold: int = 0, items: list = [], active_party: list = []):
+    def __init__(self, companions: list = [], active_party: list = [], gold: int = 0, items: list = []):
         self.companions: list =list(companions)
+        self.active_party: list = list(active_party)
         self.gold: int = gold
         self.items: list = list(items)
-        self.active_party: list = list(active_party)
     
     def do_encounter(self, encounter):
         if not self.active_party:
@@ -24,7 +24,6 @@ class PartyInfo():
         
         original_party = list(self.active_party)
         loot = encounter.begin(self.active_party)
-        self.attain_loot(loot)
 
         for char in original_party:
             if char not in self.active_party:
@@ -33,6 +32,8 @@ class PartyInfo():
 
         if not self.active_party:
             return self.game_over()
+        
+        self.attain_loot(loot)
 
     def pick_party(self):
     
@@ -83,7 +84,7 @@ class PartyInfo():
 
             if type(item) == Character:
                 print(f"Companion found: {item}")
-                self.companions.append(Character)
+                self.companions.append(item)
                 continue
             
             if type(item) == Item:

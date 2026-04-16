@@ -40,7 +40,6 @@ ___
 ## Priority
 
 * Add disadvantage on stealth for medium and heavy armor
-* Buff Murder Hobo. The choice to fight them should be a ricky one, granding a great reward
 * Add potions (used from Party items?)
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus

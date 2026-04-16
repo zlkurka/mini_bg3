@@ -11,12 +11,12 @@ Nightkill = Character(
     race=Race.halfling, 
     level=1,
     ability_scores={
-        AbilityScore.STR: -1,
+        AbilityScore.STR: 0,
         AbilityScore.DEX: 3,
         AbilityScore.CON: 0,
         AbilityScore.INT: 1,
         AbilityScore.WIS: 2,
-        AbilityScore.CHA: 0,
+        AbilityScore.CHA: -1,
     },
     skills=[
         Skill.acrobatics,

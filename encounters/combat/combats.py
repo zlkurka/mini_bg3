@@ -11,6 +11,11 @@ Goblins_4x = Combat(
     rare_monster=Bajesus,
     rare_monster_chance=10,
 )
+InjuredAdventurerFight = Combat(
+    name="Fight the Injured Adventurer", 
+    monsters=[InjuredAdventurer], 
+    rewards=[],
+)
 MurderHoboFight = Combat(
     name="Fight the Murder Hobo", 
     monsters=[MurderHobo], 

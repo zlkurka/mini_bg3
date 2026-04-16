@@ -6,11 +6,11 @@ from tools.rich_capitalize import rich_capitalize
 
 class Event():
 
-    def __init__(self, name, description: str = "", options: list = []):
+    def __init__(self, name, description: str = "", options: list = [], rewards: list = []):
         self.name = name
         self.description: str = description
         self.options: list = options
-        self.rewards: list = []
+        self.rewards: list = rewards
     
     def __repr__(self):
         return "[bold]" + str(self.name) + "[/bold]"
@@ -31,6 +31,9 @@ class Event():
         choice=menu(menu_text="What will you do?", options=options)
         contest_successful = True
 
+        ## Checks ##
+
+        # If ability check, do ability check
         character_making_check = None
         if choice.ability_check:
             if len(party) > 1:
@@ -40,33 +43,71 @@ class Event():
         
             contest_successful = character_making_check.ability_check(ability_type=choice.ability_check, difficulty_class=choice.difficulty_class)
         
-        if choice.combat:
+        # If not abiity check, do voluntary combat
+        elif choice.combat:
             self.rewards.extend(choice.combat.begin(party=party))
             if len(party) == 0:
+                # This is game over
                 contest_successful = False
         
-        if not contest_successful:
-            print(choice.failure_text.format(character_making_check))
-        else:
+
+        ## Results ##
+
+        # If succeeded abilility check or voluntary combat
+        if contest_successful:
+
             print(choice.success_text.format(character_making_check))
             self.rewards.extend(choice.rewards)
             if choice.options:
                 self.do_option(options=choice.options, party=party)
+        
+        # If failed abilility check or voluntary combat
+        else: 
+            print(choice.failure_text.format(character_making_check))
+            
+            # If involuntary combat on failure
+            if choice.combat_on_failure and choice.combat:
+                self.rewards.extend(choice.combat.begin(party=party))
+                
+                # If lost combat (game over)
+                if len(party) == 0:
+                    print(choice.combat_failure_text)
+                # If succeeded combat
+                else:
+                    print(choice.combat_success_text)
         
         return
 
 
 class EventOption():
 
-    def __init__(self, name, options: list = [], ability_check = None, difficulty_class: int = 0, combat = None, rewards: list = [], success_text: str = "", failure_text: str = "",):
+    def __init__(
+            self, 
+            name, 
+            success_text: str = "", 
+            failure_text: str = "", 
+            options: list = [],
+            rewards: list = [], 
+            unconditional_rewards: list = [],
+            ability_check = None, 
+            difficulty_class: int = 0, 
+            combat = None, 
+            combat_on_failure: bool = False,
+            combat_success_text: str = "",
+            combat_failure_text: str = "",
+        ):
         self.name = name
+        self.success_text: str = success_text
+        self.failure_text: str = failure_text
         self.options: list = options
+        self.rewards: list = rewards
+        self.unconditional_rewards: list = unconditional_rewards
         self.ability_check = ability_check
         self.difficulty_class: int = difficulty_class
         self.combat = combat
-        self.rewards: list = rewards
-        self.success_text: str = success_text
-        self.failure_text: str = failure_text
+        self.combat_on_failure: bool = combat_on_failure
+        self.combat_success_text: str = combat_success_text
+        self.combat_failure_text: str = combat_failure_text
     
     def __repr__(self):
         return str(self.name)
