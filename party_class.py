@@ -32,8 +32,7 @@ class PartyInfo():
                 print(f"{rich_capitalize(char)} has left your party.")
 
         if not self.active_party:
-            self.lose_screen()
-            return
+            return self.game_over()
 
     def pick_party(self):
     
@@ -62,7 +61,9 @@ class PartyInfo():
             
             # Selection: New custom
             if selection == "Custom character":
-                self.add_custom_character()
+                custom_character = self.add_custom_character()
+                if custom_character:
+                    self.active_party.append(custom_character)
             
             else:
                 self.active_party.append(selection)
@@ -176,10 +177,12 @@ class PartyInfo():
         for char in self.companions:
             char.long_rest()
 
-    def add_custom_character(self):
+    def add_custom_character(self) -> Character | None:
         custom_character = create_custom_character()
         if custom_character:
             self.companions.append(custom_character)
+        return custom_character
 
-    def lose_screen(self):
+    def game_over(self):
         print("\nYour party perished in the dungeon. You lose!\n")
+        return "game over"

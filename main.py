@@ -23,7 +23,7 @@ def main():
     main_menu_options = ["Begin campaign", "Choose party", "Face an encounter", "Add custom character", "Romance"]
 
     while True:
-        match menu(options=main_menu_options, menu_text="What would you like to do?"):
+        match menu(options=main_menu_options, menu_text="[bold]Main Menu[/bold]"):
             
             case "Begin campaign":
                 campaign(Party=Party, romance_availability_confirmed=romance_availability_confirmed, romance_blocked=romance_blocked)
@@ -65,9 +65,10 @@ def campaign(Party: PartyInfo, romance_availability_confirmed: bool = False, rom
         camp_menu_options.remove("Romance")
 
     while True:
-        match menu(options=camp_menu_options, menu_text="What would you like to do?"):
+        match menu(options=camp_menu_options, menu_text="\n[bold]Camp[/bold]"):
             case "Go to next encounter":
-                Party.do_encounter(campaign_encounters[0])
+                if Party.do_encounter(campaign_encounters[0]) == "game over":
+                    return
                 campaign_encounters.pop(0)
 
             case "Change active party":

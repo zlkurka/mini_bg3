@@ -18,7 +18,7 @@ Bajesus = Character(
         AbilityScore.WIS: -1,
         AbilityScore.CHA: -1,
     },
-    equipped_items = [Shortsword, Shortbow],
+    equipped_items = [Shortsword, Shortbow, HideArmor],
     extra_actions = [BajesusFreakOut],
 )
 Cat = Character(
@@ -60,10 +60,10 @@ MurderHobo = Character(
     ability_scores={
         AbilityScore.STR: 4,
         AbilityScore.DEX: -1,
-        AbilityScore.CON: 3,
-        AbilityScore.INT: -1,
+        AbilityScore.CON: 4,
+        AbilityScore.INT: -2,
         AbilityScore.WIS: -1,
-        AbilityScore.CHA: 2,
+        AbilityScore.CHA: -1,
     },
     equipped_items = [Greatsword, MurderHoboBoneArmor],
     skills=[
@@ -114,6 +114,26 @@ TrainingDummy = Character(
         AbilityScore.WIS: 0,
         AbilityScore.CHA: 0,
     },)
+UndeadMurderHobo = Character(
+    name = "Bloodless Murder Hobo", 
+    character_type = CharacterType.monster,
+    charclass = CharClass,
+    base_max_hp=80,
+    ability_scores={
+        AbilityScore.STR: 4,
+        AbilityScore.DEX: -1,
+        AbilityScore.CON: 4,
+        AbilityScore.INT: -3,
+        AbilityScore.WIS: -2,
+        AbilityScore.CHA: -3,
+    },
+    equipped_items = [Greatsword, MurderHoboBoneArmor],
+    skills=[
+        Skill.intimidation,
+        Skill.survival
+    ],
+    conditions=[MurderHoboBloodRage],
+)
 Zombie = Character(
     name = "zombie", 
     character_type = CharacterType.monster,

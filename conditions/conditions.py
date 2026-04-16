@@ -30,6 +30,11 @@ MurderHoboBloodRage = Condition(
     name=BuffCondition.murder_hobo_blood_rage,
     alters_outgoing_damage=True,
 )
+UndeadMurderHoboBloodlessRage = Condition(
+    name=BuffCondition.undead_murder_hobo_bloodless_rage,
+    alters_outgoing_damage=True,
+    modifier = 20,
+)
 
 # Altering rolls
 BardicInspiration = Condition(

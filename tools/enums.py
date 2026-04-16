@@ -252,6 +252,7 @@ class BuffCondition(EnumWithValueRepr):
     murder_hobo_blood_rage = "blood rage"
     resistant = "resistant"
     undead_fortitude = "undead fortitude"
+    undead_murder_hobo_bloodless_rage = "bloodless rage"
 
 class RollAlteration(EnumWithValueRepr):
 
