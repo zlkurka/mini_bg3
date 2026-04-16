@@ -10,7 +10,7 @@ SwordInStone = Event(
     "As you investigate, you notice some runes carved around the top of the pedestal.",
     options = [
         EventOption(
-            name = "Pull out the sword.",
+            name = "Pull out the sword",
             ability_check = AbilityScore.STR,
             difficulty_class = 12,
             rewards = [Longsword_plus1],
@@ -18,7 +18,7 @@ SwordInStone = Event(
             failure_text = "{} pulls at the sword with all their might, but it won't budge.",
         ),
         EventOption(
-            name = "Examine the runes etched into the rock.",
+            name = "Examine the runes etched into the rock",
             ability_check = Skill.arcana,
             difficulty_class = 14,
             rewards = [],
@@ -35,14 +35,14 @@ TheInjuredAdventurer = Event(
     "The rogue clutches a bloody wound at his side and scowls at you. ",
     options = [
         EventOption(
-            name = "Fight him.",
+            name = "Fight him",
             success_text = "You squash the last vestiges of life from the bloodied rogue.",
             failure_text = "In spite of the rogue's wounds, you are no match for him.",
             rewards = [], # Nothing
             combat = InjuredAdventurerFight,
         ),
         EventOption(
-            name = "Scare him off.",
+            name = "Scare him off",
             success_text = "{} stares down the bloodied rogue, who realizes you mean business and dashes off into the the darkness. " \
             "Left behind, you see the rogue's backpack and the unconscious bard. ",
             failure_text = "The rogue isn't scared of {} and readies his dagger.",
@@ -55,11 +55,11 @@ TheInjuredAdventurer = Event(
             rewards = [], # He leaves behind some rations.
         ),
         EventOption(
-            name = "Offer to heal his wounds.",
+            name = "Offer to heal his wounds",
             success_text = "You see a flicker in the rogue's eye before he lets his guard down. " \
             "\n\n" \
             "You sit together for an hour as {} tends to his wounds. " \
-            "The rogue reveals his name is ____, and all he wants is to escape this dungeon. " \
+            "The rogue reveals his name is |NAME|, and all he wants is to escape this dungeon. " \
             "He leaves you with |ITEM| before slipping away into the shadows.",
             failure_text = "The rogue isn't intersted in {}'s help and readies his dagger.",
             ability_check = Skill.medicine,
@@ -90,7 +90,7 @@ TheMurderHobo = Event(
         "The figure turns to you, panting. You can just barely see their eyes through their mask, made of a shattered skull. ",
     options = [
         EventOption(
-            name = "Fight them.",
+            name = "Fight them",
             combat = MurderHoboFight,
             rewards = [], # Boon from DM. Not included here: the Murder Hobo's equipped bone armor and greatsword
             success_text = 
@@ -103,7 +103,7 @@ TheMurderHobo = Event(
             "As he stares into your eyes, you know your body will soon be just another part of their armor. ",
         ),
         EventOption(
-            name = "Join them in desecrating these bodies.",
+            name = "Join them in desecrating these bodies",
             ability_check = Skill.investigation,
             difficulty_class = 16, # I think this can be a relatively hard check with a big reward.
             options = [

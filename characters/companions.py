@@ -4,6 +4,44 @@ from actions.attacks.attacks import DevKillAll, DevKillOne
 from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
 
 # Original characters
+BingusGringus = Character(
+    name="Bingus Gringus",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.sorcerer, 
+    race=Race.goblin, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: 1,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: -1,
+        AbilityScore.CHA: 3,
+    },
+    skills=[
+        Skill.deception,
+        Skill.persuasion,
+    ]
+)
+Faylen = Character(
+    name="Faylen",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.druid, 
+    race=Race.half_elf, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: -1,
+        AbilityScore.DEX: 1,
+        AbilityScore.CON: 2,
+        AbilityScore.INT: 0,
+        AbilityScore.WIS: 3,
+        AbilityScore.CHA: 0,
+    },
+    skills=[
+        Skill.religion,
+        Skill.insight,
+    ]
+)
 Nightkill = Character(
     name="Nightkill",  
     character_type=CharacterType.companion,
@@ -25,43 +63,25 @@ Nightkill = Character(
         Skill.stealth,
     ],
 )
-Faylen = Character(
-    name="Faylen",  
+Bard = Character(
+    name="Bard",  
     character_type=CharacterType.companion,
-    charclass=CharClass.druid, 
-    race=Race.half_elf, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: -1,
-        AbilityScore.DEX: 1,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: 0,
-        AbilityScore.WIS: 3,
-        AbilityScore.CHA: 0,
-    },
-    skills=[
-        Skill.religion,
-        Skill.insight,
-    ]
-)
-BingusGringus = Character(
-    name="Bingus Gringus",  
-    character_type=CharacterType.companion,
-    charclass=CharClass.sorcerer, 
-    race=Race.goblin, 
+    charclass=CharClass.bard, 
+    race=Race.tiefling, 
     level=1,
     ability_scores={
         AbilityScore.STR: 0,
-        AbilityScore.DEX: 1,
-        AbilityScore.CON: 2,
-        AbilityScore.INT: 0,
+        AbilityScore.DEX: 2,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: 1,
         AbilityScore.WIS: -1,
         AbilityScore.CHA: 3,
     },
     skills=[
-        Skill.deception,
+        Skill.acrobatics,
+        Skill.performance,
         Skill.persuasion,
-    ]
+    ],
 )
 
 # BG3 companions
@@ -338,26 +358,6 @@ Brawn = Character(
     skills=[
         Skill.athletics,
         Skill.acrobatics,
-    ],
-)
-Bard = Character(
-    name="Bard",  
-    character_type=CharacterType.companion,
-    charclass=CharClass.bard, 
-    race=Race.tiefling, 
-    level=1,
-    ability_scores={
-        AbilityScore.STR: 0,
-        AbilityScore.DEX: 2,
-        AbilityScore.CON: 0,
-        AbilityScore.INT: 1,
-        AbilityScore.WIS: -1,
-        AbilityScore.CHA: 3,
-    },
-    skills=[
-        Skill.acrobatics,
-        Skill.performance,
-        Skill.persuasion,
     ],
 )
 Monk = Character(

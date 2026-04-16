@@ -1,8 +1,9 @@
 from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
+from tools.enums import Skill, AbilityScore
 
-def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, show_item_type: bool = False, character = None):
+def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, show_item_type: bool = False, show_ability_check_and_difficulty_class: bool = False, character = None):
 
     # Acceptable list item types:
         # str
@@ -70,6 +71,28 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
                 print(f", {list_item.item_type}", end='')
             except AttributeError:
                 pass
+        
+        while True:
+            if show_ability_check_and_difficulty_class:
+                try:
+                    if list_item.ability_check and list_item.difficulty_class:
+                        print(f" [{rich_capitalize(list_item.ability_check)} ({skill_ability_scores[list_item.ability_check]}), DC {list_item.difficulty_class}]", end='')
+                        break
+                except AttributeError:
+                    pass
+                try:
+                    if list_item.ability_check:
+                        print(f" ({rich_capitalize(list_item.ability_check)})", end='')
+                        break
+                except AttributeError:
+                    pass
+                try:
+                    if list_item.difficulty_class:
+                        print(f" (DC {list_item.difficulty_class})", end='')
+                        break
+                except AttributeError:
+                    pass
+            break
 
         print()
         # Will print like "A) Squid"
@@ -88,3 +111,36 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
             continue
         
         return options[list(ascii_uppercase).index(selection)]
+    
+skill_ability_scores: dict = {
+
+    # Strength
+    Skill.athletics: "STR",
+    
+    # Dexterity
+    Skill.acrobatics: "DEX",
+    Skill.initiative: "DEX",
+    Skill.sleight_of_hand: "DEX",
+    Skill.stealth: "DEX",
+    
+    # Intelligence
+    Skill.arcana: "INT",
+    Skill.history: "INT",
+    Skill.investigation: "INT",
+    Skill.nature: "INT",
+    Skill.religion: "INT",
+
+    # Wisdom
+    Skill.animal_handling: "WIS",
+    Skill.insight: "WIS",
+    Skill.medicine: "WIS",
+    Skill.perception: "WIS",
+    Skill.survival: "WIS",
+
+    # Charisma
+    Skill.deception: "CHA",
+    Skill.intimidation: "CHA",
+    Skill.performance: "CHA",
+    Skill.persuasion: "CHA",
+
+}

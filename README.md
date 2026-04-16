@@ -40,7 +40,9 @@ ___
 ## Priority
 
 * Add disadvantage on stealth for medium and heavy armor
+* Add bleeding condition; give to Injured Adventurer
 * Add potions (used from Party items?)
+* Add insight check option for injured adventurer event, maybe I’ll give the medicine check one to Nightkill’s join-up event
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus
   * If not proficient with armor, give a debuff
@@ -50,20 +52,23 @@ ___
   * Come to think of it, I don’t think encounters are supposed to kill the party that often. The problem is this game is so RNG dependent. Maybe my goblins are too strong
 * Add ability to use buffs to events
 * Add Event options locked behind certain prereqs (e.g. an Action that deals a certain amount of damage, having an ability score of a certain threshold, having a particlar item, )
-* New monsters
 * Work out FindFamiliar
   * Add more familiars
   * Figure out what I want familiars to do (attack? Extend spell range? Probably the latter. Might need reactions for this)
+* Add racial features
+  * Halfling: reroll nat 1s once
+  * Tiefling: resistant to fire
+  * Dwarf: resistant to poison
+* Add backgrounds with additional skills and maybe a feature
 
 ## Class-specific features
 
 * Paladin: lay on hands
   * Ways I might implement it:
-    * Have a certain number of uses to give a rolled or flat amount of healing
-    * Can expend any amount from pool of 5 \* level
+    * Have a certain number of uses to give a rolled or flat amount of healing (like BG3)
+    * Can expend any amount from pool of 5 \* level (like 5e)
   * Removes poisoned condition
   * Bonus action
-* Barbarian and monk: unarmored defense
 * Druid: wildshape (level 2?)
 
 ## 1st lvl spells

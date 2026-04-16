@@ -28,7 +28,7 @@ class Event():
     
     def do_option(self, options: list, party: list):
 
-        choice=menu(menu_text="What will you do?", options=options)
+        choice=menu(menu_text="What will you do?", options=options, show_ability_check_and_difficulty_class=True)
         contest_successful = True
 
         ## Checks ##

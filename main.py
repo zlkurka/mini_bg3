@@ -12,7 +12,7 @@ def main():
     Party = PartyInfo(companions=companions)
 
     combats = [Goblins_4x, OwlbearMother, UndeadGroup, Training]
-    events = [SwordInStone, TheMurderHobo]
+    events = [TheInjuredAdventurer, SwordInStone, TheMurderHobo]
 
     romance_availability_confirmed = False
     romance_blocked=False
