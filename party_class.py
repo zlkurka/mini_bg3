@@ -42,10 +42,10 @@ class PartyInfo():
         character_options.extend([MenuOptions.nevermind])
         self.active_party = []
 
-        for x in range(4):
+        for iter in range(4):
             
             while True:
-                selection = menu(character_options, f"Who would you like in your party? ({4-x} slots remaining.)", show_race=True, show_class=True)
+                selection = menu(character_options, f"Who would you like in your party? ({4-iter} slots remaining.)", show_race=True, show_class=True)
 
                 if selection or self.active_party:
                     break
@@ -73,6 +73,9 @@ class PartyInfo():
             
             if None not in character_options:
                 character_options.append(None)
+
+            if character_options == [MenuOptions.nevermind, None]:
+                break
         
         print_list(self.active_party, "You embark with")
     

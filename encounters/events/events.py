@@ -77,7 +77,7 @@ TheInjuredAdventurer = Event(
 
         # I think this project is way too ambitious
     ],
-    rewards = [Bard,]
+    rewards = [Bard]
 )
 TheMurderHobo = Event(
     name = "The Murder Hobo",

@@ -42,6 +42,7 @@ ___
 * Add disadvantage on stealth for medium and heavy armor
 * Add bleeding condition; give to Injured Adventurer
 * Add potions (used from Party items?)
+* Fix bug where Bard loses spell slots when long resting after being added to party from Injured Adventurer event
 * Add insight check option for injured adventurer event, maybe I’ll give the medicine check one to Nightkill’s join-up event
 * Add item proficiencies (Character has list of things they’re proficient with; check if Item in Character.item_proficiencies)
   * If proficient with weapon, give proficiency bonus

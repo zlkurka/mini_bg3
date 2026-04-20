@@ -46,8 +46,6 @@ class Character():
         summon_type: SummonType = None,
 
     ):
-        
-        # I'm sorry this is disgusting
 
         self.name = name
         self.character_type: CharacterType = character_type
@@ -204,6 +202,9 @@ class Character():
                     if act.targetSelf and act.condition in self.conditions:
                         continue
                 
+                if type(act) == Attack and not enemies:
+                    continue
+                
                 # If sneak attack but not hiding
                 action_condition_met = True
                 for cond in act.required_self_conditions:
@@ -228,6 +229,8 @@ class Character():
             action_options.extend([Hide, PassAction])
 
         if self.character_type == CharacterType.monster:
+            if len(action_options) == 0:
+                return PassAction, False
             chosen_action = choice(action_options)
             return chosen_action, chosen_action in self.consumable_actions
         

@@ -41,6 +41,12 @@ class Event():
             else:
                 character_making_check = party[0]
         
+            if menu(menu_text="Would a character like to use a buff?", options=["Yes", "No"]) == "Yes":
+                while True:
+                    character_using_buff = menu(menu_text="Who wants to use a buff?", options=list(party + ["All done"]))
+                    if character_using_buff == "All done":
+                        break
+                    character_using_buff.action(team=party, enemies=[], fighters=party)
             contest_successful = character_making_check.ability_check(ability_type=choice.ability_check, difficulty_class=choice.difficulty_class)
         
         # If not abiity check, do voluntary combat
