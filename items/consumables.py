@@ -5,7 +5,7 @@ from tools.enums import ItemType, Potion
 MinorHealthPotion = Item(
     name=Potion.minor_health,
     item_type=ItemType.consumable,
-    is_equippable=True,
+    is_equippable=False,
     is_consumable=True,
     associated_actions=[Drink_MinorHealthPotion]
 )

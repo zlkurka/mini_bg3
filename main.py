@@ -5,6 +5,7 @@ from encounters.events.events import *
 from encounters.combat.combats import *
 from characters.companions import *
 from tools.menu import menu
+from items.consumables import MinorHealthPotion
 
 def main():
 
@@ -17,6 +18,8 @@ def main():
     romance_availability_confirmed = False
     romance_blocked=False
 
+    Party.items.append(MinorHealthPotion)
+    
     if input('Press [ENTER] to start.') == 'dev':
         Party.active_party = [Gale, Shadowheart, Karlach, Nightkill]
         Party.do_encounter(TheMurderHobo)

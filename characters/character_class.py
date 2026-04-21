@@ -231,6 +231,10 @@ class Character():
             
                 action_options.append(act)
             consumable_action_set = True
+        
+        for itm in self.items:
+            if itm.is_consumable:
+                action_options.extend(itm.associated_actions)
 
         if self.character_type == CharacterType.companion:
             action_options.extend([Hide, PassAction])
@@ -243,16 +247,36 @@ class Character():
         
         action_choice = menu(options=action_options, menu_text=f"What would {str(self)} like to do?", show_spell_level=True, show_uses_left=True, character=self)
         
-        if action_choice in self.actions and action_choice in self.consumable_actions:
-            match menu(options=["Regular version","Consumable version"], menu_text="You have two versions of this spell. Which would you like to use?"):
-                case "Regular version":
-                    pass
-                case "Consumable version":
-                    action_is_consumable = True
-                case _:
-                    print("Invalid option!")
+        action_sources = []
+        if action_choice in self.actions:
+            action_sources.append("Base character (equipped items, spells, class actions, etc.)")
+        if action_choice in list(self.consumable_actions):
+            action_sources.append("Character consumable actions")
+        for itm in self.items:
+            if itm.is_consumable and action_choice in itm.associated_actions:
+                action_sources.append(itm)
+
+        if len(action_sources) > 1:
+            action_source_choice = menu(options=action_sources, menu_text="You have multiple versions of this spell. From what source would you like to use this action?")
+            if action_source_choice == "Base character (equipped items, spells, class actions, etc.)":
+                pass
+            elif action_source_choice == "Character consumable actions":
+                action_is_consumable = True
+            else:
+                if action_source_choice in self.items:
+                    self.items.remove(action_source_choice)
+                    print(f"Item consumed: {action_source_choice}")
+                else:
+                    print(f"{action_source_choice} not in items!")
         elif action_choice in self.consumable_actions:
             action_is_consumable = True
+        elif type(action_sources[0]) == Item:
+            action_source_choice = action_sources[0]
+            if action_source_choice in self.items:
+                self.items.remove(action_source_choice)
+                print(f"Item consumed: {action_source_choice}")
+            else:
+                print(f"{action_source_choice} not in items!")
 
         return action_choice, action_is_consumable
     

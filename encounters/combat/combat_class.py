@@ -154,4 +154,5 @@ class Combat():
     
     def add_monsters_items_to_rewards(self):
         for char in self.monsters:
-            self.rewards.extend(char.unequip_all(print_feedback=False))
+            char.unequip_all(print_feedback=False)
+            self.rewards.extend(char.items)
