@@ -1,6 +1,6 @@
 from random import sample
 from rich import print
-from party_class import PartyInfo
+from party.party_class import PartyInfo
 from encounters.events.events import *
 from encounters.combat.combats import *
 from characters.companions import *
@@ -94,7 +94,7 @@ def campaign(romance_availability_confirmed: bool = False, romance_blocked: bool
                 Party.group_long_rest()
 
             case "Cast spells":
-                menu(menu_text="Who should cast some spells?", options=Party.active_party).action(enemies=[], team=Party.active_party, fighters=Party.active_party)
+                menu(menu_text="Who should cast some spells?", options=Party.active_party).action(enemies=[], team=Party.active_party, fighters=Party.active_party, items=Party.items)
 
             case "Romance":
                 romance_availability_confirmed, romance_blocked = romance(companions=Party.companions, romance_availability_confirmed=romance_availability_confirmed)

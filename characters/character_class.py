@@ -1,4 +1,5 @@
 from random import choice, randint
+from party.party_items_list import party_items
 from actions.action_class import PassAction
 from actions.attacks.attacks import Attack, RogueSneakAttack
 from actions.buff_debuff.buffs import Buff, Hide
@@ -41,8 +42,8 @@ class Character():
         consumable_actions: dict = {},
         extra_actions: list = [],
         conditions: list = [],
-        equipment: dict = empty_equipment,
         equipped_items: list = [],
+        items: list = [],
         summon_type: SummonType = None,
 
     ):
@@ -107,8 +108,14 @@ class Character():
         if self.charclass in base_conditions:
             self.conditions.extend(base_conditions[self.charclass])
 
-        # Equipment
-        self.equipment: dict = dict(equipment)
+        # Items & Equipment
+        if character_type == CharacterType.companion:
+            self.items: list = party_items
+            for itm in items:
+                self.items.append(itm)
+        else:
+            self.items: list = list(items)
+        self.equipment: dict = dict(empty_equipment)
         if not equipped_items and charclass in base_equipped_items:
             equipped_items = base_equipped_items[charclass]
         for item in equipped_items:
@@ -387,18 +394,20 @@ class Character():
         return True
     
     def equip_item(self, item: Item = None, skip_if_slot_filled: bool = False, print_feedback: bool = True) -> Item:
-        if not item or not item.is_equippable:
+        if not item or item == MenuOptions.nevermind or not item.is_equippable:
             return item
         
-        for itm in self.equipment:
-            if itm != item.item_type:
+        for item_slot in self.equipment:
+            if item_slot != item.item_type:
                 continue
-            if self.equipment[itm] and skip_if_slot_filled:
+            if self.equipment[item_slot] and skip_if_slot_filled:
                 if print_feedback:
-                    print(f"Slot already filled by {self.equipment[itm]}.")
+                    print(f"Slot already filled by {self.equipment[item_slot]}.")
                 return item
-            removed_item = self.unequip_item(item=self.equipment[itm], print_feedback=print_feedback)
+            self.unequip_item(item=self.equipment[item_slot], print_feedback=print_feedback)
             self.equipment.update({item.item_type: item})
+            if item in self.items:
+                self.items.remove(item)
             if print_feedback:
                 print(f"{self} equipped {item}.")
             break
@@ -416,8 +425,6 @@ class Character():
                     print(f"{self} gained condition {cond}.")
         
         self.set_armor_class()
-        
-        return removed_item
     
     def unequip_item(self, item: Item = None, print_feedback: bool = True) -> Item:
         if not item:
@@ -447,14 +454,13 @@ class Character():
             
             self.set_armor_class()
         
-        return removed_item
+        if removed_item:
+            self.items.append(removed_item)
 
     def unequip_all(self, print_feedback: bool = True) -> list:
-        removed_items = []
         for item_type in self.equipment:
             if self.equipment[item_type]:
-                removed_items.append(self.unequip_item(item=self.equipment[item_type], print_feedback=print_feedback))
-        return removed_items
+                self.unequip_item(item=self.equipment[item_type], print_feedback=print_feedback)
 
     def get_aggro(self) -> int:
 

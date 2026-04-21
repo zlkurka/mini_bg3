@@ -9,6 +9,7 @@ from tools.rich_capitalize import rich_capitalize
 from tools.menu import menu
 from tools.print_list import print_list
 from tools.enums import MenuOptions
+from party.party_items_list import party_items
 
 class PartyInfo():
     
@@ -16,7 +17,7 @@ class PartyInfo():
         self.companions: list =list(companions)
         self.active_party: list = list(active_party)
         self.gold: int = gold
-        self.items: list = list(items)
+        self.items: list = party_items
     
     def do_encounter(self, encounter):
         if not self.active_party:
@@ -114,12 +115,8 @@ class PartyInfo():
 
     def manage_equipment(self):
         
-        equippable_items = []
-        for itm in self.items:
-            if itm.is_equippable:
-                equippable_items.append(itm)
-        
         while True:
+
             match menu(options=["View equipped items", "Unequip all items", "Go back"], menu_text="What would you like to do?"):
                 case "View equipped items":
                     character_choice = menu(menu_text="Whose items would you like to see?", options=list(self.companions) + ["All"])
@@ -132,16 +129,16 @@ class PartyInfo():
                             match menu(options=["Equip an item", "Unequip an item", MenuOptions.nevermind], menu_text="What would you like to do?"):
                                 
                                 case "Equip an item":
+                                    equippable_items = []
+                                    for itm in self.items:
+                                        if itm.is_equippable:
+                                            equippable_items.append(itm)
+                                    
                                     if not equippable_items:
                                         print("No items able to be equipped!")
                                         continue
                                     item_to_equip = menu(options=list(equippable_items) + [MenuOptions.nevermind], menu_text="What item would you like to equip?", show_item_type=True)
-                                    removed_item = character_choice.equip_item(item_to_equip)
-                                    self.items.remove(item_to_equip)
-                                    equippable_items.remove(item_to_equip)
-                                    if removed_item:
-                                        self.items.append(removed_item)
-                                        equippable_items.append(removed_item)
+                                    character_choice.equip_item(item_to_equip)
                                 
                                 case "Unequip an item":
                                     remove_item_options = []
@@ -151,10 +148,7 @@ class PartyInfo():
                                     if not remove_item_options:
                                         print("No items able to be unequipped!")
                                         continue
-                                    removed_item = character_choice.unequip_item(item=menu(options=list(remove_item_options) + [MenuOptions.nevermind], menu_text="What would you like to unequip?", show_item_type=True))
-                                    if removed_item:
-                                        self.items.append(removed_item)
-                                        equippable_items.append(removed_item)
+                                    character_choice.unequip_item(item=menu(options=list(remove_item_options) + [MenuOptions.nevermind], menu_text="What would you like to unequip?", show_item_type=True))
                                 
                                 case _:
                                     break
@@ -163,17 +157,11 @@ class PartyInfo():
                     match menu(menu_text="Who would you like to unequip all items", options=["All companions", "Only active party members", MenuOptions.nevermind]):
                         case "All companions":
                             for char in self.companions:
-                                removed_items = char.unequip_all()
-                                self.items.extend(removed_items)
-                                equippable_items.extend(removed_items)
+                                char.unequip_all()
                         case "Only active party members":
                             for char in self.active_party:
-                                removed_items = char.unequip_all()
-                                self.items.extend(removed_items)
-                                equippable_items.extend(removed_items)
-                        case _:
-                            pass
-                
+                                char.unequip_all()
+
                 case "Go back":
                     return
 
