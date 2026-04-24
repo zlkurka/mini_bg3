@@ -5,7 +5,7 @@ from actions.summon.summon_actions import *
 from actions.action_class import PassAction
 from items.weapons import *
 from items.armor_and_shields import *
-from tools.enums import CharClass, Weapon, Armor, Consumable, Shield, Race, AbilityScore, CasterType, Skill
+from tools.enums import CharClass, Armor, Race, AbilityScore, CasterType, Skill
 
 # Character building blocks
 char_classes: list = [
@@ -37,6 +37,10 @@ char_races: list = [
     Race.halfling,
     Race.human,
     Race.tiefling,
+
+    # Other potential options
+    # - Goblin
+    # - Skeleton?
 
 ]
 

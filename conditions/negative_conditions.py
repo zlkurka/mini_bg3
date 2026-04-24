@@ -12,6 +12,6 @@ ClunkyArmor = Condition(
 # Ticking damage
 Bleeding = Condition(
     name="bleeding",
-    ticking_health_alteration_dice={Dice.d4: 1},
-    ticking_health_alteration_is_damage=True,
+    dice={Dice.d4: 1},
+    health_tick=-1,
 )

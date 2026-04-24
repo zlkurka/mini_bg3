@@ -21,6 +21,9 @@
 
 
 
+
+
+
 ___
 
 ## The Undead
@@ -44,6 +47,9 @@ ___
 * Rattlebones?
 
 
+
+
+
 ___
 
 ## The Constructs
@@ -52,12 +58,14 @@ ___
 
 * Leader: The Artificer
   * Gay married to the Necromancer
+  * Maybe a gnome?
   * Possibly allied with Bugbear? It’d be cool to have an event influence this. Maybe you can convince the bugbear to turn on the hobgoblin, but then the bugbear goes on to ally with the Artificer
+* Artificer’s Apprentice
 
 
 ___
 
-## The Cultists
+## Cult of the Purple Worm
 
 I might merge this with the necromancer? But I think it’d be cool to have them on their own. I just don’t want to have too many factions
 
@@ -65,6 +73,9 @@ I might merge this with the necromancer? But I think it’d be cool to have them
 
 * Faylen, who ran away and is avoiding them
 * Nightkill, who recently discovered a familial connection with them
+
+
+___
 
 ## The Adventurers
 
@@ -74,12 +85,9 @@ A group of rival adventurers crawling the dungeon just like you.
 
 * Murder Hobo
 
-### Combats
-
-* Injured adventurer (made for lone, lvl 1 adventurer)
-
 ### Events
 
+* The Injured Adventurer (made for lone, lvl 1 adventurer)
 * The Murder Hobo
 
 

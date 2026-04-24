@@ -8,11 +8,25 @@ from rich import print
 
 class Combat():
 
-    def __init__(self, name, description: str = "", monsters: list = [], rewards: list = [], monster_names: list = [], monster_sample_count: int = None, rare_monster: Character = None, rare_monster_chance: int = 0):
+    def __init__(
+            self, 
+            name, 
+            description: str = "", 
+            rewards: list = [], 
+            
+            monsters: list = [], 
+            monster_names: list = [], 
+            monster_sample_count: int = None, 
+            rare_monster: Character = None, 
+            rare_monster_chance: int = 0,
+            
+            allies: list = [], 
+        ):
         
         self.name = name
         self.description: str = description
         self.rewards: list = list(rewards)
+        self.allies: list = list(allies)
 
         # Getting monsters
         if monster_sample_count == None:
@@ -58,9 +72,10 @@ class Combat():
             print("\n\n" + self.description + "\n")
 
         original_party = list(party)
+        combat_party = list(party) + self.allies
         monsters = list(self.monsters)
 
-        fighters = self.roll_initiative(party=party, monsters=monsters)
+        fighters = self.roll_initiative(fighters=(party + monsters + self.allies))
         initiative = 0
        
         while True:
@@ -83,32 +98,32 @@ class Combat():
 
             # Do action
             if fighter.character_type == CharacterType.companion:
-                monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
+                monsters, combat_party, fighters = fighter.action(enemies=monsters, team=combat_party, fighters=fighters)
             elif fighter.character_type == CharacterType.monster:
-                party, monsters, fighters = fighter.action(enemies=party, team=monsters, fighters=fighters)
+                combat_party, monsters, fighters = fighter.action(enemies=combat_party, team=monsters, fighters=fighters)
             else:
                 print("Error: unacceptable character type!")
-                monsters, party, fighters = fighter.action(enemies=monsters, team=party, fighters=fighters)
+                monsters, combat_party, fighters = fighter.action(enemies=monsters, team=combat_party, fighters=fighters)
             
             for condition in fighter.conditions:
                 if condition in conditions_removed_at_turn_end:
                     fighter.conditions.remove(condition)
 
-            if not party or not monsters:
+            if not combat_party or not monsters:
                 
-                for char in party:
+                for char in combat_party:
                     for condition in char.conditions:
                         if condition in conditions_removed_at_combat_end:
                             char.conditions.remove(condition)
                 
-                if not party:
+                if not combat_party:
                     self.rewards = []
                 
                 if not monsters:
                     print("\nYou win!\n")
 
                     for char in original_party:
-                        if char in party:
+                        if char in combat_party:
                             print(f"{char.name}: {char.current_hp} HP remaining.")
                         else:
                             print(f"{char.name}: died in combat.")
@@ -118,11 +133,11 @@ class Combat():
                 print()
                 return self.rewards
 
-    def roll_initiative(self, party: list, monsters: list):
+    def roll_initiative(self, fighters: list):
         
         # Roll initiative
         initiative_rolls = {}
-        for char in party + monsters:
+        for char in fighters:
             roll = char.ability_check(ability_type=Skill.initiative, print_feedback=False)
             if roll not in initiative_rolls:
                 initiative_rolls.update({roll: [char]})

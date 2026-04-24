@@ -250,7 +250,7 @@ class Character():
         action_sources = []
         if action_choice in self.actions:
             action_sources.append("Base character (equipped items, spells, class actions, etc.)")
-        if action_choice in list(self.consumable_actions):
+        elif action_choice in list(self.consumable_actions):
             action_sources.append("Character consumable actions")
         for itm in self.items:
             if itm.is_consumable and action_choice in itm.associated_actions:
@@ -270,6 +270,8 @@ class Character():
                     print(f"{action_source_choice} not in items!")
         elif action_choice in self.consumable_actions:
             action_is_consumable = True
+        elif not action_sources:
+            pass
         elif type(action_sources[0]) == Item:
             action_source_choice = action_sources[0]
             if action_source_choice in self.items:

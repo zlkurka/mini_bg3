@@ -13,14 +13,12 @@ class Condition():
         alters_incoming_damage: bool = False, 
         alters_outgoing_damage: bool = False,
         roll_alteration: RollAlteration = None, 
-        applicable_roll_types: list[RollType] = [], # Add shit for making hide only apply to attacks and stuff
+        applicable_roll_types: list[RollType] = [],
         gives_advantage_on_self: bool = False,
         base_armor_class: int = None,
         maximum_dexterity_modifier_for_armor_class: int = None,
         ability_scores_added_to_armor_class: list[AbilityScore] = [],
-        ticking_health_alteration_is_damage: bool = True,
-        ticking_health_alteration_flat: int = 0,
-        ticking_health_alteration_dice: dict = {},
+        health_tick: int = 0, # -1 is damage, 1 is heal, 0 is none
     ):
         self.name = name
         self.dice: dict = dice
@@ -33,29 +31,27 @@ class Condition():
         self.base_armor_class: int = base_armor_class
         self.maximum_dexterity_modifier_for_armor_class: int = maximum_dexterity_modifier_for_armor_class
         self.ability_scores_added_to_armor_class: list[AbilityScore] = ability_scores_added_to_armor_class
-        self.ticking_health_alteration_is_damage: bool = ticking_health_alteration_is_damage
-        self.ticking_health_alteration_flat: int = ticking_health_alteration_flat
-        self.ticking_health_alteration_dice: dict = ticking_health_alteration_dice
+        self.health_tick: int = health_tick # -1 is damage, 1 is heal, 0 is none
     
     def __repr__(self) -> str:
         return "[italic blue]" + str(self.name) + "[/italic blue]"
 
     def ticking_health_alteration(self, character) -> int:
-        health_alteration = 0
-        
-        health_alteration += self.ticking_health_alteration_flat
+        if not self.health_tick: 
+            return 0
 
-        for die_type in self.ticking_health_alteration_dice:
-            for roll in range(self.ticking_health_alteration_dice[die_type]):
+        health_alteration = self.modifier
+
+        for die_type in self.dice:
+            for roll in range(self.dice[die_type]):
                 health_alteration += randint(1, die_type.value)
 
-        if health_alteration:
-            if self.ticking_health_alteration_is_damage:
-                print(f"{rich_capitalize(self)} damages {character} for {health_alteration}.")
-                character.take_damage(health_alteration)
-            else:
-                print(f"{rich_capitalize(self)} heals {character} for {health_alteration}.")
-                character.heal(health_alteration)
+        if self.health_tick < 0:
+            print(f"{rich_capitalize(character)} takes {health_alteration} damage due to {self} condition.")
+            character.take_damage(health_alteration)
+        if self.health_tick > 0:
+            print(f"{rich_capitalize(character)} heals {health_alteration} HP due to {self} condition.")
+            character.heal(health_alteration)
 
         return health_alteration
         
