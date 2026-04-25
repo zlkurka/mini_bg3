@@ -4,7 +4,7 @@ from rich import print
 
 class Action():
 
-    def __init__(self, name, dice: dict, modifier: AbilityScore, multi_target: int = 1, spell_slot_level: int = 0, requires_concentration: bool = False):
+    def __init__(self, name, dice: dict = {}, modifier: AbilityScore = None, multi_target: int = 1, spell_slot_level: int = 0, requires_concentration: bool = False):
         self.name = name
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
@@ -17,7 +17,8 @@ class Action():
 
     def action(self, character, enemies: list, team: list, fighters: list, action_is_consumable: bool = False):
         nevermindSelected = False
-        return character, enemies, team, nevermindSelected
+        chosen_targets = []
+        return character, enemies, team, nevermindSelected, chosen_targets
     
     def roll_dice(self, dice: dict):
         
@@ -30,8 +31,11 @@ class Action():
         return output
 
 PassAction = Action(
-    name='Pass action', 
-    dice={Dice.d4: 0}, 
-    modifier=0, 
+    name='pass action', 
+    multi_target=0
+)
+BreakConcentration = Action(
+    name='break concentration',
     multi_target=0,
+    requires_concentration=True,
 )

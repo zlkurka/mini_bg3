@@ -97,10 +97,6 @@ class Attack(Action):
                     target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=False)
                 break
 
-        if self.requires_concentration:
-            character.spell_concentrating_on = self
-            character.spell_concentration_targets = chosen_targets
-
         # Update lastAttack_isMelee
         if self.ranged:
             character.lastAttack_isMelee = False
@@ -108,7 +104,7 @@ class Attack(Action):
             character.lastAttack_isMelee = True
 
         # Return
-        return character, enemies, team, nevermindSelected
+        return character, enemies, team, nevermindSelected, chosen_targets
     
     def check_if_hit(self, character, target):
         

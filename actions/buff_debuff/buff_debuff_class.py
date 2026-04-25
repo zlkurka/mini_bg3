@@ -2,6 +2,7 @@ from actions.action_class import Action
 from conditions.condition_class import Condition
 from conditions.positive_conditions import *
 from tools.enums import SpecialAction, MenuOptions, AbilityScore, Skill, Spell
+from tools.rich_capitalize import rich_capitalize
 from rich import print
 
 class Buff(Action):
@@ -72,9 +73,5 @@ class Buff(Action):
                 
                 if None not in target_options:
                     target_options.append(None)
-
-        if self.requires_concentration:
-            character.spell_concentrating_on = self
-            character.spell_concentration_targets = chosen_targets
                 
-        return character, enemies, team, nevermindSelected
+        return character, enemies, team, nevermindSelected, chosen_targets

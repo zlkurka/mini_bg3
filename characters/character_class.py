@@ -166,7 +166,7 @@ class Character():
 
         while True:
             action_choice, action_is_consumable = self.choose_action(enemies=enemies, team=team)
-            self, enemies, team, nevermindSelected = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters, action_is_consumable=action_is_consumable)
+            self, enemies, team, nevermindSelected, chosen_targets = action_choice.action(character=self, enemies=enemies, team=team, fighters=fighters, action_is_consumable=action_is_consumable)
             if not nevermindSelected:
                 break
         if action_is_consumable:
@@ -183,6 +183,13 @@ class Character():
                     except AttributeError:
                         pass
                     self.conditions.remove(cond)
+
+        if action_choice.requires_concentration:
+            if self.spell_concentrating_on:
+                print(f"{rich_capitalize(self)} stopped concentrating on {self.spell_concentrating_on}.")
+            self.spell_concentrating_on = self
+            self.spell_concentration_targets = chosen_targets
+            print(f"{rich_capitalize(self)} started concentrating on {action_choice}.")
 
         # Removing dead characters
         for char in enemies:

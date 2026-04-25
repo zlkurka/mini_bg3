@@ -34,4 +34,5 @@ class Summon(Action):
             character.spell_concentrating_on = self
             character.spell_concentration_targets = [selected_creature]
 
-        return character, enemies, team, nevermindSelected
+        chosen_targets = [selected_creature]
+        return character, enemies, team, nevermindSelected, chosen_targets

@@ -47,10 +47,5 @@ class Heal(Action):
                 heal_amount = self.roll_dice(self.heal_dice)
                 print(f"{character.name} healed {target} for {heal_amount} HP.")
                 target.heal(heal_amount)
-        
 
-        if self.requires_concentration:
-            character.spell_concentrating_on = self
-            character.spell_concentration_targets = chosen_targets
-
-        return character, enemies, team, nevermindSelected
+        return character, enemies, team, nevermindSelected, chosen_targets

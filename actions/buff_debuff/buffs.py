@@ -6,7 +6,7 @@ from tools.enums import SpecialAction, Spell
 Hide = Buff(
     name=SpecialAction.hide, 
     condition=Hiding, 
-    targetSelf=True
+    targetSelf=True,
 )
 
 # Leveled spells
@@ -14,7 +14,8 @@ Bless = Buff(
     name=Spell.bless,
     condition=Blessed,
     spell_slot_level=1,
-    multi_target=3
+    multi_target=3,
+    requires_concentration=True,
 )
 MageArmor = Buff(
     name=Spell.mage_armor,
@@ -26,7 +27,8 @@ MageArmor = Buff(
 BarbarianRage = Buff(
     name=SpecialAction.barbarian_rage, 
     condition=BarbarianRaging, 
-    targetSelf=True
+    targetSelf=True,
+    requires_concentration=True,
 )
 BardicInspire = Buff(
     name=SpecialAction.bardic_inspire,
@@ -38,4 +40,5 @@ BajesusFreakOut = Buff(
     name=SpecialAction.bajesus_freak_out,
     condition=BajesusFreakingOut,
     targetSelf=True,
+    requires_concentration=True,
 )
