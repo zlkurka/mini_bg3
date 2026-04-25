@@ -23,7 +23,8 @@ class Heal(Action):
         if self.spell_slot_level > 0 and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
         
         # Choosing target
         if self.targetSelf:
@@ -41,7 +42,7 @@ class Heal(Action):
                     nevermindSelected = True
                     if self.spell_slot_level:
                         character.spell_slots[self.spell_slot_level] += 1
-                    return character, enemies, team, nevermindSelected
+                    return character, enemies, team, nevermindSelected, chosen_targets
                 
                 chosen_targets.append(target)
                 heal_amount = self.roll_dice(self.heal_dice)

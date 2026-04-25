@@ -1,4 +1,5 @@
 from characters.character_class import Character
+from characters.companions import BingusGringus
 from items.weapons import *
 from items.armor_and_shields import *
 from conditions.positive_conditions import UndeadFortitude, MurderHoboBloodRage
@@ -52,6 +53,21 @@ Goblin = Character(
         AbilityScore.CHA: 0,
     },
     equipped_items = [Shortsword, Shortbow, HideArmor],
+)
+GoblinCage = Character(
+    name = "rickety cage", 
+    character_type = CharacterType.monster,
+    max_hp = 10, 
+    ability_scores={
+        AbilityScore.STR: 0,
+        AbilityScore.DEX: -4,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: -4,
+        AbilityScore.WIS: -4,
+        AbilityScore.CHA: -4,
+    },
+    spell_concentrating_on=None, # TODO add Imprison. Figure out how this will work
+    spell_concentration_targets=[BingusGringus],
 )
 InjuredAdventurer = Character(
     name="injured adventurer", 

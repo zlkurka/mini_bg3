@@ -96,7 +96,15 @@ class Combat():
                 if condition in conditions_removed_at_turn_start:
                     fighter.lose_condition(condition)
             
+
+            if fighter.current_hp <= 0:
+                if fighter in party:
+                    party.remove(fighter)
+                if fighter in monsters:
+                    monsters.remove(fighter)
             if fighter_is_incapacitated or fighter.current_hp <= 0:
+                if not combat_party or not monsters:
+                    return self.end_combat(party=combat_party, monsters=monsters, original_party=original_party)
                 continue
 
             # Do action
@@ -111,30 +119,9 @@ class Combat():
             for condition in fighter.conditions:
                 if condition in conditions_removed_at_turn_end:
                     fighter.lose_condition(condition)
-
-            if not combat_party or not monsters:
-                
-                for char in combat_party:
-                    for condition in char.conditions:
-                        if condition in conditions_removed_at_combat_end:
-                            char.lose_condition(condition)
-                
-                if not combat_party:
-                    self.rewards = []
-                
-                if not monsters:
-                    print("\nYou win!\n")
-
-                    for char in original_party:
-                        if char in combat_party:
-                            print(f"{char.name}: {char.current_hp} HP remaining.")
-                        else:
-                            print(f"{char.name}: died in combat.")
-                    
-                    self.add_monsters_items_to_rewards()
             
-                print()
-                return self.rewards
+            if not combat_party or not monsters:
+                return self.end_combat(party=combat_party, monsters=monsters, original_party=original_party)
 
     def roll_initiative(self, fighters: list):
         
@@ -169,6 +156,33 @@ class Combat():
             print("- " + rich_capitalize(fighter))
 
         return fighters
+    
+    def end_combat(self, party: list, monsters: list, original_party: list):
+
+        # Removing combat-end conditions
+        for char in party:
+            for condition in char.conditions:
+                if condition in conditions_removed_at_combat_end:
+                    char.lose_condition(condition)
+        
+        if not party:
+            self.rewards = []
+        
+        elif not monsters:
+            print("\nYou win!\n")
+
+            for char in original_party:
+                if char in party:
+                    print(f"{char.name}: {char.current_hp} HP remaining.")
+                else:
+                    print(f"{char.name}: died in combat.")
+            
+            for char in self.monsters:
+                char.unequip_all(print_feedback=False)
+                self.rewards.extend(char.items)
+    
+        print()
+        return self.rewards
     
     def add_monsters_items_to_rewards(self):
         for char in self.monsters:

@@ -28,8 +28,7 @@ def main():
 
     while True:
         
-        for char in companions:
-            char.long_rest()
+        Party.group_long_rest()
         
         match menu(options=main_menu_options, menu_text="[bold]Main Menu[/bold]"):
             

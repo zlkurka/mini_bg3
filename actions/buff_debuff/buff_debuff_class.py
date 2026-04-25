@@ -24,7 +24,8 @@ class Buff(Action):
         if self.spell_slot_level > 0  and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
 
         # Hide action is contested by max passive perception of enemies
         if self.name == SpecialAction.hide:
@@ -41,7 +42,8 @@ class Buff(Action):
                 print(f"{character} successfully hid.")
             else:
                 print(f"{character} tried to hide, but was spotted.")
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
 
         # Gives buff to self
         if self.targetSelf: 
@@ -61,7 +63,7 @@ class Buff(Action):
                 target = character.choose_target(target_options, self)
                 if target == MenuOptions.nevermind:
                     nevermindSelected = True
-                    return character, enemies, team, nevermindSelected
+                    return character, enemies, team, nevermindSelected, chosen_targets
                 
                 if not target:
                     break

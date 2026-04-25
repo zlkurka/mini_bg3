@@ -22,7 +22,8 @@ class Summon(Action):
         if self.spell_slot_level > 0 and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
 
         selected_creature = deepcopy(menu(self.summonable_creatures, "What creature would you like to summon?"))
 

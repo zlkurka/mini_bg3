@@ -57,13 +57,15 @@ class Attack(Action):
         if self.spell_slot_level > 0 and not action_is_consumable:
             if not character.cast_leveled_spell(self.spell_slot_level):
                 nevermindSelected = True 
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
 
         # Action with required self condition
         for cond in self.required_self_conditions:
             if cond not in character.conditions:
                 nevermindSelected = True 
-                return character, enemies, team, nevermindSelected
+                chosen_targets = []
+                return character, enemies, team, nevermindSelected, chosen_targets
         
         chosen_targets = []
 
@@ -88,7 +90,7 @@ class Attack(Action):
                     break
                 if target == MenuOptions.nevermind:
                     nevermindSelected = True
-                    return character, enemies, team, nevermindSelected
+                    return character, enemies, team, nevermindSelected, chosen_targets
                 
                 chosen_targets.append(target)
                 if target.current_hp <= 0:

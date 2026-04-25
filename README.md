@@ -75,7 +75,6 @@ ___
 
 * Guiding bolt (an attack that gives a debuff)
 * Magic missile (an attack with a guaranteed hit)
-* Mage armor
 * Guidance
 
 ### Add later
