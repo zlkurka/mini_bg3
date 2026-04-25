@@ -28,7 +28,6 @@ BarbarianRage = Buff(
     name=SpecialAction.barbarian_rage, 
     condition=BarbarianRaging, 
     targetSelf=True,
-    requires_concentration=True,
 )
 BardicInspire = Buff(
     name=SpecialAction.bardic_inspire,
@@ -40,5 +39,4 @@ BajesusFreakOut = Buff(
     name=SpecialAction.bajesus_freak_out,
     condition=BajesusFreakingOut,
     targetSelf=True,
-    requires_concentration=True,
 )

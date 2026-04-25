@@ -1,7 +1,7 @@
 from random import choice, randint
 from party.party_items_list import party_items
-from actions.action_class import PassAction
-from actions.attacks.attacks import Attack, RogueSneakAttack
+from actions.action_class import PassAction, BreakConcentration
+from actions.attacks.attacks import Attack
 from actions.buff_debuff.buffs import Buff, Hide
 from actions.heal.heal import Heal
 from actions.summon.summon_lists import summon_types
@@ -182,14 +182,14 @@ class Character():
                             continue
                     except AttributeError:
                         pass
-                    self.conditions.remove(cond)
+                    self.lose_condition(cond)
 
         if action_choice.requires_concentration:
-            if self.spell_concentrating_on:
-                print(f"{rich_capitalize(self)} stopped concentrating on {self.spell_concentrating_on}.")
-            self.spell_concentrating_on = self
+            self.lose_concentration()
+            self.spell_concentrating_on = action_choice
             self.spell_concentration_targets = chosen_targets
-            print(f"{rich_capitalize(self)} started concentrating on {action_choice}.")
+            if action_choice != BreakConcentration:
+                print(f"{rich_capitalize(self)} started concentrating on {action_choice}.")
 
         # Removing dead characters
         for char in enemies:
@@ -250,7 +250,10 @@ class Character():
                 action_options.extend(itm.associated_actions)
 
         if self.character_type == CharacterType.companion:
-            action_options.extend([Hide, PassAction])
+            action_options.append(Hide)
+            if self.spell_concentrating_on and self.spell_concentrating_on != BreakConcentration:
+                action_options.append(BreakConcentration)
+            action_options.append(PassAction)
 
         if self.character_type == CharacterType.monster:
             if len(action_options) == 0:
@@ -338,9 +341,16 @@ class Character():
             if self.current_hp <= 0:
                 self.current_hp = 0
                 print(f"{rich_capitalize(self)} has died!")
+                return
 
             else:
                 print(f"{rich_capitalize(self)} has {self.current_hp} health remaining.")
+
+            if self.spell_concentrating_on:
+                if not self.ability_check(ability_type=AbilityScore.CON, difficulty_class=max(damage // 2, 10)):
+                    self.lose_concentration()
+                else:
+                    print(f"{rich_capitalize(self)} maintains concentration on {self.spell_concentrating_on}.")
         
         else:
             print("No damage dealt.")
@@ -363,6 +373,19 @@ class Character():
             self.conditions.append(condition)
             if condition.base_armor_class:
                 self.set_armor_class()
+
+    def lose_condition(self, condition) -> None:
+        if condition in self.conditions:
+            print(f"{self} lost condition {condition}.")
+            self.conditions.remove(condition)
+            if condition.base_armor_class:
+                self.set_armor_class()
+
+    def lose_concentration(self) -> None:
+        if self.spell_concentrating_on and self.spell_concentrating_on != BreakConcentration:
+            print(f"{rich_capitalize(self)} stopped concentrating on {self.spell_concentrating_on}.")
+            for char in self.spell_concentration_targets:
+                char.lose_condition(self.spell_concentrating_on.condition)
 
     def ability_check(self, ability_type, difficulty_class: int = None, print_feedback: bool = True) -> int | bool:
         
@@ -487,7 +510,7 @@ class Character():
                     print(f"{self} lost action {act}.")
             for cond in removed_item.associated_conditions:
                 if cond in self.conditions:
-                    self.conditions.remove(cond)
+                    self.lose_condition(cond)
                 if print_feedback:
                     print(f"{self} lost condition {cond}.")
             

@@ -94,7 +94,7 @@ class Combat():
                     fighter_is_incapacitated = True
                 condition.ticking_health_alteration(fighter)
                 if condition in conditions_removed_at_turn_start:
-                    fighter.conditions.remove(condition)
+                    fighter.lose_condition(condition)
             
             if fighter_is_incapacitated or fighter.current_hp <= 0:
                 continue
@@ -110,14 +110,14 @@ class Combat():
             
             for condition in fighter.conditions:
                 if condition in conditions_removed_at_turn_end:
-                    fighter.conditions.remove(condition)
+                    fighter.lose_condition(condition)
 
             if not combat_party or not monsters:
                 
                 for char in combat_party:
                     for condition in char.conditions:
                         if condition in conditions_removed_at_combat_end:
-                            char.conditions.remove(condition)
+                            char.lose_condition(condition)
                 
                 if not combat_party:
                     self.rewards = []
