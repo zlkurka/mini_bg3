@@ -4,12 +4,13 @@ from rich import print
 
 class Action():
 
-    def __init__(self, name, dice: dict, modifier: AbilityScore, multi_target: int = 1, spell_slot_level: int = 0):
+    def __init__(self, name, dice: dict, modifier: AbilityScore, multi_target: int = 1, spell_slot_level: int = 0, requires_concentration: bool = False):
         self.name = name
         self.damage_dice: dict = dice
         self.modifier: AbilityScore = modifier
         self.multi_target: int = multi_target
         self.spell_slot_level: int = spell_slot_level
+        self.requires_concentration: bool = requires_concentration
 
     def __repr__(self):
         return "[italic purple]" + str(self.name) + "[/italic purple]"

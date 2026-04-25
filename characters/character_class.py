@@ -42,6 +42,8 @@ class Character():
         consumable_actions: dict = {},
         extra_actions: list = [],
         conditions: list = [],
+        spell_concentrating_on = None,
+        spell_concentration_targets: list = [],
         equipped_items: list = [],
         items: list = [],
         summon_type: SummonType = None,
@@ -107,6 +109,10 @@ class Character():
         self.conditions: list = list(conditions)
         if self.charclass in base_conditions:
             self.conditions.extend(base_conditions[self.charclass])
+        
+        # Spell concentrating on
+        self.spell_concentrating_on = spell_concentrating_on
+        self.spell_concentration_targets = spell_concentration_targets
 
         # Items & Equipment
         if character_type == CharacterType.companion:

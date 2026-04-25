@@ -15,3 +15,9 @@ Bleeding = Condition(
     dice={Dice.d4: 1},
     health_tick=-1,
 )
+
+# Incapacitating
+Imprisoned = Condition(
+    name="imprisoned",
+    incapacitated=True,
+)

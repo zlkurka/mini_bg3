@@ -19,6 +19,7 @@ class Condition():
         maximum_dexterity_modifier_for_armor_class: int = None,
         ability_scores_added_to_armor_class: list[AbilityScore] = [],
         health_tick: int = 0, # -1 is damage, 1 is heal, 0 is none
+        incapacitated: bool = False,
     ):
         self.name = name
         self.dice: dict = dice
@@ -32,6 +33,7 @@ class Condition():
         self.maximum_dexterity_modifier_for_armor_class: int = maximum_dexterity_modifier_for_armor_class
         self.ability_scores_added_to_armor_class: list[AbilityScore] = ability_scores_added_to_armor_class
         self.health_tick: int = health_tick # -1 is damage, 1 is heal, 0 is none
+        self.incapacitated: bool = incapacitated
     
     def __repr__(self) -> str:
         return "[italic blue]" + str(self.name) + "[/italic blue]"

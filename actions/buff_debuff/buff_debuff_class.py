@@ -6,11 +6,12 @@ from rich import print
 
 class Buff(Action):
 
-    def __init__(self, name, condition: Condition, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0, required_self_conditions: list = []):
+    def __init__(self, name, condition: Condition, targetSelf: bool = False, multi_target: int = 1, spell_slot_level: int = 0, requires_concentration: bool = False, required_self_conditions: list = []):
         self.name = name
         self.condition: Condition = condition
         self.targetSelf: bool = targetSelf
         self.spell_slot_level: int = spell_slot_level
+        self.requires_concentration: bool = requires_concentration
         self.multi_target: int = multi_target
         self.required_self_conditions: list = required_self_conditions
     
@@ -37,17 +38,19 @@ class Buff(Action):
                     break
             if hide_success:
                 print(f"{character} successfully hid.")
-                character.gain_condition(self.condition)
             else:
                 print(f"{character} tried to hide, but was spotted.")
-        
+                return character, enemies, team, nevermindSelected
+
         # Gives buff to self
-        elif self.targetSelf: 
+        if self.targetSelf: 
             character.gain_condition(self.condition)
+            chosen_targets = [character]
         
         # Give buff to others, up to number of multi_target
         else:
             target_options = []
+            chosen_targets = []
             for char in team:
                 if self.condition in char.conditions:
                     continue
@@ -64,8 +67,14 @@ class Buff(Action):
                 
                 target.gain_condition(self.condition)
                 target_options.remove(target)
+                if target:
+                    chosen_targets.append(target)
                 
                 if None not in target_options:
                     target_options.append(None)
+
+        if self.requires_concentration:
+            character.spell_concentrating_on = self
+            character.spell_concentration_targets = chosen_targets
                 
         return character, enemies, team, nevermindSelected

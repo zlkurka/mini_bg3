@@ -19,6 +19,7 @@ class Attack(Action):
         halfDamage_onSave: bool = False, 
         use_damage_modifier: bool = True, 
         spell_slot_level: int = 0,
+        requires_concentration: bool = False,
         weapon_bonus: int = 0,
         required_self_conditions: list = []
     ):
@@ -29,6 +30,7 @@ class Attack(Action):
         self.ranged: bool = ranged
         self.use_damage_modifier: bool = use_damage_modifier
         self.spell_slot_level: int = spell_slot_level
+        self.requires_concentration: bool = requires_concentration
         self.savingThrow_abilityScore: AbilityScore = savingThrow_abilityScore
         self.weapon_bonus: int = weapon_bonus
         self.required_self_conditions: list = required_self_conditions
@@ -57,22 +59,25 @@ class Attack(Action):
                 nevermindSelected = True 
                 return character, enemies, team, nevermindSelected
 
-        # Sneak attack
+        # Action with required self condition
         for cond in self.required_self_conditions:
             if cond not in character.conditions:
                 nevermindSelected = True 
                 return character, enemies, team, nevermindSelected
         
+        chosen_targets = []
+
         # Area of effect
         if self.area_of_effect:
             for target in list(enemies):
+                chosen_targets.append(target)
                 if self.check_if_hit(character, target):
                     target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=False)
                 else:
                     if self.halfDamage_onSave:
                         target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=True)
 
-        # Single-target
+        # Individual-target
         for iter in range(self.multi_target):
             if not enemies:
                 break
@@ -85,11 +90,16 @@ class Attack(Action):
                     nevermindSelected = True
                     return character, enemies, team, nevermindSelected
                 
+                chosen_targets.append(target)
                 if target.current_hp <= 0:
                     continue
                 if self.check_if_hit(character, target):
                     target, enemies = self.deal_damage(character=character, target=target, enemies=enemies, halved_damage=False)
                 break
+
+        if self.requires_concentration:
+            character.spell_concentrating_on = self
+            character.spell_concentration_targets = chosen_targets
 
         # Update lastAttack_isMelee
         if self.ranged:

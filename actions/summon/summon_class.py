@@ -30,4 +30,8 @@ class Summon(Action):
         team.append(selected_creature)
         fighters.insert(fighters.index(character) + 1, selected_creature)
 
+        if self.requires_concentration:
+            character.spell_concentrating_on = self
+            character.spell_concentration_targets = [selected_creature]
+
         return character, enemies, team, nevermindSelected

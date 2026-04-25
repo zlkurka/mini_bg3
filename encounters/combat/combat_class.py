@@ -88,12 +88,15 @@ class Combat():
             
             print()
 
+            fighter_is_incapacitated = False
             for condition in fighter.conditions:
+                if condition.incapacitated: 
+                    fighter_is_incapacitated = True
                 condition.ticking_health_alteration(fighter)
                 if condition in conditions_removed_at_turn_start:
                     fighter.conditions.remove(condition)
             
-            if fighter.current_hp <= 0:
+            if fighter_is_incapacitated or fighter.current_hp <= 0:
                 continue
 
             # Do action
