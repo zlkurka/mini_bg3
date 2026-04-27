@@ -144,6 +144,43 @@ TheMurderHobo = Event(
 
 # Door puzzle
 
+# The... Displacer Beast?
+
+TemplateEvent = Event(
+    name = "TEMPLATE EVENT",
+    description = 
+        "",
+    options = [
+        EventOption(
+            name = "Option 1",
+            combat = None,
+            rewards = [],
+            success_text = "", 
+            failure_text = "",
+        ),
+        EventOption(
+            name = "Option 2",
+            ability_check = Skill.investigation,
+            difficulty_class = 10,
+            options = [
+                EventOption(
+                    name = "Suboption 1",
+                    rewards = [],
+                    success_text="",
+                    failure_text="If you're seeing this, there is a bug.",
+                ),
+                EventOption(
+                    name = "Suboption 2",
+                    rewards = [],
+                    success_text="",
+                    failure_text="If you're seeing this, there is a bug.",
+                ),
+            ],
+            success_text = "{} picks through the bodies and finds a bones sturdy enough to make something.",
+            failure_text = "After an hour, {} is unable to make anything out of the goblins' bodies.",
+        ),
+    ],
+)
 
 if __name__ == "__main__":
     from characters.companions import Brains, Brawn

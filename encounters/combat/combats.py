@@ -1,5 +1,6 @@
 from encounters.combat.combat_class import Combat
 from characters.monsters import *
+from characters.companions import Rattlebones
 from tools.enums import Encounter
 
 Goblins_4x = Combat(
@@ -25,6 +26,13 @@ OwlbearMother = Combat(
     name=Encounter.owlbear, 
     monsters=[Owlbear], 
     rewards=[],
+)
+SwarmedByBeasts = Combat(
+    name="Swarmed by Beasts", 
+    description="You find yourself suddenly swarmed by snarling beasts. As they corner you, a crossbow bolt thunks into one's back. As it falls, you see a skeleton in a cowboy hat holding a shortsword in one hand and a hand crossbow in the other.",
+    monsters=[], 
+    allies=[Rattlebones],
+    rewards=[Rattlebones],
 )
 UndeadGroup = Combat(
     name=Encounter.undead_group, 

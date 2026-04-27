@@ -242,7 +242,7 @@ base_skill_options: dict = {
     CharClass.ranger: [
         Skill.animal_handling,
         Skill.athletics,
-        Skill.athletics,
+        Skill.acrobatics,
         Skill.insight,
         Skill.investigation,
         Skill.nature,

@@ -63,6 +63,26 @@ Nightkill = Character(
         Skill.stealth,
     ],
 )
+Rattlebones = Character(
+    name="Rattlebones",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.ranger, 
+    race=Race.human, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 1,
+        AbilityScore.DEX: 3,
+        AbilityScore.CON: 0,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: 2,
+        AbilityScore.CHA: 0,
+    },
+    skills=[
+        Skill.animal_handling,
+        Skill.perception,
+        Skill.survival,
+    ],
+)
 Bard = Character(
     name="Bard",  
     character_type=CharacterType.companion,
@@ -83,6 +103,26 @@ Bard = Character(
         Skill.persuasion,
     ],
 )
+DisgracedPaladin = Character(
+    name="Disgraced Paladin",  
+    character_type=CharacterType.companion,
+    charclass=CharClass.paladin, 
+    race=Race.half_orc, 
+    level=1,
+    ability_scores={
+        AbilityScore.STR: 3,
+        AbilityScore.DEX: 0,
+        AbilityScore.CON: 1,
+        AbilityScore.INT: -1,
+        AbilityScore.WIS: 0,
+        AbilityScore.CHA: 2,
+    },
+    skills=[
+        Skill.athletics,
+        Skill.religion,
+    ],
+)
+
 
 # BG3 companions
 Astarion = Character(
