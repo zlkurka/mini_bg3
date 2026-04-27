@@ -16,6 +16,8 @@ class CharacterName(EnumWithValueRepr):
     # Original characters
     nightkill = "Nightkill"
     faylen = "Faylen"
+    bingus_gringus = "Bingus Gringus"
+    rattlebones = "Rattlebones"
 
     # BG3 Characters
     astarion = "Astarion"
@@ -112,7 +114,7 @@ class Skill(EnumWithValueRepr):
     religion = "religion"
     
     # Wisdom
-    animal_handling = "animal_handling"
+    animal_handling = "animal handling"
     insight = "insight"
     medicine = "medicine"
     perception = "perception"
@@ -130,6 +132,30 @@ class CasterType(EnumWithValueRepr):
    halfCaster = "half caster"
    quarterCaster = "quarter caster"
    nonCaster = "non-caster"
+
+class Background(EnumWithValueRepr):
+    
+    acolyte = "acolyte"
+    artisan = "artisan"
+    charlatan = "charlatan"
+    criminal = "criminal"
+    entertainer = "entertainer"
+    farmer = "farmer"
+    folk_hero = "folk hero"
+    hermit = "hermit"
+    noble = "noble"
+    outlander = "outlander"
+    sage = "sage"
+    soldier = "soldier"
+    urchin = "urchin"
+
+    # Incomplete backgrounds
+    guard = "guard"
+    guide = "guide"
+    laborer = "laborer"
+    pilgrim = "pilgrim"
+    sailor = "sailor"
+    wayfarer = "wayfarer"
 
 class CharacterType(EnumWithValueRepr):
 

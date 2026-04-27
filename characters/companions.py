@@ -1,7 +1,7 @@
 from copy import deepcopy
 from characters.character_class import Character
 from actions.attacks.attacks import DevKillAll, DevKillOne
-from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill
+from tools.enums import CharacterName, CharClass, Race, AbilityScore, CharacterType, Skill, Background
 
 # Original characters
 BingusGringus = Character(
@@ -9,6 +9,7 @@ BingusGringus = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.sorcerer, 
     race=Race.goblin, 
+    background=None, # TODO determine background
     level=1,
     ability_scores={
         AbilityScore.STR: 0,
@@ -28,6 +29,7 @@ Faylen = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.druid, 
     race=Race.half_elf, 
+    background=Background.outlander,
     level=1,
     ability_scores={
         AbilityScore.STR: -1,
@@ -47,6 +49,7 @@ Nightkill = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.rogue, 
     race=Race.halfling, 
+    background=Background.urchin,
     level=1,
     ability_scores={
         AbilityScore.STR: 0,
@@ -58,9 +61,9 @@ Nightkill = Character(
     },
     skills=[
         Skill.acrobatics,
+        Skill.insight,
         Skill.investigation,
-        Skill.sleight_of_hand,
-        Skill.stealth,
+        Skill.perception,
     ],
 )
 Rattlebones = Character(
@@ -68,6 +71,7 @@ Rattlebones = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.ranger, 
     race=Race.human, 
+    background=Background.folk_hero,
     level=1,
     ability_scores={
         AbilityScore.STR: 1,
@@ -78,9 +82,9 @@ Rattlebones = Character(
         AbilityScore.CHA: 0,
     },
     skills=[
-        Skill.animal_handling,
+        Skill.athletics,
         Skill.perception,
-        Skill.survival,
+        Skill.nature,
     ],
 )
 Bard = Character(
@@ -88,6 +92,7 @@ Bard = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.bard, 
     race=Race.tiefling, 
+    background=Background.entertainer,
     level=1,
     ability_scores={
         AbilityScore.STR: 0,
@@ -98,8 +103,8 @@ Bard = Character(
         AbilityScore.CHA: 3,
     },
     skills=[
-        Skill.acrobatics,
-        Skill.performance,
+        Skill.deception,
+        Skill.sleight_of_hand,
         Skill.persuasion,
     ],
 )
@@ -108,6 +113,7 @@ DisgracedPaladin = Character(
     character_type=CharacterType.companion,
     charclass=CharClass.paladin, 
     race=Race.half_orc, 
+    background=Background.soldier,
     level=1,
     ability_scores={
         AbilityScore.STR: 3,
@@ -118,7 +124,7 @@ DisgracedPaladin = Character(
         AbilityScore.CHA: 2,
     },
     skills=[
-        Skill.athletics,
+        Skill.medicine,
         Skill.religion,
     ],
 )

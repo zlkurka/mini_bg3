@@ -78,7 +78,7 @@ class PartyInfo():
             if character_options == [MenuOptions.nevermind, None]:
                 break
         
-        print_list(self.active_party, "You embark with")
+        print_list(items=self.active_party, text="You embark with ", end_text="!\n")
     
     def attain_loot(self, loot):
         if not loot:

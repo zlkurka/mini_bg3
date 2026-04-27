@@ -5,7 +5,7 @@ from actions.summon.summon_actions import *
 from actions.action_class import PassAction
 from items.weapons import *
 from items.armor_and_shields import *
-from tools.enums import CharClass, Armor, Race, AbilityScore, CasterType, Skill
+from tools.enums import CharClass, Armor, Race, AbilityScore, CasterType, Skill, Background
 
 # Character building blocks
 char_classes: list = [
@@ -43,6 +43,24 @@ char_races: list = [
     # - Skeleton?
 
 ]
+
+char_background_skills: dict = {
+
+    Background.acolyte: [Skill.insight, Skill.religion],
+    Background.artisan: [Skill.insight, Skill.persuasion],
+    Background.charlatan: [Skill.deception, Skill.sleight_of_hand],
+    Background.criminal: [Skill.deception, Skill.stealth],
+    Background.entertainer: [Skill.acrobatics, Skill.performance],
+    Background.farmer: [Skill.animal_handling, Skill.nature],
+    Background.folk_hero: [Skill.animal_handling, Skill.survival],
+    Background.hermit: [Skill.medicine, Skill.religion],
+    Background.noble: [Skill.history, Skill.persuasion],
+    Background.outlander: [Skill.athletics, Skill.survival],
+    Background.sage: [Skill.arcana, Skill.history],
+    Background.soldier: [Skill.athletics, Skill.intimidation],
+    Background.urchin: [Skill.sleight_of_hand, Skill.stealth],
+
+}
 
 ability_scores: list = [
 
@@ -177,7 +195,6 @@ base_skill_options: dict = {
     CharClass.bard: [
         Skill.athletics,
         Skill.acrobatics,
-        Skill.initiative,
         Skill.sleight_of_hand,
         Skill.stealth,
         Skill.arcana,

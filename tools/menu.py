@@ -1,9 +1,10 @@
 from string import ascii_uppercase
 from rich import print
 from tools.rich_capitalize import rich_capitalize
+from tools.print_list import print_list
 from tools.enums import Skill, AbilityScore
 
-def menu(options: list, menu_text: str, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, show_item_type: bool = False, show_ability_check_and_difficulty_class: bool = False, character = None):
+def menu(options: list | dict, menu_text: str, show_dictionary_values: bool = False, show_race: bool = False, show_class: bool = False, show_hp: bool = False, show_spell_level: bool = False, show_uses_left: bool = False, show_item_type: bool = False, show_ability_check_and_difficulty_class: bool = False, character = None):
 
     # Acceptable list item types:
         # str
@@ -22,9 +23,18 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
     
     print(menu_text)
     for iter in range(len(options)):
-        list_item = options[iter]
+        list_item = list(options)[iter]
 
         print(f'{ascii_uppercase[iter]}) {rich_capitalize(list_item)}', end='')
+        
+        if show_dictionary_values and type(options) == dict:
+            try:
+                if type(options.get(list_item)) != list:
+                    print(f", {options.get(list_item)}", end='')
+                else:
+                    print_list(items=options.get(list_item), text=" (", end_text=")")
+            except AttributeError:
+                pass
         
         if show_race and show_class:
             try:
@@ -114,7 +124,7 @@ def menu(options: list, menu_text: str, show_race: bool = False, show_class: boo
             print('Invalid input! This letter does not correspond to an option.')
             continue
         
-        return options[list(ascii_uppercase).index(selection)]
+        return list(options)[list(ascii_uppercase).index(selection)]
     
 skill_ability_scores: dict = {
 

@@ -1,11 +1,12 @@
 from rich import print
 
-def print_list(items: list, text: str):
+def print_list(items: list = [], text: str = "", end_text: str = ""):
 
-    print(text, end=" ")
+    if text:
+        print(text, end="")
     
     if len(items) == 2:
-        print(str(items[0]), "and", str(items[1]), end="!\n")
+        print(str(items[0]), "and", str(items[1]), end=end_text)
         # This wouldn't be necessary if you don't use the Oxford comma, just remove the comma from 2nd to last item below
         return
 
@@ -22,4 +23,4 @@ def print_list(items: list, text: str):
         
         if (len(items) - 1) - items.index(itm) == 0:
             # last item in list
-            print(str(itm), end="!\n")
+            print(str(itm), end=end_text)

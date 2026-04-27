@@ -11,8 +11,8 @@ from conditions.condition_lists import conditions_removed_on_action
 from tools.menu import menu
 from tools.roll_d20 import roll_d20
 from tools.rich_capitalize import rich_capitalize
-from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType, ArmorType
-from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items, base_conditions
+from tools.enums import CharClass, Race, AbilityScore, CharacterType, MenuOptions, Skill, ItemType, RollType, SummonType, ArmorType, Background
+from tools.defaults import base_hp_charclass, base_armor_class, base_actions, class_caster_types, spell_slot_counts, empty_spell_slots, skill_ability_scores, class_spellcasting_ability_scores, base_consumable_actions, char_classes, empty_equipment, base_equipped_items, base_conditions, char_background_skills
 from rich import print
 from copy import copy
 
@@ -34,6 +34,7 @@ class Character():
             AbilityScore.CHA: 0,
         }, 
         skills: list = [],
+        background: Background = None,
         spell_slots: dict = None,
         base_max_hp: int = None,
         max_hp: int = None, 
@@ -54,10 +55,17 @@ class Character():
         self.character_type: CharacterType = character_type
         self.charclass: CharClass = charclass
         self.race: Race = race
+        self.background: Background = background
         self.ability_scores: dict = dict(ability_scores)
-        self.skills: list = list(skills)
         self.proficiency_bonus: int = 2
         self.level: int = level
+
+        # Skills
+        self.skills: list = list(skills)
+        if self.background in char_background_skills:
+            for skill in char_background_skills[self.background]:
+                if skill not in self.skills:
+                    self.skills.append(skill)
         
         # hp
         if max_hp:

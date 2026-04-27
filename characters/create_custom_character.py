@@ -1,12 +1,12 @@
 from characters.character_class import Character
-from copy import deepcopy
+from copy import copy
 from tools.enums import CharacterType
 from tools.menu import menu
-from tools.defaults import char_classes, char_races, ability_scores, base_skill_options, base_skill_choice_number
+from tools.defaults import char_classes, char_races, ability_scores, base_skill_options, base_skill_choice_number, char_background_skills
 from tools.save_handler import load_character, save_character
 
 def create_custom_character():
-
+    
     match menu(['Create character','Load character'], "Would you like to create a new character or load a pre-existing one?"):
         case 'Create character':
             pass
@@ -31,11 +31,18 @@ def create_custom_character():
         standard_array_scores.remove(score_assigned)
         custom_character_ability_scores.update({score: score_assigned})
     
-    # Skills
+    # Background
     custom_character_skills = []
-    skill_options = deepcopy(base_skill_options[custom_character_charclass])
-    for skill in range(base_skill_choice_number[custom_character_charclass]):
-        skill_choice = menu(menu_text=f"What skills should {custom_character_name} have? ({base_skill_choice_number[custom_character_charclass] - skill} remaining.)", options=skill_options)
+    custom_character_background = menu(options=char_background_skills, menu_text="Select your character's background with associated skills.", show_dictionary_values=True)
+    custom_character_skills.extend(char_background_skills[custom_character_background])
+    
+    # Skills
+    skill_options = copy(base_skill_options[custom_character_charclass])
+    for skill in custom_character_skills:
+        if skill in skill_options:
+            skill_options.remove(skill)
+    for iter in range(base_skill_choice_number[custom_character_charclass]):
+        skill_choice = menu(menu_text=f"What skills should {custom_character_name} have? ({base_skill_choice_number[custom_character_charclass] - iter} remaining.)", options=skill_options)
         custom_character_skills.append(skill_choice)
         skill_options.remove(skill_choice)
     
@@ -45,6 +52,7 @@ def create_custom_character():
         character_type=CharacterType.companion, 
         charclass=custom_character_charclass, 
         race=custom_character_race, 
+        background=custom_character_background,
         level=custom_character_level, 
         ability_scores=custom_character_ability_scores
     )
